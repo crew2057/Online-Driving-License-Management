@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SahajSewa", "SahajSewa\SahajSewa.csproj", "{687507EE-8B01-4EA1-A13A-59483E32A464}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SahajSewa", "SahajSewa\SahajSewa.csproj", "{687507EE-8B01-4EA1-A13A-59483E32A464}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SahajSewa.DataAccess", "SahajSewa.DataAccess\SahajSewa.DataAccess.csproj", "{604BE513-69B5-407E-A753-12F0D99CD3A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SahajSewa.DataAccess", "SahajSewa.DataAccess\SahajSewa.DataAccess.csproj", "{604BE513-69B5-407E-A753-12F0D99CD3A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SahajSewa.Models", "SahajSewa.Models\SahajSewa.Models.csproj", "{5134B830-B0BB-47DD-9263-B95D9FC65637}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SahajSewa.Models", "SahajSewa.Models\SahajSewa.Models.csproj", "{5134B830-B0BB-47DD-9263-B95D9FC65637}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SahajSewa.Utility", "SahajSewa.Utility\SahajSewa.Utility.csproj", "{EC8F01F9-84FB-40C2-BFDE-5CA3797EDC4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SahajSewa.Utility", "SahajSewa.Utility\SahajSewa.Utility.csproj", "{EC8F01F9-84FB-40C2-BFDE-5CA3797EDC4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8CF3ED98-E7E0-4FFE-B964-C32D98A8E03D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

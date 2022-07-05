@@ -8,6 +8,7 @@ namespace SahajSewa.DataAccess.Repository.IRepository
 {
     public interface IModule
     {
+
         void Save();
     }
 }
