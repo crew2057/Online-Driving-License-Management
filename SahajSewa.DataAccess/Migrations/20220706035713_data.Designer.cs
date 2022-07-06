@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SahajSewa.DataAccess.Data;
 
@@ -10,9 +11,10 @@ using SahajSewa.DataAccess.Data;
 namespace SahajSewa.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220706035713_data")]
+    partial class data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,12 +35,12 @@ namespace SahajSewa.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProvinceId")
+                    b.Property<int>("ZoneId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProvinceId");
+                    b.HasIndex("ZoneId");
 
                     b.ToTable("Districts");
                 });
@@ -55,31 +57,14 @@ namespace SahajSewa.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProvinceId")
+                    b.Property<int>("ZoneId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProvinceId");
+                    b.HasIndex("ZoneId");
 
                     b.ToTable("Offices");
-                });
-
-            modelBuilder.Entity("SahajSewa.Models.Province", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Provinces");
                 });
 
             modelBuilder.Entity("SahajSewa.Models.Village", b =>
@@ -104,26 +89,43 @@ namespace SahajSewa.DataAccess.Migrations
                     b.ToTable("Villages");
                 });
 
+            modelBuilder.Entity("SahajSewa.Models.Zone", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Zones");
+                });
+
             modelBuilder.Entity("SahajSewa.Models.District", b =>
                 {
-                    b.HasOne("SahajSewa.Models.Province", "Province")
+                    b.HasOne("SahajSewa.Models.Zone", "Zone")
                         .WithMany()
-                        .HasForeignKey("ProvinceId")
+                        .HasForeignKey("ZoneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Province");
+                    b.Navigation("Zone");
                 });
 
             modelBuilder.Entity("SahajSewa.Models.Office", b =>
                 {
-                    b.HasOne("SahajSewa.Models.Province", "Province")
+                    b.HasOne("SahajSewa.Models.Zone", "Zone")
                         .WithMany()
-                        .HasForeignKey("ProvinceId")
+                        .HasForeignKey("ZoneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Province");
+                    b.Navigation("Zone");
                 });
 
             modelBuilder.Entity("SahajSewa.Models.Village", b =>

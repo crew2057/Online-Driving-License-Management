@@ -16,9 +16,9 @@ namespace SahajSewa.Models
         [Required]
         public string Name{ get; set; }
         [Required]
-        [Display(Name="Zone")]
-        public int ZoneId { get; set; }
-        [ForeignKey("ZoneId")]
-        public Zone Zone { get; set; }
+        [Display(Name="Province")]
+        public int ProvinceId { get; set; }
+        [ForeignKey("ProvinceId")]
+        public Province Province{ get; set; }
     }
 }

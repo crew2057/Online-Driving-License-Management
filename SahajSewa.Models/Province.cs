@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SahajSewa.Models
 {
-    public class Zone
+    public class Province
     {
         [Key]
         public int Id { get; set; }

@@ -15,7 +15,7 @@ namespace SahajSewa.DataAccess.Data
         {
 
         }
-        public DbSet<Zone> Zones { get; set; }
+        public DbSet<Province> Provinces{ get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Village> Villages { get; set; }
         public DbSet<Office> Offices { get; set; }
