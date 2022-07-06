@@ -13,10 +13,8 @@ namespace SahajSewa.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
         public string Name { get; set; }
 
-        [Required]
         [Display(Name = "District")]
         public int DistrictId { get; set; }
         [ForeignKey("DistrictId")]

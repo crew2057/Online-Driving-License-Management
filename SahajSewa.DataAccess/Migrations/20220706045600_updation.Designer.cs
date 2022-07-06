@@ -11,8 +11,8 @@ using SahajSewa.DataAccess.Data;
 namespace SahajSewa.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220706035713_data")]
-    partial class data
+    [Migration("20220706045600_updation")]
+    partial class updation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,12 +35,12 @@ namespace SahajSewa.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ZoneId")
+                    b.Property<int>("ProvinceId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ZoneId");
+                    b.HasIndex("ProvinceId");
 
                     b.ToTable("Districts");
                 });
@@ -57,14 +57,31 @@ namespace SahajSewa.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ZoneId")
+                    b.Property<int>("ProvinceId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ZoneId");
+                    b.HasIndex("ProvinceId");
 
                     b.ToTable("Offices");
+                });
+
+            modelBuilder.Entity("SahajSewa.Models.Province", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Provinces");
                 });
 
             modelBuilder.Entity("SahajSewa.Models.Village", b =>
@@ -89,43 +106,26 @@ namespace SahajSewa.DataAccess.Migrations
                     b.ToTable("Villages");
                 });
 
-            modelBuilder.Entity("SahajSewa.Models.Zone", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Zones");
-                });
-
             modelBuilder.Entity("SahajSewa.Models.District", b =>
                 {
-                    b.HasOne("SahajSewa.Models.Zone", "Zone")
+                    b.HasOne("SahajSewa.Models.Province", "Province")
                         .WithMany()
-                        .HasForeignKey("ZoneId")
+                        .HasForeignKey("ProvinceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Zone");
+                    b.Navigation("Province");
                 });
 
             modelBuilder.Entity("SahajSewa.Models.Office", b =>
                 {
-                    b.HasOne("SahajSewa.Models.Zone", "Zone")
+                    b.HasOne("SahajSewa.Models.Province", "Province")
                         .WithMany()
-                        .HasForeignKey("ZoneId")
+                        .HasForeignKey("ProvinceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Zone");
+                    b.Navigation("Province");
                 });
 
             modelBuilder.Entity("SahajSewa.Models.Village", b =>
