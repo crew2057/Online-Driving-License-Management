@@ -48,7 +48,7 @@ namespace SahajSewa.DataAccess.Repository
                 objFromDb.CitizenDate = obj.CitizenDate;
 
                 objFromDb.OfficeProvince = obj.OfficeProvince;
-                objFromDb.Office = obj.Office;
+                objFromDb.OfficeId = obj.OfficeId;
                 objFromDb.Category = obj.Category;
 
                 if (obj.Photo != null)
