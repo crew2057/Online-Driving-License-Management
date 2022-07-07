@@ -15,8 +15,8 @@ namespace SahajSewa.Models
         public int Id { get; set; }
         public string Name{ get; set; }
         [Display(Name="Province")]
-        public int ProvinceId { get; set; }
-        [ForeignKey("ProvinceId")]
+        public int ProvinceDid { get; set; }
+        [ForeignKey("ProvinceDid")]
         public Province Province{ get; set; }
     }
 }

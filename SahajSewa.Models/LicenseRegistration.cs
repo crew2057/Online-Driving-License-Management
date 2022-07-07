@@ -42,17 +42,17 @@ namespace SahajSewa.Models
         //permanent
         [Required]
         [Display(Name = "Province")]
-        public string Pprovince { get; set; }
+        public int Pprovince { get; set; }
         [ForeignKey("Pprovince")]
         public Province Province { get; set; }
         [Required]
         [Display(Name = "District")]
-        public string Pdistrict { get; set; }
+        public int Pdistrict { get; set; }
         [ForeignKey("Pdistrict")]
         public District District { get; set; }
         [Required]
         [Display(Name = "Village / Municipality")]
-        public string Pvillage { get; set; }
+        public int Pvillage { get; set; }
         [ForeignKey("Pvillage")]
         public Village Village { get; set; }
         [Required]
@@ -102,7 +102,7 @@ namespace SahajSewa.Models
         public string OfficeProvince { get; set; }
         [Required]
         [Display(Name ="Office")]
-        public string OfficeId { get; set; }
+        public int OfficeId { get; set; }
         [ForeignKey("OfficeId")]
         public Office Office { get; set; }
         [Required]
@@ -125,6 +125,23 @@ namespace SahajSewa.Models
         [Required]
         [Display(Name ="Thumb Impression")]
         public string Thumb { get; set; }
+        #endregion
+
+        #region Backend Details
+        [Display(Name ="Trail Count")]
+        public int TrailCount { get; set; }
+        [Display(Name ="Written Result")]
+        public string WrittenResult { get; set; }
+        [Display(Name ="Trail Result")]
+        public string TrailResult { get; set; }
+        [Display(Name ="License Availability")]
+        public int LicenseId { get; set; }
+        [ForeignKey("LicenseId")]
+        public License License { get; set; }
+        [Display(Name ="Passport Availability")]
+        public int PassportId { get; set; }
+        [ForeignKey("PassportId")]
+        public Passport Passport { get; set; }
         #endregion
     }
 }

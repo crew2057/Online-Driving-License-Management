@@ -14,7 +14,11 @@ namespace SahajSewa.DataAccess.Repository
         public Module(ApplicationDbContext db)
         {
             _db = db;
+            LicenseRegistration = new LicenseRegistrationRepository(_db);
         }
+
+        public ILicenseRegistrationRepository LicenseRegistration { get; private set; }
+
         public void Save()
         {
             _db.SaveChanges();

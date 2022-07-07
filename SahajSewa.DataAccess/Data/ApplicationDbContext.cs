@@ -19,5 +19,9 @@ namespace SahajSewa.DataAccess.Data
         public DbSet<District> Districts { get; set; }
         public DbSet<Village> Villages { get; set; }
         public DbSet<Office> Offices { get; set; }
+        public DbSet<License> Licenses { get; set; }
+        public DbSet<Passport> Passports { get; set; }
+        public DbSet<LicenseRegistration> LicenseRegistrations { get; set; }
+
     }
 }

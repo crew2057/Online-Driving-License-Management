@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SahajSewa.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace SahajSewa.DataAccess.Repository.IRepository
 {
-    public interface IModule
+    public interface ILicenseRegistrationRepository:IRepository<LicenseRegistration>
     {
-        ILicenseRegistrationRepository LicenseRegistration { get; }
-        void Save();
+        void Update(LicenseRegistration obj);
     }
 }
