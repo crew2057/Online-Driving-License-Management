@@ -9,6 +9,7 @@
 
 <div class="container">
     <div class="card">
+        <form method="post" enctype="multipart/form-data">
         <div class="top-side">
             <ul class="progres-bar row">
                 <li class="active col-3">General Details</li>
@@ -19,7 +20,6 @@
         </div>
 
         <div class="bottom-side col-12 mx-auto">
-            @*<form method="post" enctype="multipart/form-data">*@
                 <input asp-for="LicenseRegistration.Id" hidden />
                 <input asp-for="LicenseRegistration.Photo" hidden />
                 <input asp-for="LicenseRegistration.CitizenFront" hidden />
@@ -49,8 +49,9 @@
                         <span asp-validation-for="LicenseRegistration.Gname" class="text-danger"></span>
                     </div>
 
-                        <button class="back_home btn btn-secondary">Back To Home</button>
-                        <button class="next_button btn btn-primary">Next</button>
+                        <input type="button" name="Back" value="Back To Home" class="back_home btn btn-secondary"/>
+                        <input type="button" name="Next" value="Next" class="next_button btn btn-primary"/>
+
                         
                 </div>
 
@@ -66,8 +67,9 @@
                         <span asp-validation-for="LicenseRegistration.Ptole" class="text-danger"></span>
                     </div>
 
-                        <button class="back_button btn btn-secondary">Previous</button>
-                        <button class="next_button btn btn-primary">Next</button>
+                        
+                        <input type="button" name="Previous" value="Previous" class="back_button btn btn-secondary"/>
+                        <input type="button" name="Next" value="Next" class="next_button btn btn-primary"/>
                         
                 </div>
 
@@ -82,9 +84,9 @@
                         <input asp-for="LicenseRegistration.TrailCount" />
                         <span asp-validation-for="LicenseRegistration.TrailCount" class="text-danger"></span>
                     </div>
-
-                        <button class="back_button btn btn-secondary">Previous</button>
-                        <button class="next_button btn btn-primary">Next</button>
+                    
+                        <input type="button" name="Previous" value="Previous" class="back_button btn btn-secondary"/>
+                        <input type="button" name="Next" value="Next" class="next_button btn btn-primary"/>
                         
                 </div>
 
@@ -100,12 +102,14 @@
                         <span asp-validation-for="LicenseRegistration.Ttole" class="text-danger"></span>
                     </div>
 
-                        <button class="back_button btn btn-secondary">Previous</button>
-                        <input type="submit" class="submit_button btn btn-primary" />
+                        <input type="button" name="Previous" value="Previous" class="back_button btn btn-secondary"/>
+                        <input type="submit" name="Submit" value="Submit" class="submit_button btn btn-success"/>
                         
                 </div>
-            @*</form>*@
+            
         </div>
+        
+    </form>
     </div>
 </div>
 
