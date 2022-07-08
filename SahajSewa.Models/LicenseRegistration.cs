@@ -102,11 +102,15 @@ namespace SahajSewa.Models
         public string OfficeProvince { get; set; }
         [Required]
         [Display(Name ="Office")]
-        public int OfficeId { get; set; }
-        [ForeignKey("OfficeId")]
+        public int OfficeVisit { get; set; }
+        [ForeignKey("OfficeVisit")]
         public Office Office { get; set; }
         [Required]
-        public string Category { get; set; }
+        [Display(Name ="Category")]
+        public int Category { get; set; }
+        [ForeignKey("Category")]
+        public DrivingCategory DrivingCategory { get; set; }
+
         #endregion
 
         #region Documents Upload

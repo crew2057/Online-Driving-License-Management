@@ -77,12 +77,11 @@
         margin:20px auto;
         display:grid;
         grid-template-columns: auto auto;
-        grid-column-gap:10%;
-        text-align:center;
+        /*grid-column-gap:10%;*/
     }
 
     .form-elem{
-        margin:0 10% 10px 10%;
+        margin:0 20% 20px;
     }
 
     .back_button,.submit_button,.next_button,.back_home{
@@ -91,6 +90,10 @@
 
     }
 
+    label{
+        font-weight:bold;
+        margin-bottom:10px;
+    }
 
     
     

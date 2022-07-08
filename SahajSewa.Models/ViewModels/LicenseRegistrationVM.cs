@@ -14,5 +14,6 @@ namespace SahajSewa.Models.ViewModels
         public IEnumerable<SelectListItem> DistrictList { get; set; }
         public IEnumerable<SelectListItem> VillageList { get; set; }
         public IEnumerable<SelectListItem> OfficeList { get; set; }
+        public IEnumerable<SelectListItem> CategoryList { get; set; }
     }
 }

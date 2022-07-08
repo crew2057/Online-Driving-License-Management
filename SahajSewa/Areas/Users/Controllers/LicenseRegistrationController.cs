@@ -47,6 +47,11 @@ namespace SahajSewa.Areas.Users.Controllers
                     Text = u.Name,
                     Value = u.Id.ToString()
                 }),
+                CategoryList = _db.DrivingCategories.Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                })
             };
             return View(VM);
         }
