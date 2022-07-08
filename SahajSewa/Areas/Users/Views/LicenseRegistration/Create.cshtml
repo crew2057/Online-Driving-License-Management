@@ -1,7 +1,185 @@
-﻿
+﻿@model SahajSewa.Models.ViewModels.LicenseRegistrationVM
 @{
     ViewData["Title"] = "Create";
 }
+@{
+    <link rel="stylesheet" href="~/css/MultiStepForm.css" />
+    <script type="text/javascript" src="~/js/MultiStepForm.js"></script>
+}
 
-<h1>Create</h1>
+
+
+
+<div class="container">
+    <div class="card">
+        <div class="top-side">
+            <ul class="progres-bar row">
+                <li class="active col-3">General Details</li>
+                <li class="col-3">Address Details</li>
+                <li class="col-3">Citizenship Details</li>
+                <li class="col-3">Documents Upload</li>
+            </ul>
+        </div>
+
+        <div class="bottom-side col-12 mx-auto">
+            <form method="post" enctype="multipart/form-data">
+                <input asp-for="LicenseRegistration.Id" hidden />
+                <input asp-for="LicenseRegistration.Photo" hidden />
+                <input asp-for="LicenseRegistration.CitizenFront" hidden />
+                <input asp-for="LicenseRegistration.CitizenBack" hidden />
+                <input asp-for="LicenseRegistration.Signature" hidden />
+                <input asp-for="LicenseRegistration.Thumb" hidden />
+
+                <div class="main activate">
+                    <div class="form-elem mb-3">
+                        <label asp-for="LicenseRegistration.Fname"></label>
+                        <input asp-for="LicenseRegistration.Fname" />
+                        <span asp-validation-for="LicenseRegistration.Fname" class="text-danger"></span>
+                    </div>
+                    <div class="form-elem mb-3">
+                        <label asp-for="LicenseRegistration.Mname"></label>
+                        <input asp-for="LicenseRegistration.Mname" />
+                        <span asp-validation-for="LicenseRegistration.Mname" class="text-danger"></span>
+                    </div>
+                    <div class="form-elem mb-3">
+                        <label asp-for="LicenseRegistration.Lname"></label>
+                        <input asp-for="LicenseRegistration.Lname" />
+                        <span asp-validation-for="LicenseRegistration.Lname" class="text-danger"></span>
+                    </div>
+                    <div class="form-elem mb-3">
+                        <label asp-for="LicenseRegistration.Gname"></label>
+                        <input asp-for="LicenseRegistration.Gname" />
+                        <span asp-validation-for="LicenseRegistration.Gname" class="text-danger"></span>
+                    </div>
+
+                    <div class="buttons button_space">
+                        <button class="back_button ">Back To Home</button>
+                        <button class="next_button ">Next</button>
+                    </div>
+                </div>
+
+                <div class="main row mx-auto py-3" style="border:1px solid red;">
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Fname"></label>
+                        <input asp-for="LicenseRegistration.Fname" />
+                        <span asp-validation-for="LicenseRegistration.Fname" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Mname"></label>
+                        <input asp-for="LicenseRegistration.Mname" />
+                        <span asp-validation-for="LicenseRegistration.Mname" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Lname"></label>
+                        <input asp-for="LicenseRegistration.Lname" />
+                        <span asp-validation-for="LicenseRegistration.Lname" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Gname"></label>
+                        <input asp-for="LicenseRegistration.Gname" />
+                        <span asp-validation-for="LicenseRegistration.Gname" class="text-danger"></span>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="back_button">Back</button>
+                        <button class="next_button">Next</button>
+                    </div>
+                </div>
+
+                <div class="main row mx-auto py-3" style="border:1px solid red;">
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Fname"></label>
+                        <input asp-for="LicenseRegistration.Fname" />
+                        <span asp-validation-for="LicenseRegistration.Fname" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Mname"></label>
+                        <input asp-for="LicenseRegistration.Mname" />
+                        <span asp-validation-for="LicenseRegistration.Mname" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Lname"></label>
+                        <input asp-for="LicenseRegistration.Lname" />
+                        <span asp-validation-for="LicenseRegistration.Lname" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Gname"></label>
+                        <input asp-for="LicenseRegistration.Gname" />
+                        <span asp-validation-for="LicenseRegistration.Gname" class="text-danger"></span>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="next_button">Back</button>
+                        <button class="next_button">Next</button>
+                    </div>
+                </div>
+
+                <div class="main row mx-auto py-3" style="border:1px solid red;">
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Fname"></label>
+                        <input asp-for="LicenseRegistration.Fname" />
+                        <span asp-validation-for="LicenseRegistration.Fname" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Mname"></label>
+                        <input asp-for="LicenseRegistration.Mname" />
+                        <span asp-validation-for="LicenseRegistration.Mname" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Lname"></label>
+                        <input asp-for="LicenseRegistration.Lname" />
+                        <span asp-validation-for="LicenseRegistration.Lname" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Gname"></label>
+                        <input asp-for="LicenseRegistration.Gname" />
+                        <span asp-validation-for="LicenseRegistration.Gname" class="text-danger"></span>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="next_button">Back</button>
+                        <button class="next_button">Next</button>
+                    </div>
+                </div>
+
+                <div class="main row mx-auto py-3" style="border:1px solid red;">
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Fname"></label>
+                        <input asp-for="LicenseRegistration.Fname" />
+                        <span asp-validation-for="LicenseRegistration.Fname" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Mname"></label>
+                        <input asp-for="LicenseRegistration.Mname" />
+                        <span asp-validation-for="LicenseRegistration.Mname" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Lname"></label>
+                        <input asp-for="LicenseRegistration.Lname" />
+                        <span asp-validation-for="LicenseRegistration.Lname" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label asp-for="LicenseRegistration.Gname"></label>
+                        <input asp-for="LicenseRegistration.Gname" />
+                        <span asp-validation-for="LicenseRegistration.Gname" class="text-danger"></span>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="next_button">Back</button>
+                        <button class="next_button">Next</button>
+                    </div>
+                </div>
+
+
+                <div class="main">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                    </svg>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
