@@ -2,10 +2,7 @@
 @{
     ViewData["Title"] = "Create";
 }
-@{
     <link rel="stylesheet" href="~/css/MultiStepForm.css" />
-    <script type="text/javascript" src="~/js/MultiStepForm.js"></script>
-}
 
 
 
@@ -22,7 +19,7 @@
         </div>
 
         <div class="bottom-side col-12 mx-auto">
-            <form method="post" enctype="multipart/form-data">
+            @*<form method="post" enctype="multipart/form-data">*@
                 <input asp-for="LicenseRegistration.Id" hidden />
                 <input asp-for="LicenseRegistration.Photo" hidden />
                 <input asp-for="LicenseRegistration.CitizenFront" hidden />
@@ -52,134 +49,67 @@
                         <span asp-validation-for="LicenseRegistration.Gname" class="text-danger"></span>
                     </div>
 
-                    <div class="buttons button_space">
-                        <button class="back_button ">Back To Home</button>
-                        <button class="next_button ">Next</button>
-                    </div>
+                        <button class="back_home btn btn-secondary">Back To Home</button>
+                        <button class="next_button btn btn-primary">Next</button>
+                        
                 </div>
 
-                <div class="main row mx-auto py-3" style="border:1px solid red;">
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Fname"></label>
-                        <input asp-for="LicenseRegistration.Fname" />
-                        <span asp-validation-for="LicenseRegistration.Fname" class="text-danger"></span>
+                 <div class="main">
+                    <div class="form-elem mb-3">
+                        <label asp-for="LicenseRegistration.Pward"></label>
+                        <input asp-for="LicenseRegistration.Pward" />
+                        <span asp-validation-for="LicenseRegistration.Pward" class="text-danger"></span>
                     </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Mname"></label>
-                        <input asp-for="LicenseRegistration.Mname" />
-                        <span asp-validation-for="LicenseRegistration.Mname" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Lname"></label>
-                        <input asp-for="LicenseRegistration.Lname" />
-                        <span asp-validation-for="LicenseRegistration.Lname" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Gname"></label>
-                        <input asp-for="LicenseRegistration.Gname" />
-                        <span asp-validation-for="LicenseRegistration.Gname" class="text-danger"></span>
+                    <div class="form-elem mb-3">
+                        <label asp-for="LicenseRegistration.Ptole"></label>
+                        <input asp-for="LicenseRegistration.Ptole" />
+                        <span asp-validation-for="LicenseRegistration.Ptole" class="text-danger"></span>
                     </div>
 
-                    <div class="buttons">
-                        <button class="back_button">Back</button>
-                        <button class="next_button">Next</button>
-                    </div>
+                        <button class="back_button btn btn-secondary">Previous</button>
+                        <button class="next_button btn btn-primary">Next</button>
+                        
                 </div>
 
-                <div class="main row mx-auto py-3" style="border:1px solid red;">
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Fname"></label>
-                        <input asp-for="LicenseRegistration.Fname" />
-                        <span asp-validation-for="LicenseRegistration.Fname" class="text-danger"></span>
+                 <div class="main">
+                    <div class="form-elem mb-3">
+                        <label asp-for="LicenseRegistration.Bgroup"></label>
+                        <input asp-for="LicenseRegistration.Bgroup" />
+                        <span asp-validation-for="LicenseRegistration.Bgroup" class="text-danger"></span>
                     </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Mname"></label>
-                        <input asp-for="LicenseRegistration.Mname" />
-                        <span asp-validation-for="LicenseRegistration.Mname" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Lname"></label>
-                        <input asp-for="LicenseRegistration.Lname" />
-                        <span asp-validation-for="LicenseRegistration.Lname" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Gname"></label>
-                        <input asp-for="LicenseRegistration.Gname" />
-                        <span asp-validation-for="LicenseRegistration.Gname" class="text-danger"></span>
+                    <div class="form-elem mb-3">
+                        <label asp-for="LicenseRegistration.TrailCount"></label>
+                        <input asp-for="LicenseRegistration.TrailCount" />
+                        <span asp-validation-for="LicenseRegistration.TrailCount" class="text-danger"></span>
                     </div>
 
-                    <div class="buttons">
-                        <button class="next_button">Back</button>
-                        <button class="next_button">Next</button>
-                    </div>
+                        <button class="back_button btn btn-secondary">Previous</button>
+                        <button class="next_button btn btn-primary">Next</button>
+                        
                 </div>
 
-                <div class="main row mx-auto py-3" style="border:1px solid red;">
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Fname"></label>
-                        <input asp-for="LicenseRegistration.Fname" />
-                        <span asp-validation-for="LicenseRegistration.Fname" class="text-danger"></span>
+                 <div class="main">
+                    <div class="form-elem mb-3">
+                        <label asp-for="LicenseRegistration.Tward"></label>
+                        <input asp-for="LicenseRegistration.Tward" />
+                        <span asp-validation-for="LicenseRegistration.Tward" class="text-danger"></span>
                     </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Mname"></label>
-                        <input asp-for="LicenseRegistration.Mname" />
-                        <span asp-validation-for="LicenseRegistration.Mname" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Lname"></label>
-                        <input asp-for="LicenseRegistration.Lname" />
-                        <span asp-validation-for="LicenseRegistration.Lname" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Gname"></label>
-                        <input asp-for="LicenseRegistration.Gname" />
-                        <span asp-validation-for="LicenseRegistration.Gname" class="text-danger"></span>
+                    <div class="form-elem mb-3">
+                        <label asp-for="LicenseRegistration.Ttole"></label>
+                        <input asp-for="LicenseRegistration.Ttole" />
+                        <span asp-validation-for="LicenseRegistration.Ttole" class="text-danger"></span>
                     </div>
 
-                    <div class="buttons">
-                        <button class="next_button">Back</button>
-                        <button class="next_button">Next</button>
-                    </div>
+                        <button class="back_button btn btn-secondary">Previous</button>
+                        <input type="submit" class="submit_button btn btn-primary" />
+                        
                 </div>
-
-                <div class="main row mx-auto py-3" style="border:1px solid red;">
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Fname"></label>
-                        <input asp-for="LicenseRegistration.Fname" />
-                        <span asp-validation-for="LicenseRegistration.Fname" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Mname"></label>
-                        <input asp-for="LicenseRegistration.Mname" />
-                        <span asp-validation-for="LicenseRegistration.Mname" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Lname"></label>
-                        <input asp-for="LicenseRegistration.Lname" />
-                        <span asp-validation-for="LicenseRegistration.Lname" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3 col-6">
-                        <label asp-for="LicenseRegistration.Gname"></label>
-                        <input asp-for="LicenseRegistration.Gname" />
-                        <span asp-validation-for="LicenseRegistration.Gname" class="text-danger"></span>
-                    </div>
-
-                    <div class="buttons">
-                        <button class="next_button">Back</button>
-                        <button class="next_button">Next</button>
-                    </div>
-                </div>
-
-
-                <div class="main">
-                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
-                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
-                    </svg>
-                </div>
-            </form>
+            @*</form>*@
         </div>
     </div>
 </div>
+
+
+    <script src="~/js/MultiStepForm.js"></script>
 
 

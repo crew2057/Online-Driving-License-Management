@@ -4,7 +4,7 @@
 .top-side {
     height: 35%;
     width: 100%;
-    background-color: #304767;
+    background-color: #137ea7;
     box-sizing: border-box;
 }
 
@@ -16,39 +16,39 @@
     counter-reset: container 0;
 }
 
-.progres-bar li{
-    text-align:center;
-    position:relative;
-    margin-top:50px;
-    counter-increment:container 1;
-    color:#4f6581;
-}
-
-.progres-bar li::before {
-    content: counter(container);
-    line-height: 25px;
-    text-align: center;
-    position: absolute;
-    height: 25px;
-    width: 25px;
-    border: 1px solid #4f6581;
-    border-radius: 50%;
-    left:45%;
-    top: -35px;
-    z-index: 10;
-    background-color: #304767;
-}
-
-    .progres-bar li::after {
-        content: '';
-        position: absolute;
-        height: 2px;
-        width: 100%;
-        background-color: #4f6581;
-        z-index: 1;
-        left: 50%;
-        top: -25px;
+    .progres-bar li {
+        text-align: center;
+        position: relative;
+        margin-top: 50px;
+        counter-increment: container 1;
+        color: #233451;
     }
+
+        .progres-bar li::before {
+            content: counter(container);
+            line-height: 25px;
+            text-align: center;
+            position: absolute;
+            height: 25px;
+            width: 25px;
+            border: 1px solid #233451;
+            border-radius: 50%;
+            left: 45%;
+            top: -35px;
+            z-index: 10;
+            background-color: #137ea7;
+        }
+
+        .progres-bar li::after {
+            content: '';
+            position: absolute;
+            height: 2px;
+            width: 100%;
+            background-color: #233451;
+            z-index: 1;
+            left: 50%;
+            top: -25px;
+        }
 
     .progres-bar li.active {
         color: #fff;
@@ -82,8 +82,15 @@
     }
 
     .form-elem{
-        margin-bottom:5px;
+        margin:0 10% 10px 10%;
+    }
+
+    .back_button,.submit-button,.next_button,.back_home{
+        width:150px;
+        margin:30px auto 0;
 
     }
+
+
     
     
