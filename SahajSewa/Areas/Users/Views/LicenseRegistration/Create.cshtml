@@ -2,25 +2,26 @@
 @{
     ViewData["Title"] = "Create";
 }
-    <link rel="stylesheet" href="~/css/MultiStepForm.css" />
+<link rel="stylesheet" href="~/css/MultiStepForm.css" />
 
 
 
 
 <div class="container">
-    
-        <form method="post" enctype="multipart/form-data">
-    <div class="card">
-        <div class="top-side">
-            <ul class="progres-bar row">
-                <li class="active col-3">General Details</li>
-                <li class="col-3">Address Details</li>
-                <li class="col-3">Citizenship Details</li>
-                <li class="col-3">Documents Upload</li>
-            </ul>
-        </div>
 
-        <div class="bottom-side col-12 mx-auto">
+    <form method="post" enctype="multipart/form-data">
+        <div class="card">
+            <div class="top-side">
+                <ul class="progres-bar">
+                    <li class="active">General Details</li>
+                    <li>Address Details</li>
+                    <li>Citizenship Details</li>
+                    <li>Examination Details</li>
+                    <li>Documents Upload</li>
+                </ul>
+            </div>
+
+            <div class="bottom-side col-12 mx-auto">
                 <input asp-for="LicenseRegistration.Id" hidden />
                 <input asp-for="LicenseRegistration.Photo" hidden />
                 <input asp-for="LicenseRegistration.CitizenFront" hidden />
@@ -30,190 +31,214 @@
 
                 @*General Details*@
                 <div class="main activate">
-                    <div class="form-elem">
-                        <label asp-for="LicenseRegistration.Fname" class="mb-2 fw-bold"></label>
-                        <input asp-for="LicenseRegistration.Fname" class="form-control" />
-                        <span asp-validation-for="LicenseRegistration.Fname" class="text-danger"></span>
+                    <div class="row col-10 mx-auto gx-5">
+                        <div class="form-elem col-6">
+                            <label asp-for="LicenseRegistration.Fname"></label>
+                            <input asp-for="LicenseRegistration.Fname" class="form-control" />
+                            <span asp-validation-for="LicenseRegistration.Fname" class="text-danger"></span>
+                        </div>
+                        <div class="form-elem col-6">
+                            <label asp-for="LicenseRegistration.Mname"></label>
+                            <input asp-for="LicenseRegistration.Mname" class="form-control" />
+                            <span asp-validation-for="LicenseRegistration.Mname" class="text-danger"></span>
+                        </div>
+                        <div class="form-elem col-6">
+                            <label asp-for="LicenseRegistration.Lname"></label>
+                            <input asp-for="LicenseRegistration.Lname" class="form-control" />
+                            <span asp-validation-for="LicenseRegistration.Lname" class="text-danger"></span>
+                        </div>
+                        <div class="form-elem col-6">
+                            <label asp-for="LicenseRegistration.DOB"></label>
+                            <input asp-for="LicenseRegistration.DOB" class="form-control" />
+                            <span asp-validation-for="LicenseRegistration.DOB" class="text-danger"></span>
+                        </div>
+                       
+                          <div class="form-elem col-6">
+                            <label asp-for="LicenseRegistration.Gender"></label>
+                            <select asp-for="LicenseRegistration.Gender" class="form-select ">
+                                <option disabled selected>-- Select Gender --</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                            <span asp-validation-for="LicenseRegistration.Gender" class="text-danger"></span>
+                        </div>
+                        <div class="form-elem col-6">
+                            <label asp-for="LicenseRegistration.Bgroup"></label>
+                            <select asp-for="LicenseRegistration.Bgroup" class="form-select ">
+                                <option disabled selected>-- Blood Group --</option>
+                                <option>A+</option>
+                                <option>A-</option>
+                                <option>AB+</option>
+                                <option>AB-</option>
+                                <option>B+</option>
+                                <option>B-</option>
+                                <option>O+</option>
+                                <option>O-</option>
+                            </select>
+                            <span asp-validation-for="LicenseRegistration.Bgroup" class="text-danger"></span>
+                        </div>
+                         <div class="form-elem col-6">
+                            <label asp-for="LicenseRegistration.Pnumber"></label>
+                            <input asp-for="LicenseRegistration.Pnumber" class="form-control" />
+                            <span asp-validation-for="LicenseRegistration.Pnumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-elem col-6">
+                            <label asp-for="LicenseRegistration.Gname"></label>
+                            <input asp-for="LicenseRegistration.Gname" class="form-control" />
+                            <span asp-validation-for="LicenseRegistration.Gname" class="text-danger"></span>
+                        </div>
                     </div>
-                    <div class="form-elem">
-                        <label asp-for="LicenseRegistration.Mname"></label>
-                        <input asp-for="LicenseRegistration.Mname" class="form-control"/>
-                        <span asp-validation-for="LicenseRegistration.Mname" class="text-danger"></span>
+                    <div class="mt-5 row mx-auto justify-content-around">
+                        <input type="button" name="Back" value="Back To Home" class="back_home btn btn-secondary col-3" />
+                        <input type="button" name="Next" value="Next" class="next_button btn btn-primary col-3" />
                     </div>
-                    <div class="form-elem">
-                        <label asp-for="LicenseRegistration.Lname"></label>
-                        <input asp-for="LicenseRegistration.Lname" class="form-control" />
-                        <span asp-validation-for="LicenseRegistration.Lname" class="text-danger"></span>
-                    </div>
-                    <div class="form-elem">
-                        <label asp-for="LicenseRegistration.DOB"></label>
-                        <input asp-for="LicenseRegistration.DOB" class="form-control" />
-                        <span asp-validation-for="LicenseRegistration.DOB" class="text-danger"></span>
-                    </div>
-                    <div class="form-elem">
-                        <label asp-for="LicenseRegistration.Gender"></label>
-                        <select asp-for="LicenseRegistration.Gender" class="form-select">
-                            <option disabled selected>--Select Gender--</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Other</option>
-                        </select>
-                        <span asp-validation-for="LicenseRegistration.Gender" class="text-danger"></span>
-                    </div>
-                    <div class="form-elem">
-                        <label asp-for="LicenseRegistration.Pnumber"></label>
-                        <input asp-for="LicenseRegistration.Pnumber" class="form-control" />
-                        <span asp-validation-for="LicenseRegistration.Pnumber" class="text-danger"></span>
-                    </div>
-                    <div class="form-elem">
-                        <label asp-for="LicenseRegistration.Bgroup"></label>
-                        <select asp-for="LicenseRegistration.Bgroup" class="form-select">
-                            <option disabled selected>--Blood Group--</option>
-                            <option>A+</option>
-                            <option>A-</option>
-                            <option>AB+</option>
-                            <option>AB-</option>
-                            <option>B+</option>
-                            <option>B-</option>
-                            <option>O+</option>
-                            <option>O-</option>
-                        </select>
-                        <span asp-validation-for="LicenseRegistration.Bgroup" class="text-danger"></span>
-                    </div>
-                    <div class="form-elem mb-5">
-                        <label asp-for="LicenseRegistration.Gname"></label>
-                        <input asp-for="LicenseRegistration.Gname" class="form-control"/>
-                        <span asp-validation-for="LicenseRegistration.Gname" class="text-danger"></span>
-                    </div>
-
-                        <input type="button" name="Back" value="Back To Home" class="back_home btn btn-secondary"/>
-                        <input type="button" name="Next" value="Next" class="next_button btn btn-primary"/>  
                 </div>
 
                 @*Address Details*@
-                 <div class="main">
-                    <div class="form-elem">
-                        <label asp-for="LicenseRegistration.Pprovince"></label>
-                        <select asp-for="LicenseRegistration.Pprovince" class="form-select" asp-items="@Model.ProvinceList">
-                            <option disabled selected>--Select Province--</option>
-                        </select>
-                        <span asp-validation-for="LicenseRegistration.Pprovince" class="text-danger"></span>
+                <div class="main">
+                    <div class="row col-10 mx-auto gx-5">
+                        <div class="form-elem col-6">
+                            <label asp-for="LicenseRegistration.Pprovince"></label>
+                            <select asp-for="LicenseRegistration.Pprovince" class="form-select " asp-items="@Model.ProvinceList">
+                                <option disabled selected>-- Select Province --</option>
+                            </select>
+                            <span asp-validation-for="LicenseRegistration.Pprovince" class="text-danger"></span>
+                        </div>
+                        <div class="form-elem col-6">
+                            <label asp-for="LicenseRegistration.Pdistrict"></label>
+                            <select asp-for="LicenseRegistration.Pdistrict" class="form-select" asp-items="@Model.DistrictList">
+                                <option disabled selected>-- Select District --</option>
+                            </select>
+                            <span asp-validation-for="LicenseRegistration.Pdistrict" class="text-danger"></span>
+                        </div>
+                        <div class="form-elem col-6">
+                            <label asp-for="LicenseRegistration.Pvillage"></label>
+                            <select asp-for="LicenseRegistration.Pvillage" class="form-select " asp-items="@Model.VillageList">
+                                <option disabled selected>-- Village/Municipality --</option>
+                            </select>
+                            <span asp-validation-for="LicenseRegistration.Pvillage" class="text-danger"></span>
+                        </div>
+                        <div class="form-elem col-6">
+                            <label asp-for="LicenseRegistration.Pward"></label>
+                            <input asp-for="LicenseRegistration.Pward" class="form-control" />
+                            <span asp-validation-for="LicenseRegistration.Pward" class="text-danger"></span>
+                        </div>
+                        <div class="form-elem col-6">
+                            <label asp-for="LicenseRegistration.Ptole"></label>
+                            <input asp-for="LicenseRegistration.Ptole" class="form-control" />
+                            <span asp-validation-for="LicenseRegistration.Ptole" class="text-danger"></span>
+                        </div>
+                        <div class="form-elem col-6">
+                            <label asp-for="LicenseRegistration.Email"></label>
+                            <input asp-for="LicenseRegistration.Email" class="form-control" />
+                            <span asp-validation-for="LicenseRegistration.Email" class="text-danger"></span>
+                        </div>
                     </div>
-                      <div class="form-elem">
-                        <label asp-for="LicenseRegistration.Pdistrict"></label>
-                        <select asp-for="LicenseRegistration.Pdistrict" class="form-select" asp-items="@Model.DistrictList">
-                            <option disabled selected>--Select District--</option>
-                        </select>
-                        <span asp-validation-for="LicenseRegistration.Pdistrict" class="text-danger"></span>
+                    <div class="mt-5 row mx-auto justify-content-around">
+                        <input type="button" name="Previous" value="Previous" class="back_button btn btn-secondary col-3" />
+                        <input type="button" name="Next" value="Next" class="next_button btn btn-primary col-3" />
                     </div>
-                      <div class="form-elem">
-                        <label asp-for="LicenseRegistration.Pvillage"></label>
-                        <select asp-for="LicenseRegistration.Pvillage" class="form-select" asp-items="@Model.VillageList">
-                            <option disabled selected>--Village/Municipality--</option>
-                        </select>
-                        <span asp-validation-for="LicenseRegistration.Pvillage" class="text-danger"></span>
-                    </div>
-                    <div class="form-elem">
-                        <label asp-for="LicenseRegistration.Pward"></label>
-                        <input asp-for="LicenseRegistration.Pward" class="form-control"/>
-                        <span asp-validation-for="LicenseRegistration.Pward" class="text-danger"></span>
-                    </div>
-                    <div class="form-elem">
-                        <label asp-for="LicenseRegistration.Ptole"></label>
-                        <input asp-for="LicenseRegistration.Ptole" class="form-control"/>
-                        <span asp-validation-for="LicenseRegistration.Ptole" class="text-danger"></span>
-                    </div>
-                    <div class="form-elem mb-5">
-                        <label asp-for="LicenseRegistration.Email"></label>
-                        <input asp-for="LicenseRegistration.Email" class="form-control"/>
-                        <span asp-validation-for="LicenseRegistration.Email" class="text-danger"></span>
-                    </div>
-
-                        <input type="button" name="Previous" value="Previous" class="back_button btn btn-secondary"/>
-                        <input type="button" name="Next" value="Next" class="next_button btn btn-primary"/>  
                 </div>
 
                 @*Citizenship Details*@
                 <div class="main">
-                   <div class="form-elem">
-                        <label asp-for="LicenseRegistration.CitizenNo"></label>
-                        <input asp-for="LicenseRegistration.CitizenNo" class="form-control"/>
-                        <span asp-validation-for="LicenseRegistration.CitizenNo" class="text-danger"></span>
+                    <div class="row col-10 mx-auto gx-5">
+                        <div class="form-elem col-7">
+                            <label asp-for="LicenseRegistration.CitizenNo"></label>
+                            <input asp-for="LicenseRegistration.CitizenNo" class="form-control" />
+                            <span asp-validation-for="LicenseRegistration.CitizenNo" class="text-danger"></span>
+                        </div>
+                        <div class="form-elem col-7">
+                            <label asp-for="LicenseRegistration.CitizenDistrict"></label>
+                            <select asp-for="LicenseRegistration.CitizenDistrict" class="form-select" asp-items="@Model.DistrictList">
+                                <option disabled selected>-- Select District --</option>
+                            </select>
+                            <span asp-validation-for="LicenseRegistration.CitizenDistrict" class="text-danger"></span>
+                        </div>
+                        <div class="form-elem col-7">
+                            <label asp-for="LicenseRegistration.CitizenDate"></label>
+                            <input asp-for="LicenseRegistration.CitizenDate" class="form-control" />
+                            <span asp-validation-for="LicenseRegistration.CitizenDate" class="text-danger"></span>
+                        </div>
                     </div>
-                      <div class="form-elem">
-                        <label asp-for="LicenseRegistration.CitizenDistrict"></label>
-                        <select asp-for="LicenseRegistration.CitizenDistrict" class="form-select" asp-items="@Model.DistrictList">
-                            <option disabled selected>--Select District--</option>
-                        </select>
-                        <span asp-validation-for="LicenseRegistration.CitizenDistrict" class="text-danger"></span>
+                    <div class="mt-5 row mx-auto justify-content-around">
+                        <input type="button" name="Previous" value="Previous" class="back_button btn btn-secondary col-3" />
+                        <input type="button" name="Next" value="Next" class="next_button btn btn-primary col-3" />
                     </div>
-                     <div class="form-elem">
-                        <label asp-for="LicenseRegistration.CitizenDate"></label>
-                        <input asp-for="LicenseRegistration.CitizenDate" class="form-control"/>
-                        <span asp-validation-for="LicenseRegistration.CitizenDate" class="text-danger"></span>
-                    </div>
-                     <div class="form-elem">
-                        <label asp-for="LicenseRegistration.OfficeProvince"></label>
-                        <select asp-for="LicenseRegistration.OfficeProvince" class="form-select" asp-items="@Model.ProvinceList">
-                            <option disabled selected>--Select Province--</option>
-                        </select>
-                        <span asp-validation-for="LicenseRegistration.OfficeProvince" class="text-danger"></span>
-                    </div>
-                     <div class="form-elem">
-                        <label asp-for="LicenseRegistration.Office"></label>
-                        <select asp-for="LicenseRegistration.Office" class="form-select" asp-items="@Model.OfficeList">
-                            <option disabled selected>--Select District--</option>
-                        </select>
-                        <span asp-validation-for="LicenseRegistration.CitizenDistrict" class="text-danger"></span>
-                    </div>
-                     <div class="form-elem mb-5">
-                        <label asp-for="LicenseRegistration.Category"></label>
-                        <select asp-for="LicenseRegistration.Category" class="form-select" asp-items="@Model.CategoryList">
-                            <option disabled selected>--Select Category--</option>
-                        </select>
-                        <span asp-validation-for="LicenseRegistration.Category" class="text-danger"></span>
-                    </div>
-                        <input type="button" name="Previous" value="Previous" class="back_button btn btn-secondary"/>
-                        <input type="button" name="Next" value="Next" class="next_button btn btn-primary"/>  
                 </div>
 
-                 
+                @*Examination Details*@
+                <div class="main">
+                    <div class="row col-10 mx-auto gx-5">
+                        <div class="form-elem col-7">
+                            <label asp-for="LicenseRegistration.OfficeProvince"></label>
+                            <select asp-for="LicenseRegistration.OfficeProvince" class="form-select" asp-items="@Model.ProvinceList">
+                                <option disabled selected>-- Select Province --</option>
+                            </select>
+                            <span asp-validation-for="LicenseRegistration.OfficeProvince" class="text-danger"></span>
+                        </div>
+                        <div class="form-elem col-7">
+                            <label asp-for="LicenseRegistration.Office"></label>
+                            <select asp-for="LicenseRegistration.Office" class="form-select " asp-items="@Model.OfficeList">
+                                <option disabled selected>-- Select District --</option>
+                            </select>
+                            <span asp-validation-for="LicenseRegistration.CitizenDistrict" class="text-danger"></span>
+                        </div>
+                        <div class="form-elem col-7">
+                            <label asp-for="LicenseRegistration.Category"></label>
+                            <select asp-for="LicenseRegistration.Category" class="form-select " asp-items="@Model.CategoryList">
+                                <option disabled selected>-- Select Category --</option>
+                            </select>
+                            <span asp-validation-for="LicenseRegistration.Category" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="mt-5 row mx-auto justify-content-around">
+                        <input type="button" name="Previous" value="Previous" class="back_button btn btn-secondary col-3" />
+                        <input type="button" name="Next" value="Next" class="next_button btn btn-primary col-3" />
+                    </div>
+                </div>
+
+
                 @*Document Uploads*@
-                 <div class="main">
-                   <div class="form-elem">
-                    <label asp-for="LicenseRegistration.Photo"></label>
-                    <input type="file" id="uploadBox1" name="file" class="form-control" />
-                </div>
-                <div class="form-elem">
-                    <label asp-for="LicenseRegistration.CitizenFront"></label>
-                    <input type="file" id="uploadBox2" name="file" class="form-control" />
-                </div>
-                <div class="form-elem">
-                    <label asp-for="LicenseRegistration.CitizenBack"></label>
-                    <input type="file" id="uploadBox3" name="file" class="form-control" />
-                </div>
-                <div class="form-elem">
-                    <label asp-for="LicenseRegistration.Signature"></label>
-                    <input type="file" id="uploadBox4" name="file" class="form-control" />
-                </div>
-                <div class="form-elem mb-3">
-                    <label asp-for="LicenseRegistration.Thumb"></label>
-                    <input type="file" id="uploadBox5" name="file" class="form-control" />
+                <div class="main">
+                    <div class="row col-10 mx-auto gx-5">
+                        <div class="form-elem col-7">
+                            <label asp-for="LicenseRegistration.Photo"></label>
+                            <input type="file" id="uploadBox1" name="file" class="form-control" />
+                        </div>
+                        <div class="form-elem col-7">
+                            <label asp-for="LicenseRegistration.CitizenFront"></label>
+                            <input type="file" id="uploadBox2" name="file" class="form-control" />
+                        </div>
+                        <div class="form-elem col-7">
+                            <label asp-for="LicenseRegistration.CitizenBack"></label>
+                            <input type="file" id="uploadBox3" name="file" class="form-control" />
+                        </div>
+                        <div class="form-elem col-7">
+                            <label asp-for="LicenseRegistration.Signature"></label>
+                            <input type="file" id="uploadBox4" name="file" class="form-control" />
+                        </div>
+                        <div class="form-elem col-7">
+                            <label asp-for="LicenseRegistration.Thumb"></label>
+                            <input type="file" id="uploadBox5" name="file" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="mt-5 row mx-auto justify-content-around">
+
+                        <input type="button" name="Previous" value="Previous" class="back_button btn btn-secondary col-3" />
+                        <input type="submit" name="Submit" value="Submit" class="submit_button btn btn-success col-3" />
+                    </div>
                 </div>
 
-                        <input type="button" name="Previous" value="Previous" class="back_button btn btn-secondary"/>
-                        <input type="submit" name="Submit" value="Submit" class="submit_button btn btn-success"/>
-                        
-                </div>
-            
+            </div>
+
+
         </div>
-        
-    
-    </div>
-</form>
+    </form>
 </div>
 
 
-    <script src="~/js/MultiStepForm.js"></script>
+<script src="~/js/MultiStepForm.js"></script>
 
 
