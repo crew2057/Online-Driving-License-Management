@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SahajSewa.DataAccess.Data;
 using SahajSewa.DataAccess.Repository.IRepository;
-using SahajSewa.Models.ViewModels;
+using SahajSewa.Models;
 
 namespace SahajSewa.Areas.Users.Controllers
 {
@@ -24,38 +24,50 @@ namespace SahajSewa.Areas.Users.Controllers
         //Get
         public IActionResult Create()
         {
-            LicenseRegistrationVM VM = new()
-            {
-                LicenseRegistration = new(),
-                ProvinceList = _db.Provinces.Select(u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString()
-                }),
-                DistrictList = _db.Districts.Select(u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString()
-                }),
-                VillageList = _db.Villages.Select(u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString()
-                }),
-                OfficeList = _db.Offices.Select(u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString()
-                }),
-                CategoryList = _db.DrivingCategories.Select(u => new SelectListItem
-                {
-                    Text = u.Name,
-                    Value = u.Id.ToString()
-                })
-            };
-            return View(VM);
+            LicenseRegistration obj = new();
+            return View(obj);
         }
 
 
+        public JsonResult Pprovince()
+        {
+            var pro = _db.Provinces.ToList();
+            return new JsonResult(pro);
+        }
+        public JsonResult Pdistrict(int Id)
+        {
+            var dis = _db.Districts.Where(u => u.ProvinceId == Id).ToList();
+            return new JsonResult(dis);
+        }
+
+        public JsonResult Pvillage(int Id)
+        {
+            var vil = _db.Villages.Where(u => u.DistrictId== Id).ToList();
+            return new JsonResult(vil);
+        }
+
+        public JsonResult Oprovince()
+        {
+            var obj = _db.Provinces.ToList();
+            return new JsonResult(obj);
+        }
+
+        public JsonResult Oname(int Id)
+        {
+            var obj = _db.Offices.Where(u=>u.ProvinceId==Id).ToList();
+            return new JsonResult(obj);
+        }
+
+        public JsonResult Category()
+        {
+            var obj = _db.DrivingCategories.ToList();
+            return new JsonResult(obj);
+        }
+
+        public JsonResult Idistrict()
+        {
+            var obj = _db.Districts.ToList();
+            return new JsonResult(obj);
+        }
     }
 }
