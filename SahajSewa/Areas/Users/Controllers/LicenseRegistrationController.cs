@@ -46,12 +46,11 @@ namespace SahajSewa.Areas.Users.Controllers
             return new JsonResult(vil);
         }
 
-        public JsonResult Oprovince()
+        public JsonResult Idistrict()
         {
-            var obj = _db.Provinces.ToList();
-            return new JsonResult(obj);
+            var dis = _db.Districts.ToList();
+            return new JsonResult(dis);
         }
-
         public JsonResult Oname(int Id)
         {
             var obj = _db.Offices.Where(u=>u.ProvinceId==Id).ToList();
@@ -64,10 +63,19 @@ namespace SahajSewa.Areas.Users.Controllers
             return new JsonResult(obj);
         }
 
-        public JsonResult Idistrict()
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(LicenseRegistration obj)
         {
-            var obj = _db.Districts.ToList();
-            return new JsonResult(obj);
+            if(ModelState.IsValid)
+            {
+                _module.LicenseRegistration.Add(obj);
+                _module.Save();
+                TempData["success"] = "Product Created Successfully";
+                RedirectToAction("Index", "Home");
+            }
+            return View(obj);
         }
     }
 }

@@ -85,4 +85,7 @@
         margin:20px auto 5px;
     }
     
+    .warning{
+        border:1px solid red !important;
+    }
     

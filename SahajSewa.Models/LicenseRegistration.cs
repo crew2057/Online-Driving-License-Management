@@ -18,13 +18,14 @@ namespace SahajSewa.Models
         [Display(Name = "First Name")]
         public string Fname { get; set; }
         [Display(Name = "Middle Name")]
-        public string Mname { get; set; }
+        public string? Mname { get; set; }
         [Required]
         [Display(Name = "Last Name")]
         public string Lname { get; set; }
         [Required]
-        [Display(Name = "Date of Birth")]
-        public DateTime DOB { get; set; }
+        [Display(Name = "Date of Birth"), DataType(DataType.Date)]
+   
+        public DateTime DOB { get; set; } = DateTime.Today;
         [Required]
         public string Gender { get; set; }
         [Required]
@@ -44,17 +45,17 @@ namespace SahajSewa.Models
         [Display(Name = "Province")]
         public int Pprovince { get; set; }
         [ForeignKey("Pprovince")]
-        public Province Province { get; set; }
+        public Province? Province { get; set; }
         [Required]
         [Display(Name = "District")]
         public int Pdistrict { get; set; }
         [ForeignKey("Pdistrict")]
-        public District District { get; set; }
+        public District? District { get; set; }
         [Required]
         [Display(Name = "Village / Municipality")]
         public int Pvillage { get; set; }
         [ForeignKey("Pvillage")]
-        public Village Village { get; set; }
+        public Village? Village { get; set; }
         [Required]
         [Display(Name = "Ward No.")]
         public int Pward { get; set; }
@@ -92,8 +93,8 @@ namespace SahajSewa.Models
         public string CitizenDistrict { get; set; }
 
         [Required]
-        [Display(Name ="Citizenship Issue Date")]
-        public DateTime CitizenDate { get; set; }
+        [Display(Name = "Citizenship Issue Date"), DataType(DataType.Date)]
+        public DateTime CitizenDate { get; set; } = DateTime.Today;
         #endregion
 
         #region Exam Details
@@ -104,12 +105,12 @@ namespace SahajSewa.Models
         [Display(Name ="Office")]
         public int OfficeVisit { get; set; }
         [ForeignKey("OfficeVisit")]
-        public Office Office { get; set; }
+        public Office? Office { get; set; }
         [Required]
         [Display(Name ="Category")]
         public int Category { get; set; }
         [ForeignKey("Category")]
-        public DrivingCategory DrivingCategory { get; set; }
+        public DrivingCategory? DrivingCategory { get; set; }
 
         #endregion
 
@@ -133,19 +134,19 @@ namespace SahajSewa.Models
 
         #region Backend Details
         [Display(Name ="Trail Count")]
-        public int TrailCount { get; set; }
+        public int? TrailCount { get; set; }
         [Display(Name ="Written Result")]
-        public string WrittenResult { get; set; }
+        public string? WrittenResult { get; set; }
         [Display(Name ="Trail Result")]
-        public string TrailResult { get; set; }
+        public string? TrailResult { get; set; }
         [Display(Name ="License Availability")]
-        public int LicenseId { get; set; }
+        public int? LicenseId { get; set; }
         [ForeignKey("LicenseId")]
-        public License License { get; set; }
+        public License? License { get; set; }
         [Display(Name ="Passport Availability")]
-        public int PassportId { get; set; }
+        public int? PassportId { get; set; }
         [ForeignKey("PassportId")]
-        public Passport Passport { get; set; }
+        public Passport? Passport { get; set; }
         #endregion
     }
 }

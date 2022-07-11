@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SahajSewa.DataAccess.Data;
 
@@ -11,9 +12,10 @@ using SahajSewa.DataAccess.Data;
 namespace SahajSewa.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220711040704_push")]
+    partial class push
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,6 +128,7 @@ namespace SahajSewa.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("LicenseId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Lname")
@@ -143,6 +146,7 @@ namespace SahajSewa.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("PassportId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("Pdistrict")
@@ -304,7 +308,9 @@ namespace SahajSewa.DataAccess.Migrations
 
                     b.HasOne("SahajSewa.Models.License", "License")
                         .WithMany()
-                        .HasForeignKey("LicenseId");
+                        .HasForeignKey("LicenseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SahajSewa.Models.Office", "Office")
                         .WithMany()
@@ -314,7 +320,9 @@ namespace SahajSewa.DataAccess.Migrations
 
                     b.HasOne("SahajSewa.Models.Passport", "Passport")
                         .WithMany()
-                        .HasForeignKey("PassportId");
+                        .HasForeignKey("PassportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SahajSewa.Models.District", "District")
                         .WithMany()
