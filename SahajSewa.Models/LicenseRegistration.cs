@@ -102,7 +102,7 @@ namespace SahajSewa.Models
         [Display(Name ="Office Province")]
         public string OfficeProvince { get; set; }
         [Required]
-        [Display(Name ="Office")]
+        [Display(Name ="Office Location")]
         public int OfficeVisit { get; set; }
         [ForeignKey("OfficeVisit")]
         public Office? Office { get; set; }
@@ -115,21 +115,20 @@ namespace SahajSewa.Models
         #endregion
 
         #region Documents Upload
-        [Required]
         [Display(Name ="Applicant's Photo")]
-        public string Photo { get; set; }
-        [Required]
+        public string? Photo { get; set; }
+        
         [Display(Name ="Citizenship Front Photo")]
-        public string CitizenFront { get; set; }
-        [Required]
+        public string? CitizenFront { get; set; }
+        
         [Display(Name ="Citizenship Back Photo")]
-        public string CitizenBack { get; set; }
-        [Required]
+        public string? CitizenBack { get; set; }
+        
         [Display(Name ="Signature Photo")]
-        public string Signature { get; set; }
-        [Required]
+        public string? Signature { get; set; }
+        
         [Display(Name ="Thumb Impression")]
-        public string Thumb { get; set; }
+        public string? Thumb { get; set; }
         #endregion
 
         #region Backend Details

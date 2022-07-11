@@ -66,14 +66,110 @@ namespace SahajSewa.Areas.Users.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(LicenseRegistration obj)
+        public IActionResult Create(LicenseRegistration obj,IFormFile? file1, IFormFile? file2, IFormFile? file3, IFormFile? file4, IFormFile? file5)
         {
-            if(ModelState.IsValid)
+         if(ModelState.IsValid)
             {
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                if (file1 != null)
+                {
+                    string fileName = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(wwwRootPath, @"images");
+                    var extension = Path.GetExtension(file1.FileName);
+                    if (obj.Photo != null)
+                    {
+                        var oldImagePath = Path.Combine(wwwRootPath, obj.Photo.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                    {
+                    file1.CopyTo(fileStreams);
+                    }
+                    obj.Photo = @"\images\products" + fileName + extension;
+                }
+            if (file2 != null)
+            {
+                string fileName = Guid.NewGuid().ToString();
+                var uploads = Path.Combine(wwwRootPath, @"images");
+                var extension = Path.GetExtension(file2.FileName);
+                if (obj.CitizenFront != null)
+                {
+                    var oldImagePath = Path.Combine(wwwRootPath, obj.CitizenFront.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                {
+                    file2.CopyTo(fileStreams);
+                }
+                obj.CitizenFront = @"\images\products" + fileName + extension;
+            }
+            if (file3 != null)
+            {
+                string fileName = Guid.NewGuid().ToString();
+                var uploads = Path.Combine(wwwRootPath, @"images");
+                var extension = Path.GetExtension(file3.FileName);
+                if (obj.CitizenBack != null)
+                {
+                    var oldImagePath = Path.Combine(wwwRootPath, obj.CitizenBack.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                {
+                    file3.CopyTo(fileStreams);
+                }
+                obj.CitizenBack = @"\images\products" + fileName + extension;
+            }
+            if (file4 != null)
+            {
+                string fileName = Guid.NewGuid().ToString();
+                var uploads = Path.Combine(wwwRootPath, @"images");
+                var extension = Path.GetExtension(file4.FileName);
+                if (obj.Signature != null)
+                {
+                    var oldImagePath = Path.Combine(wwwRootPath, obj.Signature.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                {
+                    file4.CopyTo(fileStreams);
+                }
+                obj.Signature = @"\images\products" + fileName + extension;
+            }
+            if (file5 != null)
+            {
+                string fileName = Guid.NewGuid().ToString();
+                var uploads = Path.Combine(wwwRootPath, @"images");
+                var extension = Path.GetExtension(file5.FileName);
+                if (obj.Thumb != null)
+                {
+                    var oldImagePath = Path.Combine(wwwRootPath, obj.Thumb.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                {
+                    file5.CopyTo(fileStreams);
+                }
+                obj.Thumb = @"\images\products" + fileName + extension;
+            }
+
                 _module.LicenseRegistration.Add(obj);
                 _module.Save();
-                TempData["success"] = "Product Created Successfully";
-                RedirectToAction("Index", "Home");
+              return  RedirectToAction("Index", "Home");
             }
             return View(obj);
         }
