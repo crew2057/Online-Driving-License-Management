@@ -169,8 +169,10 @@ namespace SahajSewa.Areas.Users.Controllers
 
                 _module.LicenseRegistration.Add(obj);
                 _module.Save();
+                TempData["success"] = "License registration successful";
               return  RedirectToAction("Index", "Home");
             }
+            TempData["error"] = "Make sure to enter all required details";
             return View(obj);
         }
     }
