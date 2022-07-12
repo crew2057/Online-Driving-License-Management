@@ -118,13 +118,13 @@ namespace SahajSewa.Models
         [Display(Name ="Applicant's Photo")]
         public string? Photo { get; set; }
         
-        [Display(Name ="Citizenship Front Photo")]
+        [Display(Name ="Citizenship Front")]
         public string? CitizenFront { get; set; }
         
-        [Display(Name ="Citizenship Back Photo")]
+        [Display(Name ="Citizenship Back")]
         public string? CitizenBack { get; set; }
         
-        [Display(Name ="Signature Photo")]
+        [Display(Name ="Signature")]
         public string? Signature { get; set; }
         
         [Display(Name ="Thumb Impression")]
