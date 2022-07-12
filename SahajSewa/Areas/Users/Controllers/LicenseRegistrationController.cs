@@ -22,10 +22,18 @@ namespace SahajSewa.Areas.Users.Controllers
             _hostEnvironment = hostEnvironment;
         }
         //Get
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
-            LicenseRegistration obj = new();
-            return View(obj);
+            if (id == null || id == 0)
+            {
+                LicenseRegistration obj = new();
+                return View(obj);
+            }
+            else
+            {
+                LicenseRegistration obj = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == id);
+                return View(obj);
+            }
         }
 
 
@@ -42,7 +50,7 @@ namespace SahajSewa.Areas.Users.Controllers
 
         public JsonResult Pvillage(int Id)
         {
-            var vil = _db.Villages.Where(u => u.DistrictId== Id).ToList();
+            var vil = _db.Villages.Where(u => u.DistrictId == Id).ToList();
             return new JsonResult(vil);
         }
 
@@ -53,7 +61,7 @@ namespace SahajSewa.Areas.Users.Controllers
         }
         public JsonResult Oname(int Id)
         {
-            var obj = _db.Offices.Where(u=>u.ProvinceId==Id).ToList();
+            var obj = _db.Offices.Where(u => u.ProvinceId == Id).ToList();
             return new JsonResult(obj);
         }
 
@@ -66,9 +74,9 @@ namespace SahajSewa.Areas.Users.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(LicenseRegistration obj,IFormFile? file1, IFormFile? file2, IFormFile? file3, IFormFile? file4, IFormFile? file5)
+        public IActionResult Upsert(LicenseRegistration obj, IFormFile? file1, IFormFile? file2, IFormFile? file3, IFormFile? file4, IFormFile? file5)
         {
-         if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 if (file1 != null)
@@ -86,91 +94,100 @@ namespace SahajSewa.Areas.Users.Controllers
                     }
                     using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
                     {
-                    file1.CopyTo(fileStreams);
+                        file1.CopyTo(fileStreams);
                     }
                     obj.Photo = @"\images\products" + fileName + extension;
                 }
-            if (file2 != null)
-            {
-                string fileName = Guid.NewGuid().ToString();
-                var uploads = Path.Combine(wwwRootPath, @"images");
-                var extension = Path.GetExtension(file2.FileName);
-                if (obj.CitizenFront != null)
+                if (file2 != null)
                 {
-                    var oldImagePath = Path.Combine(wwwRootPath, obj.CitizenFront.TrimStart('\\'));
-                    if (System.IO.File.Exists(oldImagePath))
+                    string fileName = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(wwwRootPath, @"images");
+                    var extension = Path.GetExtension(file2.FileName);
+                    if (obj.CitizenFront != null)
                     {
-                        System.IO.File.Delete(oldImagePath);
+                        var oldImagePath = Path.Combine(wwwRootPath, obj.CitizenFront.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
                     }
-                }
-                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
-                {
-                    file2.CopyTo(fileStreams);
-                }
-                obj.CitizenFront = @"\images\products" + fileName + extension;
-            }
-            if (file3 != null)
-            {
-                string fileName = Guid.NewGuid().ToString();
-                var uploads = Path.Combine(wwwRootPath, @"images");
-                var extension = Path.GetExtension(file3.FileName);
-                if (obj.CitizenBack != null)
-                {
-                    var oldImagePath = Path.Combine(wwwRootPath, obj.CitizenBack.TrimStart('\\'));
-                    if (System.IO.File.Exists(oldImagePath))
+                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
                     {
-                        System.IO.File.Delete(oldImagePath);
+                        file2.CopyTo(fileStreams);
                     }
+                    obj.CitizenFront = @"\images\products" + fileName + extension;
                 }
-                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                if (file3 != null)
                 {
-                    file3.CopyTo(fileStreams);
-                }
-                obj.CitizenBack = @"\images\products" + fileName + extension;
-            }
-            if (file4 != null)
-            {
-                string fileName = Guid.NewGuid().ToString();
-                var uploads = Path.Combine(wwwRootPath, @"images");
-                var extension = Path.GetExtension(file4.FileName);
-                if (obj.Signature != null)
-                {
-                    var oldImagePath = Path.Combine(wwwRootPath, obj.Signature.TrimStart('\\'));
-                    if (System.IO.File.Exists(oldImagePath))
+                    string fileName = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(wwwRootPath, @"images");
+                    var extension = Path.GetExtension(file3.FileName);
+                    if (obj.CitizenBack != null)
                     {
-                        System.IO.File.Delete(oldImagePath);
+                        var oldImagePath = Path.Combine(wwwRootPath, obj.CitizenBack.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
                     }
-                }
-                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
-                {
-                    file4.CopyTo(fileStreams);
-                }
-                obj.Signature = @"\images\products" + fileName + extension;
-            }
-            if (file5 != null)
-            {
-                string fileName = Guid.NewGuid().ToString();
-                var uploads = Path.Combine(wwwRootPath, @"images");
-                var extension = Path.GetExtension(file5.FileName);
-                if (obj.Thumb != null)
-                {
-                    var oldImagePath = Path.Combine(wwwRootPath, obj.Thumb.TrimStart('\\'));
-                    if (System.IO.File.Exists(oldImagePath))
+                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
                     {
-                        System.IO.File.Delete(oldImagePath);
+                        file3.CopyTo(fileStreams);
                     }
+                    obj.CitizenBack = @"\images\products" + fileName + extension;
                 }
-                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                if (file4 != null)
                 {
-                    file5.CopyTo(fileStreams);
+                    string fileName = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(wwwRootPath, @"images");
+                    var extension = Path.GetExtension(file4.FileName);
+                    if (obj.Signature != null)
+                    {
+                        var oldImagePath = Path.Combine(wwwRootPath, obj.Signature.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                    {
+                        file4.CopyTo(fileStreams);
+                    }
+                    obj.Signature = @"\images\products" + fileName + extension;
                 }
-                obj.Thumb = @"\images\products" + fileName + extension;
-            }
+                if (file5 != null)
+                {
+                    string fileName = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(wwwRootPath, @"images");
+                    var extension = Path.GetExtension(file5.FileName);
+                    if (obj.Thumb != null)
+                    {
+                        var oldImagePath = Path.Combine(wwwRootPath, obj.Thumb.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                    {
+                        file5.CopyTo(fileStreams);
+                    }
+                    obj.Thumb = @"\images\products" + fileName + extension;
+                }
 
-                _module.LicenseRegistration.Add(obj);
-                _module.Save();
-                TempData["success"] = "License registration successful";
-              return  RedirectToAction("Index", "Home");
+                if (obj.Id == 0)
+                {
+                    _module.LicenseRegistration.Add(obj);
+                    _module.Save();
+                    TempData["success"] = "License registration successful";
+                }
+                else
+                {
+                    _module.LicenseRegistration.Update(obj);
+                    _module.Save();
+                    TempData["success"] = "User details updated successfully";
+                }
+                return RedirectToAction("Index", "Home");
             }
             TempData["error"] = "Make sure to enter all required details";
             return View(obj);

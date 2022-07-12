@@ -88,4 +88,10 @@
     .warning{
         border:1px solid red !important;
     }
-    
+
+.temporary,.permanent {
+    border: 1px solid #e7e7e7;
+    margin-top:10px;
+    padding-bottom:10px;
+
+}
