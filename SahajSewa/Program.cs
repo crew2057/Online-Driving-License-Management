@@ -2,13 +2,18 @@ using Microsoft.EntityFrameworkCore;
 using SahajSewa.DataAccess.Data;
 using SahajSewa.DataAccess.Repository;
 using SahajSewa.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("LocalConnection")));
+builder.Services.AddDefaultIdentity<IdentityUser>(/*options => options.SignIn.RequireConfirmedAccount = true*/)
+    .AddEntityFrameworkStores<ApplicationDbContext>(); 
 builder.Services.AddScoped<IModule, Module>();
 
 
@@ -26,9 +31,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();
 
 app.UseAuthorization();
-
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Users}/{controller=Home}/{action=Index}/{id?}");

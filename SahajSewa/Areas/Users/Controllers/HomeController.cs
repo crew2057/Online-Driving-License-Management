@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace SahajSewa.Controllers
 {
+    [Area("Users")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

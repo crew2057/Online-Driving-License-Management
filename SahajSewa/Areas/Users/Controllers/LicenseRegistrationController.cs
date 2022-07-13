@@ -6,6 +6,7 @@ using SahajSewa.Models;
 
 namespace SahajSewa.Areas.Users.Controllers
 {
+    [Area("Users")]
     public class LicenseRegistrationController : Controller
     {
         private readonly IWebHostEnvironment _hostEnvironment;
