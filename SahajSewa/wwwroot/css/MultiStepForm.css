@@ -84,10 +84,6 @@
         font-weight:700;
         margin:20px auto 5px;
     }
-    
-    .warning{
-        border:1px solid red !important;
-    }
 
 .temporary,.permanent {
     border: 1px solid #e7e7e7;
@@ -95,3 +91,4 @@
     padding-bottom:10px;
 
 }
+

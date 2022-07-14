@@ -37,7 +37,6 @@
                         <div class="form-elem col-6">
                             <label asp-for="@Model.Mname"></label>
                             <input asp-for="@Model.Mname" class="form-control" />
-                            <span asp-validation-for="@Model.Mname" class="text-danger"></span>
                         </div>
                         <div class="form-elem col-6">
                             <label asp-for="@Model.Lname"></label>
@@ -89,6 +88,8 @@
                     <div class="mt-5 row mx-auto justify-content-around">
                         <a class="submit_button btn btn-secondary col-3" asp-area="Users" asp-controller="Home" asp-action="Index">Back To Home</a>
                         <input type="button" name="Next" value="Next" class="next_button btn btn-primary col-3" />
+
+                        @*<button type="button" class="next_button btn btn-primary col-3">Next</button>*@
                     </div>
                 </div>
 
@@ -134,11 +135,11 @@
                             <input asp-for="@Model.Email" class="form-control" />
                             <span asp-validation-for="@Model.Email" class="text-danger"></span>
                         </div>
+                    </div>
+                    <div class="row col-10 mx-auto gx-5 temporary">
+                        <div class="bg-secondary">
+                            <h5>Temporary Address</h5>
                         </div>
-                        <div class="row col-10 mx-auto gx-5 temporary">
-                            <div class="bg-secondary">
-                                <h5>Temporary Address</h5>
-                            </div>
                         <div class="form-elem col-6">
                             <label asp-for="@Model.Tprovince"></label>
                             <select asp-for="@Model.Tprovince" class="form-select " id="Tprovince">
@@ -299,9 +300,7 @@
 @section Scripts{
     <script src="~/js/MultiStepForm.js"></script>
     <script src="~/js/CascadingSelect.js"> </script>
-    @{
     <partial name="_ValidationScriptsPartial" />
-    }
     <script>
         function ValidateInput() {
             var images = document.querySelectorAll("input[type=file]");
