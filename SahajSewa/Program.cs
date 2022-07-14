@@ -3,6 +3,9 @@ using SahajSewa.DataAccess.Data;
 using SahajSewa.DataAccess.Repository;
 using SahajSewa.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using SahajSewa.Utility;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,10 +15,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("LocalConnection")));
-builder.Services.AddDefaultIdentity<IdentityUser>(/*options => options.SignIn.RequireConfirmedAccount = true*/)
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(/*options => options.SignIn.RequireConfirmedAccount = true*/).AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>(); 
 builder.Services.AddScoped<IModule, Module>();
-
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
+builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 
 var app = builder.Build();
 
@@ -31,6 +35,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
+
 app.UseAuthentication();
 
 app.UseAuthorization();

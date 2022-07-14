@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "Create";
 }
+@using Microsoft.Extensions.Options
+@inject IOptions<SahajSewa.Utility.StripeSettings> Stripe
 <link rel="stylesheet" href="~/css/MultiStepForm.css" />
 
 

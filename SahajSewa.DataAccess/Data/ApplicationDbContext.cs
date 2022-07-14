@@ -24,6 +24,7 @@ namespace SahajSewa.DataAccess.Data
         public DbSet<License> Licenses { get; set; }
         public DbSet<Passport> Passports { get; set; }
         public DbSet<LicenseRegistration> LicenseRegistrations { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
     }
 }

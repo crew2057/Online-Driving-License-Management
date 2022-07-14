@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SahajSewa.Utility
 {
-    public static class SD
+    public class StripeSettings
     {
-        public const string Role_User = "Users";
-        public const string Role_Admin = "Admin";
+        public string SecretKey { get; set; }
+        public string PublishableKey { get; set; }
     }
 }

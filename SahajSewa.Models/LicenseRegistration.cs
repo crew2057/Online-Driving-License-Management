@@ -146,6 +146,8 @@ namespace SahajSewa.Models
         public int? PassportId { get; set; }
         [ForeignKey("PassportId")]
         public Passport? Passport { get; set; }
+        public string? SessionId { get; set; }
+        public string? PaymentIntentId { get; set; }
         #endregion
     }
 }
