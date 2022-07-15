@@ -72,6 +72,8 @@ namespace SahajSewa.DataAccess.Repository
                     objFromDb.LicenseId = obj.LicenseId;
                 if (obj.PassportId != null)
                     objFromDb.PassportId = obj.PassportId;
+                objFromDb.PaymentIntentId = obj.PaymentIntentId;
+                objFromDb.SessionId = obj.SessionId;
             }
         }
     }

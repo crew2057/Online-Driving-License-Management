@@ -80,8 +80,8 @@ namespace SahajSewa.Areas.Users.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(LicenseRegistration obj, IFormFile? file1, IFormFile? file2, IFormFile? file3, IFormFile? file4, IFormFile? file5)
         {
-            //if (ModelState.IsValid)
-            //{
+            if (ModelState.IsValid)
+            {
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 if (file1 != null)
                 {
@@ -181,53 +181,52 @@ namespace SahajSewa.Areas.Users.Controllers
 
                 if (obj.Id == 0)
                 {
-                    return RedirectToAction("DownloadFile", "LicenseRegistration", obj);
-                    ////Stripe settings
-                    //var domain = "https://localhost:44305/";
-                    //var options = new SessionCreateOptions
-                    //{
-                    //    LineItems = new List<SessionLineItemOptions>
-                    //     {
-                    //    new SessionLineItemOptions
-                    //{
-                    //   PriceData = new SessionLineItemPriceDataOptions
-                    //    {
-                    //      UnitAmount = 50000,
-                    //      Currency = "npr",
-                    //      ProductData = new SessionLineItemPriceDataProductDataOptions
-                    //      {
-                    //        Name = "License Registration Fee",
-                    //      },
+                    _module.LicenseRegistration.Add(obj);
+                    _module.Save();
+                    //Stripe settings
+                    var domain = "https://localhost:44305/";
+                    var options = new SessionCreateOptions
+                    {
+                        LineItems = new List<SessionLineItemOptions>
+                        {
+                            new SessionLineItemOptions
+                            {
+                                PriceData = new SessionLineItemPriceDataOptions
+                                {
+                                    UnitAmount = 50000,
+                                    Currency = "npr",
+                                    ProductData = new SessionLineItemPriceDataProductDataOptions
+                                    {
+                                        Name = "License Registration Fee",
+                                    },
 
-                    //    },
-                    //   Quantity=1,
-                    //  },
-                    //},
-                    //    Mode = "payment",
-                    //    SuccessUrl = domain + $"Users/LicenseRegistration/DownloadFile?${obj}",
-                    //    CancelUrl = domain + $"Users/Home/Index",
-                    //};
+                                },
+                                Quantity = 1,
+                            },
+                        },
+                        Mode = "payment",
+                        SuccessUrl = domain + $"Users/LicenseRegistration/DownloadFile?id={obj.Id}",
+                        CancelUrl = domain + $"Users/Home/Index",
+                    };
 
-                    //var service = new SessionService();
-                    //Session session = service.Create(options);
-
-                    //Response.Headers.Add("Location", session.Url);
-
-                    ////End stripe settings
-                    //_module.LicenseRegistration.Add(obj);
-                    //_module.Save();
-                    //TempData["success"] = "License registration successful";
-
-                    //return new StatusCodeResult(303);
+                    var service = new SessionService();
+                    Session session = service.Create(options);
+                    obj.SessionId = session.Id;
+                    obj.PaymentIntentId = session.PaymentIntentId;
+                    _module.LicenseRegistration.Update(obj);
+                    _module.Save();
+                    Response.Headers.Add("Location", session.Url);
+                    return new StatusCodeResult(303);
+                    //End stripe settings
                 }
                 else
                 {
                     _module.LicenseRegistration.Update(obj);
                     _module.Save();
                     TempData["success"] = "User details updated successfully";
+                    return RedirectToAction("Index", "Home");
                 }
-                return RedirectToAction("Index", "Home");
-            //}
+            }
             TempData["error"] = "Registration failed";
             return View(obj);
         }
@@ -238,9 +237,20 @@ namespace SahajSewa.Areas.Users.Controllers
             return View(obj);
         }
 
-        public IActionResult DownloadFile(LicenseRegistration obj)
+        public IActionResult DownloadFile(int id)
         {
-            return View(obj);
+            LicenseRegistration obj = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == id);
+            var service = new SessionService();
+            Session session = service.Get(obj.SessionId);
+            //check if payment is actually made
+            if (session.PaymentStatus.ToLower() == "paid")
+            {
+                TempData["success"] = "License registration successful";
+                return View(obj);
+            }
+            TempData["error"] = "Unspecified access to stripe";
+            return RedirectToAction("Index", "Home");
+
         }
 
 
