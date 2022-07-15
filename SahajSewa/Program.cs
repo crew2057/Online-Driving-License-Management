@@ -20,6 +20,12 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(/*options => options.Si
 builder.Services.AddScoped<IModule, Module>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = $"/Identity/Account/Login";
+    options.LogoutPath = $"/Identity/Account/Logout";
+    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+});
 
 var app = builder.Build();
 

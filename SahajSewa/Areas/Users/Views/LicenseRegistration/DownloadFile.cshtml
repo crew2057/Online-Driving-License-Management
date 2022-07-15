@@ -1,0 +1,83 @@
+﻿@model SahajSewa.Models.LicenseRegistration
+
+<div class="container col-lg-8 py-3 px-5 mx-auto">
+    <div class="text-center">
+        <span>Government of Nepal</span><br />
+        <span>Ministry of Physical Infrastructure and Transport</span><br />
+        <span>Department of Transport Management</span><br />
+        <span class="fw-bold">Driving License Application</span><br />
+    </div>
+    <hr />
+    <div class="row">
+        <label asp-for="@Model.Id" class="col-4 fw-bold"></label>
+        <span class="col-8">@Model.Id</span>
+        <br />
+        <br />
+        <label class="col-4 fw-bold">Application Type:</label>
+        <span class="col-8">New License</span>
+        <br />
+        <br />
+        <label asp-for="@Model.Category" class="col-4 fw-bold"></label>
+        <span class="col-8">@Model.Category</span>
+        <br />
+        <br />
+        <label class="col-4 fw-bold">Name:</label>
+        <span class="col-8">@Model.Fname&nbsp;@Model.Mname&nbsp;@Model.Lname</span>
+        <br />
+        <br />
+        <label asp-for="@Model.DOB" class="col-4 fw-bold"></label>
+        <span class="col-8">@Model.DOB.ToShortDateString()</span>
+        <br />
+        <br />
+        <label asp-for="@Model.Bgroup" class="col-4 fw-bold"></label>
+        <span class="col-8">@Model.Bgroup</span>
+        <br />
+        <br />
+        <label asp-for="@Model.Pnumber" class="col-4 fw-bold"></label>
+        <span class="col-8">@Model.Pnumber</span>
+        <br />
+        <br />
+        <label class="col-4 fw-bold">Registration Date:</label>
+        <span class="col-8">null</span>
+        <br />
+        <br />
+        <label class="col-4 fw-bold">Address:</label>
+        <span class="col-8">@Model.Pvillage&nbsp;@Model.Pward&nbsp;@Model.Pward,&nbsp;@Model.Pdistrict,&nbsp;@Model.Pprovince</span>
+        <br />
+        <br />
+        <label asp-for="@Model.Gname" class="col-4 fw-bold"></label>
+        <span class="col-8">@Model.Gname</span>
+        <br />
+        <br />
+        <label asp-for="@Model.CitizenNo" class="col-4 fw-bold"></label>
+        <span class="col-8">@Model.CitizenNo</span>
+        <br />
+        <br />
+        <label asp-for="@Model.OfficeVisit" class="col-4 fw-bold"></label>
+        <span class="col-8">@Model.OfficeVisit</span>
+        <br />
+    </div>
+    <br />
+    <div>
+        <p style="text-align:justify"><b>Note:</b> Applicant will receive an email with the examination date. He/She must attend
+            the Office in the specified date. If in case, applicant fails to attend to visit office, he/she
+            will have to apply for new process of application online again and amount paid will be not refunded.
+        </p>
+        <p class="fw-bold">Please carry the Original Citizenship along with this application</p>
+    </div>
+    <div class="printHidden d-flex justify-content-around my-4">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back To Home</a>
+        <a id="btnPrint" class="btn btn-success">Print</a>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+$("#btnPrint").click(function() {
+    $(".printHidden").hide();
+    window.print();
+    $(".printHidden").show();
+});
+    </script>
+}
+

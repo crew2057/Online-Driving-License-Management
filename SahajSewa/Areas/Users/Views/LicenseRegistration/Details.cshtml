@@ -1,0 +1,119 @@
+﻿@model SahajSewa.Models.LicenseRegistration
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container col-lg-8 p-2">
+    <div class="card card-body">
+        <h4 class="bg-primary">General Details</h4>
+        <div>
+            <label>Name:</label>
+            <span>@Model.Fname&nbsp;@Model.Mname&nbsp;@Model.Lname</span>
+        </div>
+        <div>
+            <label asp-for="DOB"></label>
+            <span>: @Model.DOB.ToShortDateString()</span>
+        </div>
+        <div>
+            <label asp-for="Gender"></label>
+            <span>: @Model.Gender</span>
+        </div>
+        <div>
+            <label asp-for="Bgroup"></label>
+            <span>: @Model.Bgroup</span>
+        </div>
+        <div>
+            <label asp-for="Pnumber"></label>
+            <span>: @Model.Pnumber</span>
+        </div>
+        <div>
+            <label asp-for="Gname"></label>
+            <span>: @Model.Gname</span>
+        </div>
+    </div>
+    <div class="card card-body">
+        <h4 class="bg-primary">Address Details</h4>
+        <h5 class="bg-secondary text-center">Permanent address</h5>
+        <div>
+            <label asp-for="Pprovince"></label>
+            <span>: @Model.Pprovince</span>
+        </div>
+        <div>
+            <label asp-for="Pdistrict"></label>
+            <span>: @Model.Pdistrict</span>
+        </div>
+        <div>
+            <label asp-for="Pvillage"></label>
+            <span>: @Model.Pvillage</span>
+        </div>
+        <div>
+            <label asp-for="Pward"></label>
+            <span>: @Model.Pward</span>
+        </div>
+        <div>
+            <label asp-for="Ptole"></label>
+            <span>: @Model.Ptole</span>
+        </div>
+        <div>
+            <label asp-for="Email"></label>
+            <span>: @Model.Email</span>
+        </div>
+        <h5 class="bg-secondary text-center">Temporary address</h5>
+        <div>
+            <label asp-for="Tprovince"></label>
+            <span>: @Model.Tprovince</span>
+        </div>
+        <div>
+            <label asp-for="Tdistrict"></label>
+            <span>: @Model.Tdistrict</span>
+        </div>
+        <div>
+            <label asp-for="Tvillage"></label>
+            <span>: @Model.Tvillage</span>
+        </div>
+        <div>
+            <label asp-for="Tward"></label>
+            <span>: @Model.Tward</span>
+        </div>
+        <div>
+            <label asp-for="Ttole"></label>
+            <span>: @Model.Ttole</span>
+        </div>
+    </div>
+    <div class="card card-body">
+        <h4 class="bg-primary">Citizenship Details</h4>
+        <div>
+            <label asp-for="CitizenNo"></label>
+            <span>: @Model.CitizenNo</span>
+        </div>
+        <div>
+            <label asp-for="CitizenDate"></label>
+            <span>: @Model.CitizenDate.ToShortDateString()</span>
+        </div>
+        <div>
+            <label asp-for="CitizenDistrict"></label>
+            <span>: @Model.CitizenDistrict</span>
+        </div>
+
+    </div>
+    <div class="card card-body">
+        <h4 class="bg-primary">Examination Details</h4>
+        <div>
+            <label asp-for="OfficeProvince"></label>
+            <span>: @Model.OfficeProvince</span>
+        </div>
+        <div>
+            <label asp-for="OfficeVisit"></label>
+            <span>: @Model.OfficeVisit</span>
+        </div>
+        <div>
+            <label asp-for="Category"></label>
+            <span>: @Model.Category</span>
+        </div>
+    </div>
+    <div class="d-flex justify-content-around my-2">
+        <a asp-controller="LicenseRegistration" asp-action="Upsert" asp-route-id="@Model.Id" class="btn btn-secondary">Update Details</a>
+        <a class="btn btn-success">Payment</a>
+    </div>
+</div>
+
