@@ -12,7 +12,6 @@ namespace SahajSewa.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _db;
         private readonly IModule _module;
         private readonly IWebHostEnvironment _hostEnvironment;
 

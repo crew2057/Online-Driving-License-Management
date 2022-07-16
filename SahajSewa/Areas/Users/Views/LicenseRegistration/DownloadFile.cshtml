@@ -1,6 +1,11 @@
 ﻿@model SahajSewa.Models.LicenseRegistration
+@{
+    Layout = null;
+}
+    <link rel="stylesheet" href="~/css/Bootswatch.css" />
 
-<div class="container col-lg-8 py-3 px-5 mx-auto">
+
+<div class="container col-8 col-sm-12 col-md-8  p-3 mx-auto">
     <div class="text-center">
         <span>Government of Nepal</span><br />
         <span>Ministry of Physical Infrastructure and Transport</span><br />
@@ -8,53 +13,60 @@
         <span class="fw-bold">Driving License Application</span><br />
     </div>
     <hr />
-    <div class="row">
-        <label asp-for="@Model.Id" class="col-4 fw-bold"></label>
-        <span class="col-8">@Model.Id</span>
+    <div class="row gx-5 px-5">
+        <div style="position:absolute; left:60%;">
+            <img src="@Model.Photo" style="border-radius:5px; border:1px solid #bbb9b9; height:150px; width:auto;" />
+        </div>
+        <label class="col-5 fw-bold">Reference Id:</label>
+        <span class="col-7">@Model.Id</span>
         <br />
         <br />
-        <label class="col-4 fw-bold">Application Type:</label>
-        <span class="col-8">New License</span>
+        <label class="col-5 fw-bold">Application Type:</label>
+        <span class="col-7">New License</span>
         <br />
         <br />
-        <label asp-for="@Model.Category" class="col-4 fw-bold"></label>
-        <span class="col-8">@Model.Category</span>
+        <label class="col-5 fw-bold">Category:</label>
+        <span class="col-7">@Model.Category</span>
         <br />
         <br />
-        <label class="col-4 fw-bold">Name:</label>
-        <span class="col-8">@Model.Fname&nbsp;@Model.Mname&nbsp;@Model.Lname</span>
+        <label class="col-5 fw-bold">Trail Count:</label>
+        <span class="col-7">@Model.TrailCount</span>
         <br />
         <br />
-        <label asp-for="@Model.DOB" class="col-4 fw-bold"></label>
-        <span class="col-8">@Model.DOB.ToShortDateString()</span>
+        <label class="col-5 fw-bold">Name:</label>
+        <span class="col-7">@Model.Fname&nbsp;@Model.Mname&nbsp;@Model.Lname</span>
         <br />
         <br />
-        <label asp-for="@Model.Bgroup" class="col-4 fw-bold"></label>
-        <span class="col-8">@Model.Bgroup</span>
+        <label class="col-5 fw-bold">Date Of Birth:</label>
+        <span class="col-7">@Model.DOB.ToShortDateString()</span>
         <br />
         <br />
-        <label asp-for="@Model.Pnumber" class="col-4 fw-bold"></label>
-        <span class="col-8">@Model.Pnumber</span>
+        <label  class="col-5 fw-bold">Blood Group:</label>
+        <span class="col-7">@Model.Bgroup</span>
         <br />
         <br />
-        <label class="col-4 fw-bold">Registration Date:</label>
-        <span class="col-8">null</span>
+        <label  class="col-5 fw-bold">Phone Number:</label>
+        <span class="col-7">@Model.Pnumber</span>
         <br />
         <br />
-        <label class="col-4 fw-bold">Address:</label>
-        <span class="col-8">@Model.Pvillage&nbsp;@Model.Pward&nbsp;@Model.Pward,&nbsp;@Model.Pdistrict,&nbsp;@Model.Pprovince</span>
+        <label class="col-5 fw-bold">Registration Date:</label>
+        <span class="col-7">null</span>
         <br />
         <br />
-        <label asp-for="@Model.Gname" class="col-4 fw-bold"></label>
-        <span class="col-8">@Model.Gname</span>
+        <label class="col-5 fw-bold">Address:</label>
+        <span class="col-7">@Model.Pvillage&nbsp;@Model.Pward&nbsp;@Model.Pward,&nbsp;@Model.Pdistrict,&nbsp;@Model.Pprovince</span>
         <br />
         <br />
-        <label asp-for="@Model.CitizenNo" class="col-4 fw-bold"></label>
-        <span class="col-8">@Model.CitizenNo</span>
+        <label class="col-5 fw-bold">Guardian's Name:</label>
+        <span class="col-7">@Model.Gname</span>
         <br />
         <br />
-        <label asp-for="@Model.OfficeVisit" class="col-4 fw-bold"></label>
-        <span class="col-8">@Model.OfficeVisit</span>
+        <label  class="col-5 fw-bold">Citizenship No:</label>
+        <span class="col-7">@Model.CitizenNo</span>
+        <br />
+        <br />
+        <label  class="col-5 fw-bold">Office Location</label>
+        <span class="col-7">@Model.OfficeVisit</span>
         <br />
     </div>
     <br />
@@ -65,19 +77,19 @@
         </p>
         <p class="fw-bold">Please carry the Original Citizenship along with this application</p>
     </div>
-    <div class="printHidden d-flex justify-content-around my-4">
+    <div class=" d-flex justify-content-around my-4">
         <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back To Home</a>
         <a id="btnPrint" class="btn btn-success">Print</a>
     </div>
 </div>
 
-@section Scripts{
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script>
 $("#btnPrint").click(function() {
-    $(".printHidden").hide();
+    $("a").hide();
     window.print();
-    $(".printHidden").show();
+    $("a").show();
 });
     </script>
-}
 
