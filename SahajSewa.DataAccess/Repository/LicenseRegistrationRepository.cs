@@ -62,15 +62,11 @@ namespace SahajSewa.DataAccess.Repository
                 if (obj.Thumb != null)
                     objFromDb.Thumb = obj.Thumb;
 
-                if (obj.TrailCount != null)
+             
                     objFromDb.TrailCount = obj.TrailCount;
-                if (obj.WrittenResult != null)
                     objFromDb.WrittenResult = obj.WrittenResult;
-                if (obj.TrailResult != null)
                     objFromDb.TrailResult = obj.TrailResult;
-                if (obj.LicenseId != null)
                     objFromDb.LicenseId = obj.LicenseId;
-                if (obj.PassportId != null)
                     objFromDb.PassportId = obj.PassportId;
                 objFromDb.PaymentIntentId = obj.PaymentIntentId;
                 objFromDb.SessionId = obj.SessionId;

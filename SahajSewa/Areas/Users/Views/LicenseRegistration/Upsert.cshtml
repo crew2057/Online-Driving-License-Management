@@ -124,7 +124,7 @@
                         </div>
                         <div class="form-elem col-6">
                             <label asp-for="@Model.Pward"></label>
-                            <input asp-for="@Model.Pward" value="null" class="form-control" />
+                            <input asp-for="@Model.Pward"  class="form-control" />
                             <span asp-validation-for="@Model.Pward" class="text-danger"></span>
                         </div>
                         <div class="form-elem col-6">
@@ -165,7 +165,7 @@
                         </div>
                         <div class="form-elem col-6">
                             <label asp-for="@Model.Tward"></label>
-                            <input asp-for="@Model.Tward" value="null" class="form-control" />
+                            <input asp-for="@Model.Tward" class="form-control" />
                             <span asp-validation-for="@Model.Tward" class="text-danger"></span>
                         </div>
                         <div class="form-elem col-6">
@@ -242,6 +242,10 @@
                 @*Document Uploads*@
                 <div class="main" id="Documents">
                     <div class="row col-10 mx-auto gx-5">
+                        @if(@Model.Id!=0)
+                        {
+                        <p><b>Note:</b> No need to reupload the documents, You can proceed forward.</p>
+                        }
                         <div class="form-elem col-8">
                             <label asp-for="@Model.Photo"></label>
                             <div class="d-flex">
@@ -285,7 +289,16 @@
                     <div class="mt-5 row mx-auto justify-content-around">
 
                         <input type="button" name="Previous" value="Previous" class="back_button btn btn-secondary col-3" />
+                        @if(Model.Id!=0)
+                        {
+                        <button type="submit" class="submit_button btn btn-success col-3">Submit</button>
+                            
+                        }
+                        else
+                        {
                         <button type="submit" class="submit_button btn btn-success col-3" onclick="return ValidateInput()">Submit</button>
+                            
+                        }
                     </div>
                 </div>
 

@@ -100,7 +100,7 @@ namespace SahajSewa.Areas.Users.Controllers
                     {
                         file1.CopyTo(fileStreams);
                     }
-                    obj.Photo = @"\images\products" + fileName + extension;
+                    obj.Photo = @"\images\" + fileName + extension;
                 }
                 if (file2 != null)
                 {
@@ -119,7 +119,7 @@ namespace SahajSewa.Areas.Users.Controllers
                     {
                         file2.CopyTo(fileStreams);
                     }
-                    obj.CitizenFront = @"\images\products" + fileName + extension;
+                    obj.CitizenFront = @"\images\" + fileName + extension;
                 }
                 if (file3 != null)
                 {
@@ -138,7 +138,7 @@ namespace SahajSewa.Areas.Users.Controllers
                     {
                         file3.CopyTo(fileStreams);
                     }
-                    obj.CitizenBack = @"\images\products" + fileName + extension;
+                    obj.CitizenBack = @"\images\" + fileName + extension;
                 }
                 if (file4 != null)
                 {
@@ -157,7 +157,7 @@ namespace SahajSewa.Areas.Users.Controllers
                     {
                         file4.CopyTo(fileStreams);
                     }
-                    obj.Signature = @"\images\products" + fileName + extension;
+                    obj.Signature = @"\images\" + fileName + extension;
                 }
                 if (file5 != null)
                 {
@@ -176,18 +176,36 @@ namespace SahajSewa.Areas.Users.Controllers
                     {
                         file5.CopyTo(fileStreams);
                     }
-                    obj.Thumb = @"\images\products" + fileName + extension;
+                    obj.Thumb = @"\images\" + fileName + extension;
                 }
 
                 if (obj.Id == 0)
-                {
                     _module.LicenseRegistration.Add(obj);
-                    _module.Save();
-                    //Stripe settings
-                    var domain = "https://localhost:44305/";
-                    var options = new SessionCreateOptions
-                    {
-                        LineItems = new List<SessionLineItemOptions>
+                else
+                    _module.LicenseRegistration.Update(obj);
+                _module.Save();
+                return RedirectToAction("Details", "LicenseRegistration", obj);
+            }
+            TempData["error"] = "Please fill up all the required details";
+            return View(obj);
+        }
+
+        //Details in progress
+        public IActionResult Details(LicenseRegistration obj)
+        {
+            return View(obj);
+        }
+        
+        [HttpPost]
+        [ActionName("Details")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DetailsPost(LicenseRegistration obj)
+        {
+            //Stripe settings
+            var domain = "https://localhost:44305/";
+            var options = new SessionCreateOptions
+            {
+                LineItems = new List<SessionLineItemOptions>
                         {
                             new SessionLineItemOptions
                             {
@@ -204,37 +222,20 @@ namespace SahajSewa.Areas.Users.Controllers
                                 Quantity = 1,
                             },
                         },
-                        Mode = "payment",
-                        SuccessUrl = domain + $"Users/LicenseRegistration/DownloadFile?id={obj.Id}",
-                        CancelUrl = domain + $"Users/Home/Index",
-                    };
+                Mode = "payment",
+                SuccessUrl = domain + $"Users/LicenseRegistration/DownloadFile?id={obj.Id}",
+                CancelUrl = domain + $"Users/LicenseRegistration/Details?id={obj.Id}",
+            };
 
-                    var service = new SessionService();
-                    Session session = service.Create(options);
-                    obj.SessionId = session.Id;
-                    obj.PaymentIntentId = session.PaymentIntentId;
-                    _module.LicenseRegistration.Update(obj);
-                    _module.Save();
-                    Response.Headers.Add("Location", session.Url);
-                    return new StatusCodeResult(303);
-                    //End stripe settings
-                }
-                else
-                {
-                    _module.LicenseRegistration.Update(obj);
-                    _module.Save();
-                    TempData["success"] = "User details updated successfully";
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            TempData["error"] = "Registration failed";
-            return View(obj);
-        }
-
-        //Details in progress
-        public IActionResult Details(LicenseRegistration obj)
-        {
-            return View(obj);
+            var service = new SessionService();
+            Session session = service.Create(options);
+            obj.SessionId = session.Id;
+            obj.PaymentIntentId = session.PaymentIntentId;
+            _module.LicenseRegistration.Update(obj);
+            _module.Save();
+            Response.Headers.Add("Location", session.Url);
+            return new StatusCodeResult(303);
+            //End stripe settings
         }
 
         public IActionResult DownloadFile(int id)
