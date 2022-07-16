@@ -3,6 +3,8 @@
     Layout = null;
 }
     <link rel="stylesheet" href="~/css/Bootswatch.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
 
 
 <div class="container col-8 col-sm-12 col-md-8  p-3 mx-auto">
@@ -14,60 +16,63 @@
     </div>
     <hr />
     <div class="row gx-5 px-5">
-        <div style="position:absolute; left:60%;">
+        <div style="position:absolute; left:65%;">
             <img src="@Model.Photo" style="border-radius:5px; border:1px solid #bbb9b9; height:150px; width:auto;" />
         </div>
-        <label class="col-5 fw-bold">Reference Id:</label>
-        <span class="col-7">@Model.Id</span>
+        <label class="col-4 fw-bold">Reference Id:</label>
+        <span class="col-8">@Model.Id</span>
         <br />
         <br />
-        <label class="col-5 fw-bold">Application Type:</label>
-        <span class="col-7">New License</span>
+        <label class="col-4 fw-bold">Application Type:</label>
+        <span class="col-8">New License</span>
         <br />
         <br />
-        <label class="col-5 fw-bold">Category:</label>
-        <span class="col-7">@Model.Category</span>
+        <label class="col-4 fw-bold">Category:</label>
+        <span class="col-8">@ViewBag.Category</span>
         <br />
         <br />
-        <label class="col-5 fw-bold">Trail Count:</label>
-        <span class="col-7">@Model.TrailCount</span>
+        <label class="col-4 fw-bold">Trail Count:</label>
+        <span class="col-8">@Model.TrailCount</span>
         <br />
         <br />
-        <label class="col-5 fw-bold">Name:</label>
-        <span class="col-7">@Model.Fname&nbsp;@Model.Mname&nbsp;@Model.Lname</span>
+        <label class="col-4 fw-bold">Name:</label>
+        <span class="col-8">@Model.Fname&nbsp;@Model.Mname&nbsp;@Model.Lname</span>
         <br />
         <br />
-        <label class="col-5 fw-bold">Date Of Birth:</label>
-        <span class="col-7">@Model.DOB.ToShortDateString()</span>
+        <label class="col-4 fw-bold">Date Of Birth:</label>
+        <span class="col-8">@Model.DOB.ToShortDateString()</span>
         <br />
         <br />
-        <label  class="col-5 fw-bold">Blood Group:</label>
-        <span class="col-7">@Model.Bgroup</span>
+        <label  class="col-4 fw-bold">Blood Group:</label>
+        <span class="col-8">@Model.Bgroup</span>
         <br />
         <br />
-        <label  class="col-5 fw-bold">Phone Number:</label>
-        <span class="col-7">@Model.Pnumber</span>
+        <label  class="col-4 fw-bold">Phone Number:</label>
+        <span class="col-8">@Model.Pnumber</span>
         <br />
         <br />
-        <label class="col-5 fw-bold">Registration Date:</label>
-        <span class="col-7">null</span>
+        <label class="col-4 fw-bold">Address:</label>
+        <span class="col-8">@ViewBag.Pvillage&nbsp;-&nbsp;@Model.Pward,&nbsp;@Model.Ptole&nbsp;(@ViewBag.Pdistrict,&nbsp;@ViewBag.Pprovince)</span>
         <br />
         <br />
-        <label class="col-5 fw-bold">Address:</label>
-        <span class="col-7">@Model.Pvillage&nbsp;@Model.Pward&nbsp;@Model.Pward,&nbsp;@Model.Pdistrict,&nbsp;@Model.Pprovince</span>
+        <label class="col-4 fw-bold">Guardian's Name:</label>
+        <span class="col-8">@Model.Gname</span>
         <br />
         <br />
-        <label class="col-5 fw-bold">Guardian's Name:</label>
-        <span class="col-7">@Model.Gname</span>
+        <label  class="col-4 fw-bold">Citizenship No:</label>
+        <span class="col-8">@Model.CitizenNo</span>
         <br />
         <br />
-        <label  class="col-5 fw-bold">Citizenship No:</label>
-        <span class="col-7">@Model.CitizenNo</span>
+        <label class="col-4 fw-bold">Registration Date:</label>
+        <span class="col-8">@Model.RegisterDate.ToShortDateString()</span>
         <br />
         <br />
-        <label  class="col-5 fw-bold">Office Location</label>
-        <span class="col-7">@Model.OfficeVisit</span>
+        <label  class="col-4 fw-bold">Office Location:</label>
+        <span class="col-8">Transport Management Office - @ViewBag.OfficeVisit</span>
         <br />
+        <br />
+        <label class="col-4 fw-bold">Payment Id:</label>
+        <span class="col-8">@Model.PaymentIntentId</span>
     </div>
     <br />
     <div>
@@ -91,5 +96,6 @@ $("#btnPrint").click(function() {
     window.print();
     $("a").show();
 });
-    </script>
 
+    </script>
+    <partial name="_Notification" />

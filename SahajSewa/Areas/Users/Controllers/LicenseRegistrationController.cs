@@ -193,6 +193,16 @@ namespace SahajSewa.Areas.Users.Controllers
         //Details in progress
         public IActionResult Details(LicenseRegistration obj)
         {
+            ViewBag.Pprovince = _db.Provinces.FirstOrDefault(u => u.Id == obj.Pprovince).Name;
+            ViewBag.Pdistrict = _db.Districts.FirstOrDefault(u => u.Id == obj.Pdistrict).Name;
+            ViewBag.Pvillage = _db.Villages.FirstOrDefault(u => u.Id == obj.Pvillage).Name;
+            ViewBag.Tprovince = _db.Provinces.FirstOrDefault(u => u.Id == obj.Tprovince).Name;
+            ViewBag.Tdistrict = _db.Districts.FirstOrDefault(u => u.Id == obj.Tdistrict).Name;
+            ViewBag.Tvillage = _db.Villages.FirstOrDefault(u => u.Id == obj.Tvillage).Name;
+            ViewBag.CitizenDistrict = _db.Districts.FirstOrDefault(u => u.Id == obj.CitizenDistrict).Name;
+            ViewBag.OfficeProvince = _db.Provinces.FirstOrDefault(u => u.Id == obj.OfficeProvince).Name;
+            ViewBag.OfficeVisit = _db.Offices.FirstOrDefault(u => u.Id == obj.OfficeVisit).Name;
+            ViewBag.Category = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Name;
             return View(obj);
         }
         
@@ -241,11 +251,20 @@ namespace SahajSewa.Areas.Users.Controllers
         public IActionResult DownloadFile(int id)
         {
             LicenseRegistration obj = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == id);
+
+            ViewBag.Pprovince = _db.Provinces.FirstOrDefault(u => u.Id == obj.Pprovince).Name;
+            ViewBag.Pdistrict = _db.Districts.FirstOrDefault(u => u.Id == obj.Pdistrict).Name;
+            ViewBag.Pvillage = _db.Villages.FirstOrDefault(u => u.Id == obj.Pvillage).Name;
+            ViewBag.OfficeVisit = _db.Offices.FirstOrDefault(u => u.Id == obj.OfficeVisit).Name;
+            ViewBag.Category = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Name;
+
+
             var service = new SessionService();
             Session session = service.Get(obj.SessionId);
             //check if payment is actually made
             if (session.PaymentStatus.ToLower() == "paid")
             {
+                obj.TrailCount=1;
                 TempData["success"] = "License registration successful";
                 return View(obj);
             }

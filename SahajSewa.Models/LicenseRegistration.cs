@@ -35,7 +35,7 @@ namespace SahajSewa.Models
         [Display(Name = "Blood Group")]
         public string Bgroup { get; set; }
         [Required]
-        [Display(Name = "Guardian Name")]
+        [Display(Name = "Guardian's Name")]
         public string Gname { get; set; }
         #endregion
 
@@ -69,13 +69,13 @@ namespace SahajSewa.Models
         //temporary
         [Required]
         [Display(Name = "Province")]
-        public string Tprovince { get; set; }
+        public int Tprovince { get; set; }
         [Required]
         [Display(Name = "District")]
-        public string Tdistrict { get; set; }
+        public int Tdistrict { get; set; }
         [Required]
         [Display(Name = "Village / Municipality")]
-        public string Tvillage { get; set; }
+        public int Tvillage { get; set; }
         [Required]
         [Display(Name = "Ward No.")]
         public int Tward { get; set; }
@@ -90,7 +90,7 @@ namespace SahajSewa.Models
         public string CitizenNo { get; set; }
         [Required]
         [Display(Name ="Citizenship Issue District")]
-        public string CitizenDistrict { get; set; }
+        public int CitizenDistrict { get; set; }
 
         [Required]
         [Display(Name = "Citizenship Issue Date"), DataType(DataType.Date)]
@@ -98,11 +98,13 @@ namespace SahajSewa.Models
         #endregion
 
         #region Exam Details
+        [Display(Name = "Registration Date"), DataType(DataType.Date)]
+        public DateTime RegisterDate { get; set; } = DateTime.Today;
         [Required]
         [Display(Name ="Office Province")]
-        public string OfficeProvince { get; set; }
+        public int OfficeProvince { get; set; }
         [Required]
-        [Display(Name ="Office Location")]
+        [Display(Name ="Visit Office")]
         public int OfficeVisit { get; set; }
         [ForeignKey("OfficeVisit")]
         public Office? Office { get; set; }
