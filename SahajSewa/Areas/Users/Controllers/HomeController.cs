@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SahajSewa.DataAccess.Data;
 using SahajSewa.DataAccess.Repository.IRepository;
 using SahajSewa.Models;
+using Stripe.Checkout;
 using System.Diagnostics;
 
 namespace SahajSewa.Controllers
@@ -28,7 +29,9 @@ namespace SahajSewa.Controllers
             IEnumerable<LicenseRegistration> objects = _module.LicenseRegistration.GetAll();
             foreach (var obj in objects)
             {
-                if (obj.SessionId == null)
+                var service = new SessionService();
+                Session session = service.Get(obj.SessionId);
+                    if (obj.SessionId == null || session.PaymentStatus.ToLower() != "paid")
                 {
                     string wwwRootPath = _hostEnvironment.WebRootPath;
                     var file1 = Path.Combine(wwwRootPath, obj.Photo.TrimStart('\\'));
@@ -49,8 +52,13 @@ namespace SahajSewa.Controllers
                     _module.LicenseRegistration.Remove(obj);
                     _module.Save();
                 }
+                else
+                {
+                    return View(obj);
+                }
             }
-            return View();
+            LicenseRegistration temp = new();
+            return View(temp);
         }
 
         public IActionResult Privacy()

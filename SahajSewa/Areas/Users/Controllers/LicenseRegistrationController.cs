@@ -178,7 +178,7 @@ namespace SahajSewa.Areas.Users.Controllers
                     }
                     obj.Thumb = @"\images\" + fileName + extension;
                 }
-
+                obj.TrailCount = 1;
                 if (obj.Id == 0)
                     _module.LicenseRegistration.Add(obj);
                 else
@@ -237,6 +237,7 @@ namespace SahajSewa.Areas.Users.Controllers
                 CancelUrl = domain + $"Users/LicenseRegistration/Details?id={obj.Id}",
             };
 
+            
             var service = new SessionService();
             Session session = service.Create(options);
             obj.SessionId = session.Id;
@@ -258,21 +259,17 @@ namespace SahajSewa.Areas.Users.Controllers
             ViewBag.OfficeVisit = _db.Offices.FirstOrDefault(u => u.Id == obj.OfficeVisit).Name;
             ViewBag.Category = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Name;
 
-
             var service = new SessionService();
             Session session = service.Get(obj.SessionId);
             //check if payment is actually made
             if (session.PaymentStatus.ToLower() == "paid")
             {
-                obj.TrailCount=1;
-                TempData["success"] = "License registration successful";
+                    TempData["success"] = "License Registration Successful";
                 return View(obj);
             }
-            TempData["error"] = "Unspecified access to stripe";
+            TempData["error"] = "Registration Failed";
             return RedirectToAction("Index", "Home");
 
         }
-
-
     }
 }
