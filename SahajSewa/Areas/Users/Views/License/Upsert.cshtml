@@ -1,8 +1,118 @@
-﻿
+﻿@model SahajSewa.Models.License
 @{
     ViewData["Title"] = "Upsert";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Upsert</h1>
+<div class="container" style="max-width:70rem">
+    <form method="post" enctype="multipart/form-data">
+        <input asp-for="@Model.Id" hidden />
+        <input asp-for="@Model.LicensePhoto" hidden />
+        <div class="card my-3">
+            <div class="card-header text-center text-light bg-primary">
+            Add License
+            </div>
+            <div class="card-body my-3">
+            <div class="row col-10 mx-auto gx-5">
+                <div class="form-elem col-6">
+                    <label asp-for="@Model.LicenseNo"></label>
+                    <input asp-for="@Model.LicenseNo" class="form-control" />
+                    <span asp-validation-for="@Model.LicenseNo" class="text-danger"></span>
+                </div>
+                <div class="form-elem col-6">
+                    <label asp-for="@Model.Phone"></label>
+                    <input asp-for="@Model.Phone" class="form-control" />
+                    <span asp-validation-for="@Model.Phone" class="text-danger"></span>
+                </div>
+                
+                <div class="form-elem col-6">
+                    <label asp-for="@Model.IssueDate"></label>
+                    <input asp-for="@Model.IssueDate" value="@Model.IssueDate.ToShortDateString()" class="form-control" />
+                    <span asp-validation-for="@Model.IssueDate" class="text-danger"></span>
+                </div>
+                <div class="form-elem col-6">
+                    <label asp-for="@Model.ExpiryDate"></label>
+                    <input asp-for="@Model.ExpiryDate" value="@Model.ExpiryDate.ToShortDateString()" class="form-control" />
+                    <span asp-validation-for="@Model.ExpiryDate" class="text-danger"></span>
+                </div>
+                <div class="form-elem col-7">
+                    <label asp-for="@Model.ProvinceId"></label>
+                    <select asp-for="@Model.ProvinceId" class="form-select" id="Oprovince">
+                        <option disabled selected>-- Select Province --</option>
+                    </select>
+                    <span asp-validation-for="@Model.ProvinceId" class="text-danger"></span>
+                </div>
+                <div class="form-elem col-7">
+                    <label asp-for="@Model.OfficeId"></label>
+                    <select asp-for="@Model.OfficeId" class="form-select " id="Oname">
+                        <option disabled selected>-- Select District --</option>
+                    </select>
+                    <span asp-validation-for="@Model.OfficeId" class="text-danger"></span>
+                </div>
+                <div class="form-elem col-8">
+                    <label asp-for="@Model.LicensePhoto"></label>
+                    <div class="d-flex">
+                        <input type="file" name="file" class="form-control" onchange="Preview(event)" />
+                        <a class="mx-3 pt-2" id="check"><i class="bi bi-eye-slash"></i> </a>
+                    </div>
+                </div>
+                 <div class="form-elem col-12">
+                    <input type="checkbox" />
+                </div>
+
+            </div>
+
+            <div class="mt-5 row justify-content-around">
+
+                <a class="btn btn-secondary col-3">Back To Home</a>
+                @if (Model.Id != 0)
+                {
+                    <button type="submit" class="btn btn-success col-3">Submit</button>
+
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-success col-3" onclick="return ValidateInput()">Submit</button>
+
+                }
+            </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <script src="~/js/CascadingSelect.js"> </script>
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function ValidateInput() {
+            var image = document.querySelector("input[type=file]");
+            if (image.value == "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!!',
+                    text: 'Please make sure to upload the image.'
+                });
+                return false;
+            }
+            return true;
+        }
+
+        function Preview(event) {
+            var image = URL.createObjectURL(event.target.files[0]);
+            var elem = document.getElementById("check");
+            elem.removeChild(elem.firstElementChild);
+            var node = document.createElement("i");
+            node.setAttribute("class", "bi bi-eye");
+            elem.appendChild(node);
+            elem.onclick = function() {
+                Swal.fire({
+                    imageUrl: image,
+                    imageWidth: 600,
+                    imageHeight: 300,
+                    imageAlt: 'No Image selected',
+                });
+            }
+        }
+    </script>
+}
 
