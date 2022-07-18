@@ -24,7 +24,7 @@ namespace SahajSewa.Models
         public string Lname { get; set; }
         [Required]
         [Display(Name = "Date of Birth"), DataType(DataType.Date)]
-   
+
         public DateTime DOB { get; set; } = DateTime.Today;
         [Required]
         public string Gender { get; set; }
@@ -86,10 +86,10 @@ namespace SahajSewa.Models
 
         #region Citizenship Details
         [Required]
-        [Display(Name ="Citizenship No")]
+        [Display(Name = "Citizenship No")]
         public string CitizenNo { get; set; }
         [Required]
-        [Display(Name ="Citizenship Issue District")]
+        [Display(Name = "Citizenship Issue District")]
         public int CitizenDistrict { get; set; }
 
         [Required]
@@ -101,15 +101,15 @@ namespace SahajSewa.Models
         [Display(Name = "Registration Date"), DataType(DataType.Date)]
         public DateTime RegisterDate { get; set; } = DateTime.Today;
         [Required]
-        [Display(Name ="Office Province")]
+        [Display(Name = "Office Province")]
         public int OfficeProvince { get; set; }
         [Required]
-        [Display(Name ="Visit Office")]
+        [Display(Name = "Visit Office")]
         public int OfficeVisit { get; set; }
         [ForeignKey("OfficeVisit")]
         public Office? Office { get; set; }
         [Required]
-        [Display(Name ="Category")]
+        [Display(Name = "Category")]
         public int Category { get; set; }
         [ForeignKey("Category")]
         public DrivingCategory? DrivingCategory { get; set; }
@@ -117,38 +117,39 @@ namespace SahajSewa.Models
         #endregion
 
         #region Documents Upload
-        [Display(Name ="Applicant's Photo")]
+        [Display(Name = "Applicant's Photo")]
         public string? Photo { get; set; }
-        
-        [Display(Name ="Citizenship Front")]
+
+        [Display(Name = "Citizenship Front")]
         public string? CitizenFront { get; set; }
-        
-        [Display(Name ="Citizenship Back")]
+
+        [Display(Name = "Citizenship Back")]
         public string? CitizenBack { get; set; }
-        
-        [Display(Name ="Signature")]
+
+        [Display(Name = "Signature")]
         public string? Signature { get; set; }
-        
-        [Display(Name ="Thumb Impression")]
+
+        [Display(Name = "Thumb Impression")]
         public string? Thumb { get; set; }
         #endregion
 
         #region Backend Details
-        [Display(Name ="Trail Count")]
+        [Display(Name = "Trail Count")]
         public int? TrailCount { get; set; }
-        [Display(Name ="Written Result")]
+        [Display(Name = "Written Result")]
         public string? WrittenResult { get; set; }
-        [Display(Name ="Trail Result")]
+        [Display(Name = "Trail Result")]
         public string? TrailResult { get; set; }
-        [Display(Name ="License Availability")]
+        [Display(Name = "License Availability")]
         public int? LicenseId { get; set; }
         [ForeignKey("LicenseId")]
         public License? License { get; set; }
-        [Display(Name ="Passport Availability")]
+        [Display(Name = "Passport Availability")]
         public int? PassportId { get; set; }
         [ForeignKey("PassportId")]
         public Passport? Passport { get; set; }
         public string? SessionId { get; set; }
+        public string? OldSessionId { get; set; }
         public string? PaymentIntentId { get; set; }
         #endregion
     }

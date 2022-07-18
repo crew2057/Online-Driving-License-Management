@@ -54,14 +54,24 @@ namespace SahajSewa.Controllers
                 {
                     var service = new SessionService();
                     Session session = service.Get(obj.SessionId);
-                    if(session.PaymentStatus.ToLower() != "paid")
+                    if (session.PaymentStatus.ToLower() != "paid")
                     {
+                        if (obj.OldSessionId != null)
+                        {
+                            obj.SessionId = obj.OldSessionId;
+                            session = service.Get(obj.SessionId);
+                            obj.PaymentIntentId = session.PaymentIntentId;
+                            obj.TrailCount--;
+                        }
+                        else
                         obj.SessionId = null;
                         _module.Save();
                         return RedirectToAction("Index");
                     }
                     else
-                    return View(obj);
+                    {
+                        return View(obj);
+                    }
                 }
             }
             LicenseRegistration temp = new();

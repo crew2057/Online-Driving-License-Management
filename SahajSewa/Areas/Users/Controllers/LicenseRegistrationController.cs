@@ -246,10 +246,7 @@ namespace SahajSewa.Areas.Users.Controllers
 
             var service = new SessionService();
             Session session = service.Create(options);
-            if (obj.SessionId == null)
-            {
-                obj.SessionId = session.Id;
-            }
+            obj.SessionId = session.Id;
             obj.PaymentIntentId = session.PaymentIntentId;
             _module.LicenseRegistration.Update(obj);
             _module.Save();
@@ -269,13 +266,15 @@ namespace SahajSewa.Areas.Users.Controllers
             ViewBag.CategoryName = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Name;
             ViewBag.CategorySymbol = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Symbol;
 
-
             var service = new SessionService();
             Session session = service.Get(obj.SessionId);
             //check if payment is actually made
             if (session.PaymentStatus.ToLower() == "paid")
             {
-                    TempData["success"] = "License Registration Successful";
+                if(obj.OldSessionId!=obj.SessionId)
+                TempData["success"] = "License Registration Successful";
+                obj.OldSessionId = session.Id;
+                _module.Save();
                 return View(obj);
             }
             TempData["error"] = "Registration Failed";

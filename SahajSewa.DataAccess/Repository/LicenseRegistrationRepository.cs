@@ -70,6 +70,7 @@ namespace SahajSewa.DataAccess.Repository
                     objFromDb.PassportId = obj.PassportId;
                 objFromDb.PaymentIntentId = obj.PaymentIntentId;
                 objFromDb.SessionId = obj.SessionId;
+                objFromDb.OldSessionId = obj.OldSessionId;
             }
         }
     }
