@@ -9,6 +9,7 @@ namespace SahajSewa.DataAccess.Repository.IRepository
     public interface IModule
     {
         ILicenseRegistrationRepository LicenseRegistration { get; }
+        ILicenseRepository License { get; }
         void Save();
     }
 }
