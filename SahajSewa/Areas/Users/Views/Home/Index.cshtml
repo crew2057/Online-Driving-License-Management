@@ -23,10 +23,12 @@
                     asp-action="Upsert">License Registration</a>
                 </li>  
                 }
-                
-                <li class="btn btn-primary my-3">
-                    <a class="text-decoration-none text-light" href="#">Re-Trail</a>
-                </li>
+                @if (@Model.Id != 0)
+                {
+                    <li class="btn btn-primary my-3">
+                        <a class="text-decoration-none text-light" asp-controller="LicenseRegistration" asp-action="Retrail" asp-route-id="@Model.Id">Re-Trail</a>
+                    </li>
+                }
                 <li class="btn btn-primary my-3">
                     <a class="text-decoration-none text-light" href="#">Add Category</a>
                 </li>

@@ -133,7 +133,7 @@ function Category() {
         url: '/Users/LicenseRegistration/Category',
         success: function (result) {
             $.each(result, function (i, data) {
-                $('#Category').append('<Option value=' + data.id + '> ' + data.name + ' </Option>');
+                $('#Category').append('<Option value=' + data.id + '> ' +data.symbol+'-('+data.name+')'+ '</Option>');
             });
         }
     });

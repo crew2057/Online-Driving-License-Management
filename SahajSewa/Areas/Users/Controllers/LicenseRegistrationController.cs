@@ -28,11 +28,6 @@ namespace SahajSewa.Areas.Users.Controllers
         //Get
         public IActionResult Upsert(int? id)
         {
-            IEnumerable<LicenseRegistration> objects = _module.LicenseRegistration.GetAll();
-            if (objects != null)
-            {
-              return   RedirectToAction("Index", "Home");
-            }
                 if (id == null || id == 0)
             {
                 LicenseRegistration obj = new();
@@ -207,7 +202,8 @@ namespace SahajSewa.Areas.Users.Controllers
             ViewBag.CitizenDistrict = _db.Districts.FirstOrDefault(u => u.Id == obj.CitizenDistrict).Name;
             ViewBag.OfficeProvince = _db.Provinces.FirstOrDefault(u => u.Id == obj.OfficeProvince).Name;
             ViewBag.OfficeVisit = _db.Offices.FirstOrDefault(u => u.Id == obj.OfficeVisit).Name;
-            ViewBag.Category = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Name;
+            ViewBag.CategoryName = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Name;
+            ViewBag.CategorySymbol = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Symbol;
             return View(obj);
         }
         
@@ -215,6 +211,11 @@ namespace SahajSewa.Areas.Users.Controllers
         [ActionName("Details")]
         [ValidateAntiForgeryToken]
         public IActionResult DetailsPost(LicenseRegistration obj)
+        {
+            return RedirectToAction("Payment", obj);
+        }
+
+        public IActionResult Payment(LicenseRegistration obj)
         {
             //Stripe settings
             var domain = "https://localhost:44305/";
@@ -239,13 +240,16 @@ namespace SahajSewa.Areas.Users.Controllers
                         },
                 Mode = "payment",
                 SuccessUrl = domain + $"Users/LicenseRegistration/DownloadFile?id={obj.Id}",
-                CancelUrl = domain + $"Users/LicenseRegistration/Details?id={obj.Id}",
+                CancelUrl = domain + $"Users/Home/Index",
             };
 
-            
+
             var service = new SessionService();
             Session session = service.Create(options);
-            obj.SessionId = session.Id;
+            if (obj.SessionId == null)
+            {
+                obj.SessionId = session.Id;
+            }
             obj.PaymentIntentId = session.PaymentIntentId;
             _module.LicenseRegistration.Update(obj);
             _module.Save();
@@ -262,7 +266,9 @@ namespace SahajSewa.Areas.Users.Controllers
             ViewBag.Pdistrict = _db.Districts.FirstOrDefault(u => u.Id == obj.Pdistrict).Name;
             ViewBag.Pvillage = _db.Villages.FirstOrDefault(u => u.Id == obj.Pvillage).Name;
             ViewBag.OfficeVisit = _db.Offices.FirstOrDefault(u => u.Id == obj.OfficeVisit).Name;
-            ViewBag.Category = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Name;
+            ViewBag.CategoryName = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Name;
+            ViewBag.CategorySymbol = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Symbol;
+
 
             var service = new SessionService();
             Session session = service.Get(obj.SessionId);
@@ -274,7 +280,21 @@ namespace SahajSewa.Areas.Users.Controllers
             }
             TempData["error"] = "Registration Failed";
             return RedirectToAction("Index", "Home");
+        }
 
+        public IActionResult Retrail(int id)
+        {
+            LicenseRegistration obj = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == id);
+            obj.TrailCount++;
+            _module.Save();
+            if(obj.TrailCount>3)
+            {
+                TempData["Error"] = "Maximum Trails Reached!!";
+                obj.TrailCount--;
+                _module.Save();
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("Payment",obj);
         }
     }
 }

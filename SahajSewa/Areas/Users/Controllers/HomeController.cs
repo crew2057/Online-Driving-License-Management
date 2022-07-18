@@ -29,9 +29,7 @@ namespace SahajSewa.Controllers
             IEnumerable<LicenseRegistration> objects = _module.LicenseRegistration.GetAll();
             foreach (var obj in objects)
             {
-                var service = new SessionService();
-                Session session = service.Get(obj.SessionId);
-                    if (obj.SessionId == null || session.PaymentStatus.ToLower() != "paid")
+                    if (obj.SessionId == null)
                 {
                     string wwwRootPath = _hostEnvironment.WebRootPath;
                     var file1 = Path.Combine(wwwRootPath, obj.Photo.TrimStart('\\'));
@@ -54,6 +52,15 @@ namespace SahajSewa.Controllers
                 }
                 else
                 {
+                    var service = new SessionService();
+                    Session session = service.Get(obj.SessionId);
+                    if(session.PaymentStatus.ToLower() != "paid")
+                    {
+                        obj.SessionId = null;
+                        _module.Save();
+                        return RedirectToAction("Index");
+                    }
+                    else
                     return View(obj);
                 }
             }
