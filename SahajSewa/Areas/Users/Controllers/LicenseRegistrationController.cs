@@ -28,7 +28,12 @@ namespace SahajSewa.Areas.Users.Controllers
         //Get
         public IActionResult Upsert(int? id)
         {
-            if (id == null || id == 0)
+            IEnumerable<LicenseRegistration> objects = _module.LicenseRegistration.GetAll();
+            if (objects != null)
+            {
+              return   RedirectToAction("Index", "Home");
+            }
+                if (id == null || id == 0)
             {
                 LicenseRegistration obj = new();
                 return View(obj);
