@@ -34,21 +34,21 @@
                     <input asp-for="@Model.ExpiryDate" value="@Model.ExpiryDate.ToShortDateString()" class="form-control" />
                     <span asp-validation-for="@Model.ExpiryDate" class="text-danger"></span>
                 </div>
-                <div class="form-elem col-7">
+                <div class="form-elem col-6">
                     <label asp-for="@Model.ProvinceId"></label>
                     <select asp-for="@Model.ProvinceId" class="form-select" id="Oprovince">
                         <option disabled selected>-- Select Province --</option>
                     </select>
                     <span asp-validation-for="@Model.ProvinceId" class="text-danger"></span>
                 </div>
-                <div class="form-elem col-7">
+                <div class="form-elem col-6">
                     <label asp-for="@Model.OfficeId"></label>
                     <select asp-for="@Model.OfficeId" class="form-select " id="Oname">
                         <option disabled selected>-- Select District --</option>
                     </select>
                     <span asp-validation-for="@Model.OfficeId" class="text-danger"></span>
                 </div>
-                <div class="form-elem col-8">
+                <div class="form-elem col-6">
                     <label asp-for="@Model.LicensePhoto"></label>
                     <div class="d-flex">
                         <input type="file" name="file" class="form-control" onchange="Preview(event)" />
