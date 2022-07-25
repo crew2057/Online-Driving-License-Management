@@ -29,8 +29,7 @@ namespace SahajSewa.DataAccess.Repository
                 objFromDb.IssueDate = obj.IssueDate;
                 objFromDb.ExpiryDate = obj.ExpiryDate;
                 objFromDb.LicensePhoto = obj.LicensePhoto;
-                objFromDb.CategoryId = obj.CategoryId;
-                objFromDb.Category = obj.Category;
+                objFromDb.ApplicantId = obj.ApplicantId;
             }
 
         }

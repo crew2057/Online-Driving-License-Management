@@ -1,12 +1,12 @@
-﻿@model SahajSewa.Models.License
+﻿@model SahajSewa.Models.ViewModels.LicenseVM
 @{
     ViewData["Title"] = "Upsert";
 }
 
 <div class="container" style="max-width:70rem">
     <form method="post" enctype="multipart/form-data">
-        <input asp-for="@Model.Id" hidden />
-        <input asp-for="@Model.LicensePhoto" hidden />
+        <input asp-for="@Model.License.Id" hidden />
+        <input asp-for="@Model.License.LicensePhoto" hidden />
         <div class="card my-3">
             <div class="card-header text-center text-light bg-primary">
             Add License
@@ -14,57 +14,68 @@
             <div class="card-body my-3">
             <div class="row col-10 mx-auto gx-5">
                 <div class="form-elem col-6">
-                    <label asp-for="@Model.LicenseNo"></label>
-                    <input asp-for="@Model.LicenseNo" class="form-control" />
-                    <span asp-validation-for="@Model.LicenseNo" class="text-danger"></span>
+                    <label asp-for="@Model.License.LicenseNo"></label>
+                    <input asp-for="@Model.License.LicenseNo" class="form-control" />
+                    <span asp-validation-for="@Model.License.LicenseNo" class="text-danger"></span>
                 </div>
                 <div class="form-elem col-6">
-                    <label asp-for="@Model.Phone"></label>
-                    <input asp-for="@Model.Phone" class="form-control" />
-                    <span asp-validation-for="@Model.Phone" class="text-danger"></span>
+                    <label asp-for="@Model.License.Phone"></label>
+                    <input asp-for="@Model.License.Phone" class="form-control" />
+                    <span asp-validation-for="@Model.License.Phone" class="text-danger"></span>
                 </div>
                 
                 <div class="form-elem col-6">
-                    <label asp-for="@Model.IssueDate"></label>
-                    <input asp-for="@Model.IssueDate" value="@Model.IssueDate.ToShortDateString()" class="form-control" />
-                    <span asp-validation-for="@Model.IssueDate" class="text-danger"></span>
+                    <label asp-for="@Model.License.IssueDate"></label>
+                    <input asp-for="@Model.License.IssueDate" value="@Model.License.IssueDate.ToShortDateString()" class="form-control" />
+                    <span asp-validation-for="@Model.License.IssueDate" class="text-danger"></span>
                 </div>
                 <div class="form-elem col-6">
-                    <label asp-for="@Model.ExpiryDate"></label>
-                    <input asp-for="@Model.ExpiryDate" value="@Model.ExpiryDate.ToShortDateString()" class="form-control" />
-                    <span asp-validation-for="@Model.ExpiryDate" class="text-danger"></span>
+                    <label asp-for="@Model.License.ExpiryDate"></label>
+                    <input asp-for="@Model.License.ExpiryDate" value="@Model.License.ExpiryDate.ToShortDateString()" class="form-control" />
+                    <span asp-validation-for="@Model.License.ExpiryDate" class="text-danger"></span>
                 </div>
                 <div class="form-elem col-6">
-                    <label asp-for="@Model.ProvinceId"></label>
-                    <select asp-for="@Model.ProvinceId" class="form-select" id="Oprovince">
+                    <label asp-for="@Model.License.ProvinceId"></label>
+                    <select asp-for="@Model.License.ProvinceId" class="form-select" id="Oprovince">
                         <option disabled selected>-- Select Province --</option>
                     </select>
-                    <span asp-validation-for="@Model.ProvinceId" class="text-danger"></span>
+                    <span asp-validation-for="@Model.License.ProvinceId" class="text-danger"></span>
                 </div>
                 <div class="form-elem col-6">
-                    <label asp-for="@Model.OfficeId"></label>
-                    <select asp-for="@Model.OfficeId" class="form-select " id="Oname">
+                    <label asp-for="@Model.License.OfficeId"></label>
+                    <select asp-for="@Model.License.OfficeId" class="form-select " id="Oname">
                         <option disabled selected>-- Select District --</option>
                     </select>
-                    <span asp-validation-for="@Model.OfficeId" class="text-danger"></span>
+                    <span asp-validation-for="@Model.License.OfficeId" class="text-danger"></span>
                 </div>
                 <div class="form-elem col-6">
-                    <label asp-for="@Model.LicensePhoto"></label>
+                    <label asp-for="@Model.License.LicensePhoto"></label>
                     <div class="d-flex">
                         <input type="file" name="file" class="form-control" onchange="Preview(event)" />
                         <a class="mx-3 pt-2" id="check"><i class="bi bi-eye-slash"></i> </a>
                     </div>
                 </div>
                  <div class="form-elem col-12">
-                    <input type="checkbox" />
-                </div>
+                     <label>Category</label>
+                     <div class="row">
+                 @for(int i=0;i<Model.AvailableCategory.Capacity;i++)
+                        {
+                           <div class="col-3">
+                                <input asp-for="@Model.AvailableCategory[i].Id" hidden/>
+                                <input asp-for="@Model.AvailableCategory[i].Name" hidden/>
+                                <div>@Model.AvailableCategory[i].Name</div>
+                                <input asp-for="@Model.AvailableCategory[i].IsChecked"/>
+                                </div>
+                        }
+                        </div>
+                    </div>
 
             </div>
 
             <div class="mt-5 row justify-content-around">
 
-                <a class="btn btn-secondary col-3">Back To Home</a>
-                @if (Model.Id != 0)
+                <a class="btn btn-secondary col-3"  asp-action="Index">Back To Home</a>
+                @if (Model.License.Id != 0)
                 {
                     <button type="submit" class="btn btn-success col-3">Submit</button>
 

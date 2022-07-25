@@ -64,10 +64,8 @@ namespace SahajSewa.DataAccess.Repository
 
              
                     objFromDb.TrailCount = obj.TrailCount;
-                    objFromDb.WrittenResult = obj.WrittenResult;
-                    objFromDb.TrailResult = obj.TrailResult;
-                    objFromDb.LicenseId = obj.LicenseId;
-                    objFromDb.PassportId = obj.PassportId;
+                objFromDb.WrittenResult = obj.WrittenResult;
+                objFromDb.TrailResult = obj.TrailResult;
                 objFromDb.PaymentIntentId = obj.PaymentIntentId;
                 objFromDb.SessionId = obj.SessionId;
                 objFromDb.OldSessionId = obj.OldSessionId;

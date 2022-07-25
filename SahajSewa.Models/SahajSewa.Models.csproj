@@ -26,8 +26,4 @@
     <PackageReference Include="Twilio" Version="5.76.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-
 </Project>

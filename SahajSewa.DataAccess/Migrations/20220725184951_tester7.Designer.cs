@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SahajSewa.DataAccess.Data;
 
@@ -11,9 +12,10 @@ using SahajSewa.DataAccess.Data;
 namespace SahajSewa.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220725184951_tester7")]
+    partial class tester7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -423,9 +425,6 @@ namespace SahajSewa.DataAccess.Migrations
                     b.Property<int?>("TrailCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("TrailResult")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Ttole")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -435,9 +434,6 @@ namespace SahajSewa.DataAccess.Migrations
 
                     b.Property<int>("Tward")
                         .HasColumnType("int");
-
-                    b.Property<string>("WrittenResult")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -548,6 +544,12 @@ namespace SahajSewa.DataAccess.Migrations
 
                     b.Property<int?>("PassportId")
                         .HasColumnType("int");
+
+                    b.Property<string>("TrailResult")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WrittenResult")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasIndex("LicenseId");
 

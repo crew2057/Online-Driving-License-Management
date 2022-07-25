@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SahajSewa.DataAccess.Data;
 
@@ -11,9 +12,10 @@ using SahajSewa.DataAccess.Data;
 namespace SahajSewa.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220725073422_tester3")]
+    partial class tester3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -275,9 +277,6 @@ namespace SahajSewa.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("ApplicantId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2");
 
@@ -300,6 +299,9 @@ namespace SahajSewa.DataAccess.Migrations
 
                     b.Property<int>("ProvinceId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -423,9 +425,6 @@ namespace SahajSewa.DataAccess.Migrations
                     b.Property<int?>("TrailCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("TrailResult")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Ttole")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -435,9 +434,6 @@ namespace SahajSewa.DataAccess.Migrations
 
                     b.Property<int>("Tward")
                         .HasColumnType("int");
-
-                    b.Property<string>("WrittenResult")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -519,6 +515,31 @@ namespace SahajSewa.DataAccess.Migrations
                     b.ToTable("UserCategories");
                 });
 
+            modelBuilder.Entity("SahajSewa.Models.ViewModels.CheckBoxVM", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("IsChecked")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("LicenseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LicenseId");
+
+                    b.ToTable("CheckBoxVM");
+                });
+
             modelBuilder.Entity("SahajSewa.Models.Village", b =>
                 {
                     b.Property<int>("Id")
@@ -548,6 +569,12 @@ namespace SahajSewa.DataAccess.Migrations
 
                     b.Property<int?>("PassportId")
                         .HasColumnType("int");
+
+                    b.Property<string>("TrailResult")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WrittenResult")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasIndex("LicenseId");
 
@@ -688,6 +715,13 @@ namespace SahajSewa.DataAccess.Migrations
                     b.Navigation("DrivingCategory");
                 });
 
+            modelBuilder.Entity("SahajSewa.Models.ViewModels.CheckBoxVM", b =>
+                {
+                    b.HasOne("SahajSewa.Models.License", null)
+                        .WithMany("AvailableCategory")
+                        .HasForeignKey("LicenseId");
+                });
+
             modelBuilder.Entity("SahajSewa.Models.ApplicationUser", b =>
                 {
                     b.HasOne("SahajSewa.Models.License", "License")
@@ -706,6 +740,11 @@ namespace SahajSewa.DataAccess.Migrations
             modelBuilder.Entity("SahajSewa.Models.DrivingCategory", b =>
                 {
                     b.Navigation("UserCategory");
+                });
+
+            modelBuilder.Entity("SahajSewa.Models.License", b =>
+                {
+                    b.Navigation("AvailableCategory");
                 });
 
             modelBuilder.Entity("SahajSewa.Models.ApplicationUser", b =>

@@ -15,6 +15,7 @@ namespace SahajSewa.Models
         public string Symbol { get; set; }
         [Required]
         public string Name { get; set; }
+        public List<UserCategory> UserCategory { get; set; }
         
     }
 }
