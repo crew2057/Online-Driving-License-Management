@@ -9,21 +9,21 @@
     <div class="card-body">
         <p class="card-text">
             <ul class="list-group mx-3">
-                @if (@Model.LicenseRegistration.Id!=0)
+                @if (@Model.LicenseRegistration.Id != 0)
                 {
-                 <li class="btn btn-primary mb-3 ">
-                    <a class="text-decoration-none text-light" asp-controller="LicenseRegistration"
-                    asp-action="DownloadFile" asp-route-id="@Model.LicenseRegistration.Id">Application Details</a>
-                </li>     
+                    <li class="btn btn-primary mb-3 ">
+                        <a class="text-decoration-none text-light" asp-controller="LicenseRegistration"
+                       asp-action="DownloadFile" asp-route-id="@Model.LicenseRegistration.Id">Application Details</a>
+                    </li>
                 }
                 else
                 {
-                  <li class="btn btn-primary mb-3 ">
-                    <a class="text-decoration-none text-light" asp-controller="LicenseRegistration"
-                    asp-action="Upsert">License Registration</a>
-                </li>  
+                    <li class="btn btn-primary mb-3 ">
+                        <a class="text-decoration-none text-light" asp-controller="LicenseRegistration"
+                       asp-action="Upsert">License Registration</a>
+                    </li>
                 }
-                @if (@Model.LicenseRegistration.Id!=0)
+                @if (@Model.LicenseRegistration.Id != 0)
                 {
                     <li class="btn btn-primary my-3">
                         <a class="text-decoration-none text-light" asp-controller="LicenseRegistration" asp-action="Retrail" asp-route-id="@Model.LicenseRegistration.Id">Re-Trail</a>
@@ -32,7 +32,13 @@
                 <li class="btn btn-primary my-3">
                     <a class="text-decoration-none text-light" href="#">Add Category</a>
                 </li>
-                @if (@Model.License.Id==0)
+                @if (@Model.License.Id != 0)
+                {
+                    <li class="btn btn-primary my-3">
+                        <a class="text-decoration-none text-light" asp-controller="License" asp-action="Details" asp-route-id="@Model.License.Id">License Details</a>
+                    </li>
+                }
+                else
                 {
                     <li class="btn btn-primary my-3">
                         <a class="text-decoration-none text-light" asp-controller="License" asp-action="Upsert">Add License</a>

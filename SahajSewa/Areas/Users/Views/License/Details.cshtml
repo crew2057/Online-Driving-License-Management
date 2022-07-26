@@ -1,8 +1,46 @@
-﻿
+﻿@model SahajSewa.Models.License
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<div class="container col-lg-8 p-2">
+    <form method="post">
+    <div class="card card-body">
+        <h4 class="bg-primary">License Details</h4>
+        <div>
+            <label class="fw-bold">License No:</label>
+            <span >@Model.LicenseNo</span>
+        </div>
+        <div>
+            <label class="fw-bold">Issue Date:</label>
+            <span>@Model.IssueDate.ToShortDateString()</span>
+        </div>
+        <div>
+            <label class="fw-bold">Expiry Date:</label>
+            <span>@Model.ExpiryDate.ToShortDateString()</span>
+        </div>
+        <div>
+            <label class="fw-bold">Province:</label>
+            <span>@ViewBag.ProvinceName</span>
+        </div>
+        <div>
+            <label class="fw-bold ">Office:</label>
+            <span>@ViewBag.OfficeName</span>
+        </div>
+        <div>
+            <label class="fw-bold">Phone Number:</label>
+            <span>@Model.Phone</span>
+        </div>
+        <div>
+            <div class="fw-bold">License Photo:</div>
+            <img src="@Model.LicensePhoto" style="border-radius:5px; border:1px solid #bbb9b9; height:250px; width:auto;" />
+        </div>
+    </div>
+    <div class="d-flex justify-content-around my-2">
+                    <button type="submit" asp-controller="Home" asp-action="Index" class="btn btn-secondary col-3">Back to Home</button>
+    </div>
+    </form>
+</div>
+
 

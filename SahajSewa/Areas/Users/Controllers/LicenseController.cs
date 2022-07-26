@@ -124,14 +124,19 @@ namespace SahajSewa.Areas.Users.Controllers
                     _module.UserCategory.Add(item);
                 }
                 _module.Save();
-                return RedirectToAction("Index","Home");
+
+                License container = _module.License.GetFirstOrDefault(u => u.ApplicantId == claim.Value);
+                return RedirectToAction("Details",new { container.Id});
             }
-            return View("Upsert",obj.License.Id);
+            return View(obj);
 
         }
-        public IActionResult Details()
+        public IActionResult Details(int Id)
         {
-            return View();
+            License obj = _module.License.GetFirstOrDefault(u => u.Id == Id);
+            ViewBag.ProvinceName = _db.Provinces.FirstOrDefault(u => u.Id == obj.ProvinceId).Name;
+            ViewBag.OfficeName = _db.Offices.FirstOrDefault(u => u.Id == obj.OfficeId).Name;
+            return View(obj);
         }
     }
 }
