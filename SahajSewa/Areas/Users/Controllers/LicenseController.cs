@@ -55,6 +55,15 @@ namespace SahajSewa.Areas.Users.Controllers
                         IsChecked = false
                     }).ToList()
                 };
+                var data = _module.UserCategory.GetAll(u => u.UserId == obj.License.ApplicantId);
+                foreach(var val in data)
+                {
+                    foreach(var value in obj.AvailableCategory)
+                    {
+                        if (val.CategoryId == value.Id)
+                            value.IsChecked = true;
+                    }
+                }
                 return View(obj);
             }
 
@@ -101,7 +110,7 @@ namespace SahajSewa.Areas.Users.Controllers
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 obj.License.ApplicantId = claim.Value;
                 _module.License.Add(obj.License);
-                _module.Save();
+
                 List<UserCategory> data = new List<UserCategory>();
                 foreach(var item in obj.AvailableCategory)
                 {
@@ -112,12 +121,12 @@ namespace SahajSewa.Areas.Users.Controllers
                 }
                 foreach(var item in data)
                 {
-                    _db.UserCategories.Add(item);
+                    _module.UserCategory.Add(item);
                 }
-                _db.SaveChanges();
+                _module.Save();
                 return RedirectToAction("Index","Home");
             }
-            return View();
+            return View("Upsert",obj.License.Id);
 
         }
         public IActionResult Details()

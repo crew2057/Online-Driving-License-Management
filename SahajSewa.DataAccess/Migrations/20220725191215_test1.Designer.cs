@@ -12,8 +12,8 @@ using SahajSewa.DataAccess.Data;
 namespace SahajSewa.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220713082340_identity")]
-    partial class identity
+    [Migration("20220725191215_test1")]
+    partial class test1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -88,6 +88,10 @@ namespace SahajSewa.DataAccess.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -139,6 +143,8 @@ namespace SahajSewa.DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -169,12 +175,10 @@ namespace SahajSewa.DataAccess.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -211,12 +215,10 @@ namespace SahajSewa.DataAccess.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -258,6 +260,10 @@ namespace SahajSewa.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("DrivingCategories");
@@ -271,7 +277,37 @@ namespace SahajSewa.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ApplicantId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("IssueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LicenseNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LicensePhoto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OfficeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProvinceId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("OfficeId");
+
+                    b.HasIndex("ProvinceId");
 
                     b.ToTable("Licenses");
                 });
@@ -297,9 +333,8 @@ namespace SahajSewa.DataAccess.Migrations
                     b.Property<DateTime>("CitizenDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CitizenDistrict")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CitizenDistrict")
+                        .HasColumnType("int");
 
                     b.Property<string>("CitizenFront")
                         .HasColumnType("nvarchar(max)");
@@ -327,9 +362,6 @@ namespace SahajSewa.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LicenseId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Lname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -337,15 +369,17 @@ namespace SahajSewa.DataAccess.Migrations
                     b.Property<string>("Mname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OfficeProvince")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("OfficeProvince")
+                        .HasColumnType("int");
 
                     b.Property<int>("OfficeVisit")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PassportId")
-                        .HasColumnType("int");
+                    b.Property<string>("OldSessionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Pdistrict")
                         .HasColumnType("int");
@@ -370,19 +404,23 @@ namespace SahajSewa.DataAccess.Migrations
                     b.Property<int>("Pward")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("RegisterDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SessionId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Signature")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tdistrict")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Tdistrict")
+                        .HasColumnType("int");
 
                     b.Property<string>("Thumb")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tprovince")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Tprovince")
+                        .HasColumnType("int");
 
                     b.Property<int?>("TrailCount")
                         .HasColumnType("int");
@@ -394,9 +432,8 @@ namespace SahajSewa.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tvillage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Tvillage")
+                        .HasColumnType("int");
 
                     b.Property<int>("Tward")
                         .HasColumnType("int");
@@ -408,11 +445,7 @@ namespace SahajSewa.DataAccess.Migrations
 
                     b.HasIndex("Category");
 
-                    b.HasIndex("LicenseId");
-
                     b.HasIndex("OfficeVisit");
-
-                    b.HasIndex("PassportId");
 
                     b.HasIndex("Pdistrict");
 
@@ -473,6 +506,21 @@ namespace SahajSewa.DataAccess.Migrations
                     b.ToTable("Provinces");
                 });
 
+            modelBuilder.Entity("SahajSewa.Models.UserCategory", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("UserCategories");
+                });
+
             modelBuilder.Entity("SahajSewa.Models.Village", b =>
                 {
                     b.Property<int>("Id")
@@ -491,6 +539,23 @@ namespace SahajSewa.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Villages");
+                });
+
+            modelBuilder.Entity("SahajSewa.Models.ApplicationUser", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<int?>("LicenseId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PassportId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("LicenseId");
+
+                    b.HasIndex("PassportId");
+
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -544,6 +609,25 @@ namespace SahajSewa.DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SahajSewa.Models.License", b =>
+                {
+                    b.HasOne("SahajSewa.Models.Office", "Office")
+                        .WithMany()
+                        .HasForeignKey("OfficeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SahajSewa.Models.Province", "Province")
+                        .WithMany()
+                        .HasForeignKey("ProvinceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Office");
+
+                    b.Navigation("Province");
+                });
+
             modelBuilder.Entity("SahajSewa.Models.LicenseRegistration", b =>
                 {
                     b.HasOne("SahajSewa.Models.DrivingCategory", "DrivingCategory")
@@ -552,19 +636,11 @@ namespace SahajSewa.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SahajSewa.Models.License", "License")
-                        .WithMany()
-                        .HasForeignKey("LicenseId");
-
                     b.HasOne("SahajSewa.Models.Office", "Office")
                         .WithMany()
                         .HasForeignKey("OfficeVisit")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("SahajSewa.Models.Passport", "Passport")
-                        .WithMany()
-                        .HasForeignKey("PassportId");
 
                     b.HasOne("SahajSewa.Models.District", "District")
                         .WithMany()
@@ -588,15 +664,55 @@ namespace SahajSewa.DataAccess.Migrations
 
                     b.Navigation("DrivingCategory");
 
-                    b.Navigation("License");
-
                     b.Navigation("Office");
-
-                    b.Navigation("Passport");
 
                     b.Navigation("Province");
 
                     b.Navigation("Village");
+                });
+
+            modelBuilder.Entity("SahajSewa.Models.UserCategory", b =>
+                {
+                    b.HasOne("SahajSewa.Models.DrivingCategory", "DrivingCategory")
+                        .WithMany("UserCategory")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SahajSewa.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("UserCategory")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("DrivingCategory");
+                });
+
+            modelBuilder.Entity("SahajSewa.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("SahajSewa.Models.License", "License")
+                        .WithMany()
+                        .HasForeignKey("LicenseId");
+
+                    b.HasOne("SahajSewa.Models.Passport", "Passport")
+                        .WithMany()
+                        .HasForeignKey("PassportId");
+
+                    b.Navigation("License");
+
+                    b.Navigation("Passport");
+                });
+
+            modelBuilder.Entity("SahajSewa.Models.DrivingCategory", b =>
+                {
+                    b.Navigation("UserCategory");
+                });
+
+            modelBuilder.Entity("SahajSewa.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("UserCategory");
                 });
 #pragma warning restore 612, 618
         }

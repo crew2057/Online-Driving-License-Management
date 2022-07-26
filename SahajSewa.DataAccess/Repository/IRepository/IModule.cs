@@ -10,6 +10,7 @@ namespace SahajSewa.DataAccess.Repository.IRepository
     {
         ILicenseRegistrationRepository LicenseRegistration { get; }
         ILicenseRepository License { get; }
+        IUserCategoryRepository UserCategory { get; }
         void Save();
     }
 }
