@@ -13,15 +13,6 @@ namespace SahajSewa.Models
     {
 
         public List<UserCategory> UserCategory { get; set; }
-        
-        [Display(Name = "License Availability")]
-        public int? LicenseId { get; set; }
-        [ForeignKey("LicenseId")]
-        public License? License { get; set; }
-        [Display(Name = "Passport Availability")]
-        public int? PassportId { get; set; }
-        [ForeignKey("PassportId")]
-        public Passport? Passport { get; set; }
 
     }
 }

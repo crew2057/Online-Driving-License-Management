@@ -136,6 +136,7 @@ namespace SahajSewa.Models
         #region Backend Details
         [Display(Name = "Trail Count")]
         public int? TrailCount { get; set; }
+        public string? ApplicantId { get; set; }
         [Display(Name = "Written Result")]
         public string? WrittenResult { get; set; }
         [Display(Name = "Trail Result")]

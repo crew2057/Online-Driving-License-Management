@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using SahajSewa.DataAccess.Data;
 using SahajSewa.DataAccess.Repository.IRepository;
 using SahajSewa.Models;
+using SahajSewa.Models.ViewModels;
 using Stripe.Checkout;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace SahajSewa.Controllers
 {
@@ -15,38 +17,53 @@ namespace SahajSewa.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IModule _module;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly ApplicationDbContext _db;
 
         public HomeController(ILogger<HomeController> logger,
-            IWebHostEnvironment hostEnvironment, IModule module)
+            IWebHostEnvironment hostEnvironment, IModule module,
+            ApplicationDbContext db)
         {
             _logger = logger;
             _module = module;
+            _db = db;
             _hostEnvironment = hostEnvironment;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<LicenseRegistration> objects = _module.LicenseRegistration.GetAll();
-            foreach (var obj in objects)
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            IndexVM user = new IndexVM();
+            user.ApplicationUser = _db.ApplicationUsers.FirstOrDefault(u => u.Id == claim.Value);
+            user.LicenseRegistration = _db.LicenseRegistrations.FirstOrDefault(u => u.ApplicantId == claim.Value && u.TrailResult != "pass");
+            if (user.LicenseRegistration == null)
+                user.LicenseRegistration = new LicenseRegistration();
+            user.License = _db.Licenses.FirstOrDefault(u => u.ApplicantId == claim.Value);
+            if (user.License == null)
+                user.License = new License();
+            user.Passport = new Passport();
+
+            LicenseRegistration obj = user.LicenseRegistration;
+            if (obj.Id != 0)
             {
-                    if (obj.SessionId == null)
+                if (obj.SessionId == null)
                 {
                     string wwwRootPath = _hostEnvironment.WebRootPath;
                     var file1 = Path.Combine(wwwRootPath, obj.Photo.TrimStart('\\'));
-                        System.IO.File.Delete(file1);
-                    
+                    System.IO.File.Delete(file1);
+
                     var file2 = Path.Combine(wwwRootPath, obj.CitizenFront.TrimStart('\\'));
-                        System.IO.File.Delete(file2);
-                  
+                    System.IO.File.Delete(file2);
+
                     var file3 = Path.Combine(wwwRootPath, obj.CitizenBack.TrimStart('\\'));
-                        System.IO.File.Delete(file3);
-                    
+                    System.IO.File.Delete(file3);
+
                     var file4 = Path.Combine(wwwRootPath, obj.Signature.TrimStart('\\'));
-                        System.IO.File.Delete(file4);
-                    
+                    System.IO.File.Delete(file4);
+
                     var file5 = Path.Combine(wwwRootPath, obj.Thumb.TrimStart('\\'));
-                        System.IO.File.Delete(file5);
-                    
+                    System.IO.File.Delete(file5);
                     _module.LicenseRegistration.Remove(obj);
                     _module.Save();
                 }
@@ -64,18 +81,14 @@ namespace SahajSewa.Controllers
                             obj.TrailCount--;
                         }
                         else
-                        obj.SessionId = null;
+                            obj.SessionId = null;
                         _module.Save();
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        return View(obj);
-                    }
                 }
             }
-            LicenseRegistration temp = new();
-            return View(temp);
+
+            return View(user);
         }
 
         public IActionResult Privacy()

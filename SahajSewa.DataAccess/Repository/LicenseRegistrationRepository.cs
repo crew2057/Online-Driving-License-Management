@@ -64,6 +64,7 @@ namespace SahajSewa.DataAccess.Repository
 
              
                     objFromDb.TrailCount = obj.TrailCount;
+                objFromDb.ApplicantId = obj.ApplicantId;
                 objFromDb.WrittenResult = obj.WrittenResult;
                 objFromDb.TrailResult = obj.TrailResult;
                 objFromDb.PaymentIntentId = obj.PaymentIntentId;

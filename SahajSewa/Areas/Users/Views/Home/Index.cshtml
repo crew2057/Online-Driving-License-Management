@@ -1,4 +1,4 @@
-﻿@model SahajSewa.Models.LicenseRegistration
+﻿@model SahajSewa.Models.ViewModels.IndexVM
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -9,11 +9,11 @@
     <div class="card-body">
         <p class="card-text">
             <ul class="list-group mx-3">
-                @if (@Model.Id!=0)
+                @if (@Model.LicenseRegistration.Id!=0)
                 {
                  <li class="btn btn-primary mb-3 ">
                     <a class="text-decoration-none text-light" asp-controller="LicenseRegistration"
-                    asp-action="DownloadFile" asp-route-id="@Model.Id">Application Details</a>
+                    asp-action="DownloadFile" asp-route-id="@Model.LicenseRegistration.Id">Application Details</a>
                 </li>     
                 }
                 else
@@ -23,18 +23,21 @@
                     asp-action="Upsert">License Registration</a>
                 </li>  
                 }
-                @if (@Model.Id != 0)
+                @if (@Model.LicenseRegistration.Id!=0)
                 {
                     <li class="btn btn-primary my-3">
-                        <a class="text-decoration-none text-light" asp-controller="LicenseRegistration" asp-action="Retrail" asp-route-id="@Model.Id">Re-Trail</a>
+                        <a class="text-decoration-none text-light" asp-controller="LicenseRegistration" asp-action="Retrail" asp-route-id="@Model.LicenseRegistration.Id">Re-Trail</a>
                     </li>
                 }
                 <li class="btn btn-primary my-3">
                     <a class="text-decoration-none text-light" href="#">Add Category</a>
                 </li>
-                <li class="btn btn-primary my-3">
-                    <a class="text-decoration-none text-light" asp-controller="License" asp-action="Upsert">Add License</a>
-                </li>
+                @if (@Model.License.Id==0)
+                {
+                    <li class="btn btn-primary my-3">
+                        <a class="text-decoration-none text-light" asp-controller="License" asp-action="Upsert">Add License</a>
+                    </li>
+                }
                 <li class="btn btn-primary mt-3 mb-2">
                     <a href="#" class="text-decoration-none text-light">Add Passport</a>
                 </li>

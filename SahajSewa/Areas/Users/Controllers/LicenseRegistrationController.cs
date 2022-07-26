@@ -5,6 +5,7 @@ using SahajSewa.DataAccess.Data;
 using SahajSewa.DataAccess.Repository.IRepository;
 using SahajSewa.Models;
 using Stripe.Checkout;
+using System.Security.Claims;
 
 namespace SahajSewa.Areas.Users.Controllers
 {
@@ -71,7 +72,14 @@ namespace SahajSewa.Areas.Users.Controllers
 
         public JsonResult Category()
         {
-            var obj = _db.DrivingCategories.ToList();
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var asset = _module.UserCategory.GetAll(u => u.UserId == claim.Value);
+            IEnumerable<DrivingCategory> obj = _db.DrivingCategories.ToList();
+            foreach(var item in asset)
+            {
+                obj = obj.Where(u => u.Id != item.CategoryId);
+            }
             return new JsonResult(obj);
         }
 
@@ -179,6 +187,16 @@ namespace SahajSewa.Areas.Users.Controllers
                     obj.Thumb = @"\images\" + fileName + extension;
                 }
                 obj.TrailCount = 1;
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                obj.ApplicantId = claim.Value;
+
+                UserCategory addcategory = new UserCategory()
+                {
+                    UserId = claim.Value,
+                    CategoryId = obj.Category
+                };
+                _module.UserCategory.Add(addcategory);
                 if (obj.Id == 0)
                     _module.LicenseRegistration.Add(obj);
                 else
