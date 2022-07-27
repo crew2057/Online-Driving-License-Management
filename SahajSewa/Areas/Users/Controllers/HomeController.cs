@@ -42,6 +42,8 @@ namespace SahajSewa.Controllers
             user.License = _db.Licenses.FirstOrDefault(u => u.ApplicantId == claim.Value);
             if (user.License == null)
                 user.License = new License();
+            user.Passport = _db.Passports.FirstOrDefault(u => u.ApplicantId == claim.Value);
+            if(user.Passport==null)
             user.Passport = new Passport();
 
             LicenseRegistration obj = user.LicenseRegistration;
@@ -64,6 +66,9 @@ namespace SahajSewa.Controllers
 
                     var file5 = Path.Combine(wwwRootPath, obj.Thumb.TrimStart('\\'));
                     System.IO.File.Delete(file5);
+                    UserCategory obj1 = _db.UserCategories.FirstOrDefault(u => u.CategoryId == obj.Category && u.UserId == claim.Value);
+                    _db.UserCategories.Remove(obj1);
+                    _db.SaveChanges();
                     _module.LicenseRegistration.Remove(obj);
                     _module.Save();
                 }

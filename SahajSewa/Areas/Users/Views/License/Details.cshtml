@@ -12,6 +12,16 @@
             <label class="fw-bold">License No:</label>
             <span >@Model.LicenseNo</span>
         </div>
+
+        <div>
+            <label class="fw-bold">Category:</label>
+            <span>
+                    @foreach(var item in ViewBag.CategoryList)
+                    {
+                        <span>@item.Symbol,&nbsp;</span>
+                    }
+                </span>
+        </div>
         <div>
             <label class="fw-bold">Issue Date:</label>
             <span>@Model.IssueDate.ToShortDateString()</span>
@@ -26,7 +36,7 @@
         </div>
         <div>
             <label class="fw-bold ">Office:</label>
-            <span>@ViewBag.OfficeName</span>
+            <span>Transport Management Office = @ViewBag.OfficeName</span>
         </div>
         <div>
             <label class="fw-bold">Phone Number:</label>

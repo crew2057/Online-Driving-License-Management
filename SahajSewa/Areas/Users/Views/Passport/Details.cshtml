@@ -1,0 +1,43 @@
+﻿@model SahajSewa.Models.Passport
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container col-lg-8 p-2">
+    <form method="post">
+        <div class="card card-body">
+            <h4 class="bg-primary">Passport Details</h4>
+            <div>
+                <label class="fw-bold">Passport No:</label>
+                <span>@Model.PassportNo</span>
+            </div>
+             <div>
+                <label class="fw-bold">Personal No:</label>
+                <span>@Model.PassportNo</span>
+            </div>
+            <div>
+                <label class="fw-bold">Issue Date:</label>
+                <span>@Model.IssueDate.ToShortDateString()</span>
+            </div>
+            <div>
+                <label class="fw-bold">Expiry Date:</label>
+                <span>@Model.ExpiryDate.ToShortDateString()</span>
+            </div>
+            <div>
+            <label class="fw-bold ">Issue Office:</label>
+            <span>@Model.IssueOffice, Department of Passports</span>
+        </div>
+        <div>
+            <div class="fw-bold">Passport Photo:</div>
+            <img src="@Model.PassportPhoto" style="border-radius:5px; border:1px solid #bbb9b9; height:250px; width:auto;" />
+        </div>
+</div>
+<div class="d-flex justify-content-around my-2">
+    <button type="submit" asp-controller="Home" asp-action="Index" class="btn btn-secondary col-3">Back to Home</button>
+</div>
+    </form>
+</div>
+
+
+

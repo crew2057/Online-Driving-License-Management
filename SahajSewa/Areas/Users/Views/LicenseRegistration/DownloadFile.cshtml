@@ -63,6 +63,13 @@
         <span class="col-8">@Model.CitizenNo</span>
         <br />
         <br />
+        @if (Model.PassportAvailability == true)
+        {
+        <label  class="col-4 fw-bold">Passport No:</label>
+        <span class="col-8">@ViewBag.Passport</span>
+        <br />
+        <br />    
+        }
         <label class="col-4 fw-bold">Registration Date:</label>
         <span class="col-8">@Model.RegisterDate.ToShortDateString()</span>
         <br />

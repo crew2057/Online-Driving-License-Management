@@ -140,6 +140,7 @@ namespace SahajSewa.Models
         [Display(Name = "Written Result")]
         public string? WrittenResult { get; set; }
         [Display(Name = "Trail Result")]
+        public bool? PassportAvailability { get; set; }
         public string? TrailResult { get; set; }
         public string? SessionId { get; set; }
         public string? OldSessionId { get; set; }

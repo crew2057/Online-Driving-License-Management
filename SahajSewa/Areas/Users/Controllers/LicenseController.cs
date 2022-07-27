@@ -27,11 +27,9 @@ namespace SahajSewa.Areas.Users.Controllers
             _hostEnvironment = hostEnvironment;
         }
         //Get
-        public IActionResult Upsert(int? id)
+        public IActionResult Upsert()
         {
             var item = _db.DrivingCategories.ToList();
-            if (id == null || id == 0)
-            {
                 LicenseVM obj = new LicenseVM {
                     AvailableCategory = item.Select(vm => new CheckBoxVM()
                     {
@@ -42,30 +40,29 @@ namespace SahajSewa.Areas.Users.Controllers
                     License = new()
             };
                 return View(obj);
-            }
-            else
-            {
-                LicenseVM obj = new LicenseVM
-                {
-                    License = _module.License.GetFirstOrDefault(u => u.Id == id),
-                    AvailableCategory = item.Select(vm => new CheckBoxVM()
-                    {
-                        Id = vm.Id,
-                        Name = vm.Symbol,
-                        IsChecked = false
-                    }).ToList()
-                };
-                var data = _module.UserCategory.GetAll(u => u.UserId == obj.License.ApplicantId);
-                foreach(var val in data)
-                {
-                    foreach(var value in obj.AvailableCategory)
-                    {
-                        if (val.CategoryId == value.Id)
-                            value.IsChecked = true;
-                    }
-                }
-                return View(obj);
-            }
+            //else
+            //{
+            //    LicenseVM obj = new LicenseVM
+            //    {
+            //        License = _module.License.GetFirstOrDefault(u => u.Id == id),
+            //        AvailableCategory = item.Select(vm => new CheckBoxVM()
+            //        {
+            //            Id = vm.Id,
+            //            Name = vm.Symbol,
+            //            IsChecked = false
+            //        }).ToList()
+            //    };
+            //    var data = _module.UserCategory.GetAll(u => u.UserId == obj.License.ApplicantId);
+            //    foreach(var val in data)
+            //    {
+            //        foreach(var value in obj.AvailableCategory)
+            //        {
+            //            if (val.CategoryId == value.Id)
+            //                value.IsChecked = true;
+            //        }
+            //    }
+            //    return View(obj);
+            //}
 
         }
         public JsonResult Pprovince()
@@ -136,7 +133,26 @@ namespace SahajSewa.Areas.Users.Controllers
             License obj = _module.License.GetFirstOrDefault(u => u.Id == Id);
             ViewBag.ProvinceName = _db.Provinces.FirstOrDefault(u => u.Id == obj.ProvinceId).Name;
             ViewBag.OfficeName = _db.Offices.FirstOrDefault(u => u.Id == obj.OfficeId).Name;
-            return View(obj);
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            IEnumerable<UserCategory> obj1 = _module.UserCategory.GetAll(u => u.UserId == claim.Value).ToList();
+            IEnumerable<LicenseRegistration> obj2 = _module.LicenseRegistration.GetAll(u => u.ApplicantId == claim.Value).ToList();
+            IEnumerable<DrivingCategory> obj3 = _db.DrivingCategories.ToList();
+            foreach(var item in obj2)
+            {
+                obj1 = obj1.Where(u => u.CategoryId != item.Category);
+            }
+            foreach(var item in obj1)
+            {
+                obj3 = obj3.Where(u => u.Id != item.CategoryId);
+            }
+            IEnumerable<DrivingCategory> obj4 = _db.DrivingCategories.ToList();
+            foreach (var item in obj3)
+            {
+                obj4=obj4.Where(u =>u.Id!=item.Id);
+            }
+            ViewBag.CategoryList = obj4;
+                return View(obj);
         }
     }
 }

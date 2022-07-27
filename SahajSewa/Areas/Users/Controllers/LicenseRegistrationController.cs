@@ -190,7 +190,9 @@ namespace SahajSewa.Areas.Users.Controllers
                 var claimsIdentity = (ClaimsIdentity)User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 obj.ApplicantId = claim.Value;
-
+                Passport userPassport = _db.Passports.FirstOrDefault(u => u.ApplicantId == claim.Value);
+                if (userPassport != null)
+                    obj.PassportAvailability = true;
                 UserCategory addcategory = new UserCategory()
                 {
                     UserId = claim.Value,
@@ -275,14 +277,19 @@ namespace SahajSewa.Areas.Users.Controllers
 
         public IActionResult DownloadFile(int id)
         {
-            LicenseRegistration obj = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == id);
 
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            LicenseRegistration obj = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == id);
             ViewBag.Pprovince = _db.Provinces.FirstOrDefault(u => u.Id == obj.Pprovince).Name;
             ViewBag.Pdistrict = _db.Districts.FirstOrDefault(u => u.Id == obj.Pdistrict).Name;
             ViewBag.Pvillage = _db.Villages.FirstOrDefault(u => u.Id == obj.Pvillage).Name;
             ViewBag.OfficeVisit = _db.Offices.FirstOrDefault(u => u.Id == obj.OfficeVisit).Name;
             ViewBag.CategoryName = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Name;
             ViewBag.CategorySymbol = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Symbol;
+            if (obj.PassportAvailability == true)
+                ViewBag.Passport = _db.Passports.FirstOrDefault(u => u.ApplicantId == claim.Value).PassportNo;
 
             var service = new SessionService();
             Session session = service.Get(obj.SessionId);

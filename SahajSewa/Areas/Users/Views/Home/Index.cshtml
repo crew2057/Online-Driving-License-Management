@@ -44,9 +44,19 @@
                         <a class="text-decoration-none text-light" asp-controller="License" asp-action="Upsert">Add License</a>
                     </li>
                 }
-                <li class="btn btn-primary mt-3 mb-2">
-                    <a href="#" class="text-decoration-none text-light">Add Passport</a>
+                @if (@Model.Passport.Id != 0)
+                {
+                       <li class="btn btn-primary my-3">
+                        <a class="text-decoration-none text-light" asp-controller="Passport" asp-action="Details" asp-route-id="@Model.Passport.Id">Passport Details</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="btn btn-primary mt-3 mb-2">
+                    <a asp-controller="Passport" asp-action="Insert" class="text-decoration-none text-light">Add Passport</a>
                 </li>
+                }
+                
             </ul>
         </p>
     </div>

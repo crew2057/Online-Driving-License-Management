@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SahajSewa.DataAccess.Data;
 
@@ -11,9 +12,10 @@ using SahajSewa.DataAccess.Data;
 namespace SahajSewa.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220727070218_passport")]
+    partial class passport
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -497,15 +499,12 @@ namespace SahajSewa.DataAccess.Migrations
                     b.Property<DateTime>("IssueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("IssueOffice")
+                    b.Property<string>("IssuingOffice")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PassportNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PassportPhoto")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PersonalNo")
