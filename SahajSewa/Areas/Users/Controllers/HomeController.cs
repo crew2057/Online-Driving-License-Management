@@ -36,8 +36,8 @@ namespace SahajSewa.Controllers
 
             IndexVM user = new IndexVM();
             user.ApplicationUser = _db.ApplicationUsers.FirstOrDefault(u => u.Id == claim.Value);
-            user.LicenseRegistration = _db.LicenseRegistrations.FirstOrDefault(u => u.ApplicantId == claim.Value && u.TrailResult != "pass");
-            if (user.LicenseRegistration == null)
+            user.LicenseRegistration = _db.LicenseRegistrations.FirstOrDefault(u => u.ApplicantId == claim.Value && u.WrittenResult!="fail");
+            if (user.LicenseRegistration == null ||user.LicenseRegistration.SessionId==null)
                 user.LicenseRegistration = new LicenseRegistration();
             user.License = _db.Licenses.FirstOrDefault(u => u.ApplicantId == claim.Value);
             if (user.License == null)
@@ -92,7 +92,6 @@ namespace SahajSewa.Controllers
                     }
                 }
             }
-
             return View(user);
         }
 

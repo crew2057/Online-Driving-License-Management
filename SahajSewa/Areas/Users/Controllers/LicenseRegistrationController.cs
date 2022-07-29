@@ -224,6 +224,7 @@ namespace SahajSewa.Areas.Users.Controllers
             ViewBag.OfficeVisit = _db.Offices.FirstOrDefault(u => u.Id == obj.OfficeVisit).Name;
             ViewBag.CategoryName = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Name;
             ViewBag.CategorySymbol = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Symbol;
+            ViewBag.Check = _db.LicenseRegistrations.FirstOrDefault(u => u.TrailResult == "pass");
             return View(obj);
         }
         

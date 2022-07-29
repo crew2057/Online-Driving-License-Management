@@ -16,22 +16,31 @@
                        asp-action="DownloadFile" asp-route-id="@Model.LicenseRegistration.Id">Application Details</a>
                     </li>
                 }
+                else if(@Model.License.Id!=0)
+                {
+                     <li class="btn btn-primary my-3">
+                        <a class="text-decoration-none text-light" asp-controller="AddCategory" asp-action="Insert">Add Category</a>
+                    </li>
+                }
                 else
                 {
-                    <li class="btn btn-primary mb-3 ">
+                     <li class="btn btn-primary mb-3 ">
                         <a class="text-decoration-none text-light" asp-controller="LicenseRegistration"
                        asp-action="Upsert">License Registration</a>
                     </li>
                 }
-                @if (@Model.LicenseRegistration.Id != 0)
+                @if (@Model.LicenseRegistration.TrailResult == "fail" @*&& @Model.LicenseRegistration.RegisterDate.AddDays(7)<DateTime.Today*@)
                 {
                     <li class="btn btn-primary my-3">
                         <a class="text-decoration-none text-light" asp-controller="LicenseRegistration" asp-action="Retrail" asp-route-id="@Model.LicenseRegistration.Id">Re-Trail</a>
                     </li>
                 }
-                <li class="btn btn-primary my-3">
-                    <a class="text-decoration-none text-light" href="#">Add Category</a>
-                </li>
+              @*  @if (@Model.LicenseRegistration.TrailResult == "pass"  && @Model.LicenseRegistration.RegisterDate.AddDays(30)<DateTime.Today)
+                {
+                    <li class="btn btn-primary my-3">
+                        <a class="text-decoration-none text-light" asp-controller="AddCategory" asp-action="Insert">Add Category</a>
+                    </li>
+                }*@
                 @if (@Model.License.Id != 0)
                 {
                     <li class="btn btn-primary my-3">

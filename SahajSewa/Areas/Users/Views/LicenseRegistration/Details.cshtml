@@ -113,7 +113,10 @@
         </div>
     </div>
     <div class="d-flex justify-content-around my-2">
-        <a asp-controller="LicenseRegistration" asp-action="Upsert" asp-route-id="@Model.Id" class="btn btn-secondary">Update Details</a>
+            @if (ViewBag.Check == null)
+            {
+                <a asp-controller="LicenseRegistration" asp-action="Upsert" asp-route-id="@Model.Id" class="btn btn-secondary">Update Details</a>
+            }
                     <button type="submit" class="btn btn-success col-3">Payment</button>
     </div>
     </form>
