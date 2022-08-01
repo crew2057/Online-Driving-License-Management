@@ -108,17 +108,18 @@ namespace SahajSewa.Areas.Users.Controllers
                 obj.License.ApplicantId = claim.Value;
                 _module.License.Add(obj.License);
 
-                List<UserCategory> data = new List<UserCategory>();
                 foreach(var item in obj.AvailableCategory)
                 {
                     if (item.IsChecked == true)
                     {
-                        data.Add(new UserCategory() { UserId = obj.License.ApplicantId, CategoryId = item.Id });
+                        UserCategory data = new UserCategory()
+                        {
+                            UserId = obj.License.ApplicantId,
+                            CategoryId = item.Id
+                        };
+                        if(!_db.UserCategories.Contains(data))
+                        _module.UserCategory.Add(data);
                     }
-                }
-                foreach(var item in data)
-                {
-                    _module.UserCategory.Add(item);
                 }
                 _module.Save();
 
@@ -135,23 +136,18 @@ namespace SahajSewa.Areas.Users.Controllers
             ViewBag.OfficeName = _db.Offices.FirstOrDefault(u => u.Id == obj.OfficeId).Name;
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            IEnumerable<UserCategory> obj1 = _module.UserCategory.GetAll(u => u.UserId == claim.Value).ToList();
-            IEnumerable<LicenseRegistration> obj2 = _module.LicenseRegistration.GetAll(u => u.ApplicantId == claim.Value).ToList();
-            IEnumerable<DrivingCategory> obj3 = _db.DrivingCategories.ToList();
+            IEnumerable<UserCategory> obj1 = _module.UserCategory.GetAll(u => u.UserId == claim.Value);
+            IEnumerable<DrivingCategory> obj2 = _db.DrivingCategories;
+            foreach (var item in obj1)
+            {
+                obj2 = obj2.Where(u => item.CategoryId != u.Id);
+            }
+            IEnumerable<DrivingCategory> obj3 = _db.DrivingCategories;
             foreach(var item in obj2)
             {
-                obj1 = obj1.Where(u => u.CategoryId != item.Category);
+                obj3 = obj3.Where(u => u.Id != item.Id);
             }
-            foreach(var item in obj1)
-            {
-                obj3 = obj3.Where(u => u.Id != item.CategoryId);
-            }
-            IEnumerable<DrivingCategory> obj4 = _db.DrivingCategories.ToList();
-            foreach (var item in obj3)
-            {
-                obj4=obj4.Where(u =>u.Id!=item.Id);
-            }
-            ViewBag.CategoryList = obj4;
+            ViewBag.CategoryList = obj3;
                 return View(obj);
         }
     }

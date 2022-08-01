@@ -193,12 +193,6 @@ namespace SahajSewa.Areas.Users.Controllers
                 Passport userPassport = _db.Passports.FirstOrDefault(u => u.ApplicantId == claim.Value);
                 if (userPassport != null)
                     obj.PassportAvailability = true;
-                UserCategory addcategory = new UserCategory()
-                {
-                    UserId = claim.Value,
-                    CategoryId = obj.Category
-                };
-                _module.UserCategory.Add(addcategory);
                 if (obj.Id == 0)
                     _module.LicenseRegistration.Add(obj);
                 else
@@ -311,6 +305,8 @@ namespace SahajSewa.Areas.Users.Controllers
         {
             LicenseRegistration obj = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == id);
             obj.TrailCount++;
+            obj.TrailResult = null;
+            _module.LicenseRegistration.Update(obj);
             _module.Save();
             if(obj.TrailCount>3)
             {

@@ -21,9 +21,18 @@ namespace SahajSewa.Areas.Users.Controllers
         }
         public IActionResult Insert()
         {
+
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            LicenseRegistration obj = _module.LicenseRegistration.GetFirstOrDefault(u=>u.ApplicantId==claim.Value);
+
+            License check = _module.License.GetFirstOrDefault(u => u.ApplicantId == claim.Value);
+            if (check == null)
+            {
+                TempData["error"] = "Please add your license details before proceeding with adding category";
+                return RedirectToAction("Index", "Home");
+            }
+
+            LicenseRegistration obj = _db.LicenseRegistrations.OrderBy(u=>u.Id).LastOrDefault(u=>u.ApplicantId==claim.Value);
             if (obj == null)
                 return RedirectToAction("Upsert", "LicenseRegistration");
             return View(obj);
@@ -59,7 +68,7 @@ namespace SahajSewa.Areas.Users.Controllers
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            LicenseRegistration obj1 = _module.LicenseRegistration.GetFirstOrDefault(u => u.ApplicantId==claim.Value);
+            LicenseRegistration obj1 = _db.LicenseRegistrations.OrderBy(u=>u.Id).LastOrDefault(u => u.ApplicantId==claim.Value);
             obj1.OfficeProvince = obj.OfficeProvince;
             obj1.OfficeVisit = obj.OfficeVisit;
             obj1.Category = obj.Category;
@@ -68,6 +77,7 @@ namespace SahajSewa.Areas.Users.Controllers
             obj1.TrailCount = 1;
             obj1.TrailResult = obj.TrailResult;
             obj1.OldSessionId = obj.OldSessionId;
+            obj1.SessionId = obj.SessionId;
 
             UserCategory addcategory = new UserCategory()
             {

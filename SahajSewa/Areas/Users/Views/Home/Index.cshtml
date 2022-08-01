@@ -9,27 +9,28 @@
     <div class="card-body">
         <p class="card-text">
             <ul class="list-group mx-3">
-                @if (@Model.LicenseRegistration.Id != 0)
-                {
-                    <li class="btn btn-primary mb-3 ">
-                        <a class="text-decoration-none text-light" asp-controller="LicenseRegistration"
-                       asp-action="DownloadFile" asp-route-id="@Model.LicenseRegistration.Id">Application Details</a>
-                    </li>
-                }
-                else if(@Model.License.Id!=0)
-                {
-                     <li class="btn btn-primary my-3">
-                        <a class="text-decoration-none text-light" asp-controller="AddCategory" asp-action="Insert">Add Category</a>
-                    </li>
-                }
-                else
-                {
+                 @if((@Model.LicenseRegistration.Id==0 && @Model.License.Id==0) || @Model.LicenseRegistration.WrittenResult=="fail" || (@Model.LicenseRegistration.TrailCount==3 && @Model.LicenseRegistration.TrailResult=="fail" ))
+                 {
                      <li class="btn btn-primary mb-3 ">
                         <a class="text-decoration-none text-light" asp-controller="LicenseRegistration"
                        asp-action="Upsert">License Registration</a>
                     </li>
                 }
-                @if (@Model.LicenseRegistration.TrailResult == "fail" @*&& @Model.LicenseRegistration.RegisterDate.AddDays(7)<DateTime.Today*@)
+                @if(@Model.LicenseRegistration.Id!=0 && @Model.LicenseRegistration.WrittenResult!="fail" && @Model.LicenseRegistration.TrailResult==null) 
+                {
+                <li class="btn btn-primary mb-3 ">
+                            <a class="text-decoration-none text-light" asp-controller="LicenseRegistration"
+                       asp-action="DownloadFile" asp-route-id="@Model.LicenseRegistration.Id">Application Details</a>
+                        </li>
+                    }
+                @if (@Model.LicenseRegistration.TrailResult == "pass"|| (@Model.License.Id!=0 && @Model.LicenseRegistration.Id==0))
+                {
+                    <li class="btn btn-primary my-3">
+                        <a class="text-decoration-none text-light" asp-controller="AddCategory" asp-action="Insert">Add Category</a>
+                    </li>
+                }
+
+                @if (@Model.LicenseRegistration.TrailResult == "fail" && @Model.LicenseRegistration.TrailCount<3 @*&& @Model.LicenseRegistration.RegisterDate.AddDays(7)<DateTime.Today*@)
                 {
                     <li class="btn btn-primary my-3">
                         <a class="text-decoration-none text-light" asp-controller="LicenseRegistration" asp-action="Retrail" asp-route-id="@Model.LicenseRegistration.Id">Re-Trail</a>

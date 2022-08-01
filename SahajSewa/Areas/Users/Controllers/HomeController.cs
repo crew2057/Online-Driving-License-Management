@@ -36,41 +36,56 @@ namespace SahajSewa.Controllers
 
             IndexVM user = new IndexVM();
             user.ApplicationUser = _db.ApplicationUsers.FirstOrDefault(u => u.Id == claim.Value);
-            user.LicenseRegistration = _db.LicenseRegistrations.FirstOrDefault(u => u.ApplicantId == claim.Value && u.WrittenResult!="fail");
-            if (user.LicenseRegistration == null ||user.LicenseRegistration.SessionId==null)
-                user.LicenseRegistration = new LicenseRegistration();
+            user.LicenseRegistration = _db.LicenseRegistrations.OrderBy(u=>u.Id).LastOrDefault(u => u.ApplicantId == claim.Value);
+            if (user.LicenseRegistration == null)
+                user.LicenseRegistration = new LicenseRegistration();      
             user.License = _db.Licenses.FirstOrDefault(u => u.ApplicantId == claim.Value);
             if (user.License == null)
                 user.License = new License();
             user.Passport = _db.Passports.FirstOrDefault(u => u.ApplicantId == claim.Value);
-            if(user.Passport==null)
-            user.Passport = new Passport();
+            if (user.Passport == null)
+                user.Passport = new Passport();
+
+            if (user.LicenseRegistration != null && user.LicenseRegistration.TrailResult == "pass")
+            {
+                UserCategory sample = new UserCategory()
+                {
+                    UserId = claim.Value,
+                    CategoryId = user.LicenseRegistration.Category
+                };
+                if (!_db.UserCategories.Contains(sample))
+                {
+                    _module.UserCategory.Add(sample);
+                    _module.Save();
+                }
+            }
+
 
             LicenseRegistration obj = user.LicenseRegistration;
             if (obj.Id != 0)
             {
                 if (obj.SessionId == null)
                 {
-                    string wwwRootPath = _hostEnvironment.WebRootPath;
-                    var file1 = Path.Combine(wwwRootPath, obj.Photo.TrimStart('\\'));
-                    System.IO.File.Delete(file1);
+                    //string wwwRootPath = _hostEnvironment.WebRootPath;
+                    //var file1 = Path.Combine(wwwRootPath, obj.Photo.TrimStart('\\'));
+                    //System.IO.File.Delete(file1);
 
-                    var file2 = Path.Combine(wwwRootPath, obj.CitizenFront.TrimStart('\\'));
-                    System.IO.File.Delete(file2);
+                    //var file2 = Path.Combine(wwwRootPath, obj.CitizenFront.TrimStart('\\'));
+                    //System.IO.File.Delete(file2);
 
-                    var file3 = Path.Combine(wwwRootPath, obj.CitizenBack.TrimStart('\\'));
-                    System.IO.File.Delete(file3);
+                    //var file3 = Path.Combine(wwwRootPath, obj.CitizenBack.TrimStart('\\'));
+                    //System.IO.File.Delete(file3);
 
-                    var file4 = Path.Combine(wwwRootPath, obj.Signature.TrimStart('\\'));
-                    System.IO.File.Delete(file4);
+                    //var file4 = Path.Combine(wwwRootPath, obj.Signature.TrimStart('\\'));
+                    //System.IO.File.Delete(file4);
 
-                    var file5 = Path.Combine(wwwRootPath, obj.Thumb.TrimStart('\\'));
-                    System.IO.File.Delete(file5);
+                    //var file5 = Path.Combine(wwwRootPath, obj.Thumb.TrimStart('\\'));
+                    //System.IO.File.Delete(file5);
                     UserCategory obj1 = _db.UserCategories.FirstOrDefault(u => u.CategoryId == obj.Category && u.UserId == claim.Value);
-                    _db.UserCategories.Remove(obj1);
-                    _db.SaveChanges();
+                    _module.UserCategory.Remove(obj1);
                     _module.LicenseRegistration.Remove(obj);
                     _module.Save();
+                    return RedirectToAction("Index");
                 }
                 else
                 {
