@@ -5,120 +5,123 @@
 }
 <div class="container col-lg-8 p-2">
     <form method="post">
-    <div class="card card-body">
-        <h4 class="bg-primary">General Details</h4>
-        <div>
-            <label class="fw-bold">Name:</label>
-            <span >@Model.Fname&nbsp;@Model.Mname&nbsp;@Model.Lname</span>
+        <div class="card card-body">
+            <h4 class="bg-primary">General Details</h4>
+            <div>
+                <label class="fw-bold">Name:</label>
+                <span>@Model.Fname&nbsp;@Model.Mname&nbsp;@Model.Lname</span>
+            </div>
+            <div>
+                <label class="fw-bold">Date of Birth:</label>
+                <span>@Model.DOB.ToShortDateString()</span>
+            </div>
+            <div>
+                <label class="fw-bold">Gender:</label>
+                <span>@Model.Gender</span>
+            </div>
+            <div>
+                <label class="fw-bold ">Blood Group:</label>
+                <span>@Model.Bgroup</span>
+            </div>
+            <div>
+                <label class="fw-bold">Phone Number:</label>
+                <span>@Model.Pnumber</span>
+            </div>
+            <div>
+                <label class="fw-bold">Guardian's Name:</label>
+                <span>@Model.Gname</span>
+            </div>
         </div>
-        <div>
-            <label class="fw-bold">Date of Birth:</label>
-            <span>@Model.DOB.ToShortDateString()</span>
+        <div class="card card-body">
+            <h4 class="bg-primary">Address Details</h4>
+            <h5 class="bg-secondary text-center">Permanent address</h5>
+            <div>
+                <label class="fw-bold">Province:</label>
+                <span>@ViewBag.Pprovince</span>
+            </div>
+            <div>
+                <label class="fw-bold">District:</label>
+                <span>@ViewBag.Pdistrict</span>
+            </div>
+            <div>
+                <label class="fw-bold">Village / Municipality:</label>
+                <span>@ViewBag.Pvillage</span>
+            </div>
+            <div>
+                <label class="fw-bold">Ward:</label>
+                <span>@Model.Pward</span>
+            </div>
+            <div>
+                <label class="fw-bold">Tole:</label>
+                <span>@Model.Ptole</span>
+            </div>
+            <div>
+                <label class="fw-bold">Email:</label>
+                <span>@Model.Email</span>
+            </div>
+            @if (Model.Tprovince != null)
+            {
+                <br />
+                <h5 class="bg-secondary text-center">Temporary address</h5>
+                <div>
+                    <label class="fw-bold">Province:</label>
+                    <span>@ViewBag.Tprovince</span>
+                </div>
+                <div>
+                    <label class="fw-bold">District:</label>
+                    <span>@ViewBag.Tdistrict</span>
+                </div>
+                <div>
+                    <label class="fw-bold">Village / Municipality:</label>
+                    <span>@ViewBag.Tvillage</span>
+                </div>
+                <div>
+                    <label class="fw-bold">Ward:</label>
+                    <span>@Model.Tward</span>
+                </div>
+                <div>
+                    <label class="fw-bold">Tole:</label>
+                    <span>@Model.Ttole</span>
+                </div>
+            }
         </div>
-        <div>
-            <label class="fw-bold">Gender:</label>
-            <span>@Model.Gender</span>
+        <div class="card card-body">
+            <h4 class="bg-primary">Citizenship Details</h4>
+            <div>
+                <label class="fw-bold">Citizenship No:</label>
+                <span>@Model.CitizenNo</span>
+            </div>
+            <div>
+                <label class="fw-bold">Citizenship Issue District:</label>
+                <span>@ViewBag.CitizenDistrict</span>
+            </div>
+            <div>
+                <label class="fw-bold">Citizenship Issue Date:</label>
+                <span>@Model.CitizenDate.ToShortDateString()</span>
+            </div>
         </div>
-        <div>
-            <label class="fw-bold ">Blood Group:</label>
-            <span>@Model.Bgroup</span>
+        <div class="card card-body">
+            <h4 class="bg-primary">Examination Details</h4>
+            <div>
+                <label class="fw-bold ">Office Province:</label>
+                <span>@ViewBag.OfficeProvince</span>
+            </div>
+            <div>
+                <label class="fw-bold ">Visit Office:</label>
+                <span>Transport Management Office-@ViewBag.OfficeVisit</span>
+            </div>
+            <div>
+                <label class="fw-bold ">Category:</label>
+                <span>@ViewBag.CategorySymbol-(@ViewBag.CategoryName)</span>
+            </div>
         </div>
-        <div>
-            <label class="fw-bold">Phone Number:</label>
-            <span>@Model.Pnumber</span>
-        </div>
-        <div>
-            <label class="fw-bold">Guardian's Name:</label>
-            <span>@Model.Gname</span>
-        </div>
-    </div>
-    <div class="card card-body">
-        <h4 class="bg-primary">Address Details</h4>
-        <h5 class="bg-secondary text-center">Permanent address</h5>
-        <div>
-            <label class="fw-bold">Province:</label>
-            <span>@ViewBag.Pprovince</span>
-        </div>
-        <div>
-            <label class="fw-bold">District:</label>
-            <span>@ViewBag.Pdistrict</span>
-        </div>
-        <div>
-            <label class="fw-bold">Village / Municipality:</label>
-            <span>@ViewBag.Pvillage</span>
-        </div>
-        <div>
-            <label class="fw-bold">Ward:</label>
-            <span>@Model.Pward</span>
-        </div>
-        <div>
-            <label class="fw-bold">Tole:</label>
-            <span>@Model.Ptole</span>
-        </div>
-        <div>
-            <label class="fw-bold">Email:</label>
-            <span>@Model.Email</span>
-        </div>
-        <br />
-        <h5 class="bg-secondary text-center">Temporary address</h5>
-        <div>
-            <label class="fw-bold">Province:</label>
-            <span>@ViewBag.Tprovince</span>
-        </div>
-        <div>
-            <label class="fw-bold">District:</label>
-            <span>@ViewBag.Tdistrict</span>
-        </div>
-        <div>
-            <label class="fw-bold">Village / Municipality:</label>
-            <span>@ViewBag.Tvillage</span>
-        </div>
-        <div>
-            <label class="fw-bold">Ward:</label>
-            <span>@Model.Tward</span>
-        </div>
-        <div>
-            <label class="fw-bold">Tole:</label>
-            <span>@Model.Ttole</span>
-        </div>
-    </div>
-    <div class="card card-body">
-        <h4 class="bg-primary">Citizenship Details</h4>
-        <div>
-            <label class="fw-bold">Citizenship No:</label>
-            <span>@Model.CitizenNo</span>
-        </div>
-        <div>
-            <label class="fw-bold">Citizenship Issue District:</label>
-            <span>@ViewBag.CitizenDistrict</span>
-        </div>
-        <div>
-            <label class="fw-bold">Citizenship Issue Date:</label>
-            <span>@Model.CitizenDate.ToShortDateString()</span>
-        </div>
-    </div>
-    <div class="card card-body">
-        <h4 class="bg-primary">Examination Details</h4>
-        <div>
-            <label class="fw-bold ">Office Province:</label>
-            <span>@ViewBag.OfficeProvince</span>
-        </div>
-        <div>
-            <label class="fw-bold ">Visit Office:</label>
-            <span>Transport Management Office-@ViewBag.OfficeVisit</span>
-        </div>
-        <div>
-            <label class="fw-bold ">Category:</label>
-            <span>@ViewBag.CategorySymbol-(@ViewBag.CategoryName)</span>
-        </div>
-    </div>
-    <div class="d-flex justify-content-around my-2">
+        <div class="d-flex justify-content-around my-2">
             @if (ViewBag.Check == null)
             {
                 <a asp-controller="LicenseRegistration" asp-action="Upsert" asp-route-id="@Model.Id" class="btn btn-secondary">Update Details</a>
             }
-                    <button type="submit" class="btn btn-success col-3">Payment</button>
-    </div>
+            <button type="submit" class="btn btn-success col-3">Payment</button>
+        </div>
     </form>
 </div>
 

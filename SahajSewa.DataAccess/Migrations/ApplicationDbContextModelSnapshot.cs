@@ -417,13 +417,13 @@ namespace SahajSewa.DataAccess.Migrations
                     b.Property<string>("Signature")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Tdistrict")
+                    b.Property<int?>("Tdistrict")
                         .HasColumnType("int");
 
                     b.Property<string>("Thumb")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Tprovince")
+                    b.Property<int?>("Tprovince")
                         .HasColumnType("int");
 
                     b.Property<int?>("TrailCount")
@@ -433,13 +433,12 @@ namespace SahajSewa.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ttole")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Tvillage")
+                    b.Property<int?>("Tvillage")
                         .HasColumnType("int");
 
-                    b.Property<int>("Tward")
+                    b.Property<int?>("Tward")
                         .HasColumnType("int");
 
                     b.Property<string>("WrittenResult")

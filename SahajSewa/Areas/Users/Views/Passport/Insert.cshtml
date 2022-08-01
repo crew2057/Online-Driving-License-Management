@@ -10,8 +10,8 @@
         <input asp-for="@Model.Id" hidden />
         <input asp-for="@Model.PassportPhoto" hidden />
         <div class="card my-3">
-            <div class="card-header text-center text-light bg-primary">
-            Add License
+            <div class="card-header text-center text-light bg-primary fw-bold fs-5">
+            Add Passport
             </div>
             <div class="card-body my-3">
             <div class="row col-10 mx-auto gx-5">
@@ -51,7 +51,7 @@
             </div>
 
             <div class="mt-5 row justify-content-around">
-                <a class="btn btn-secondary col-3" aasp-controller="Home" asp-action="Index">Back To Home</a>
+                <a class="btn btn-secondary col-3" asp-controller="Home" asp-action="Index">Back To Home</a>
                 @if (Model.Id != 0)
                 {
                     <button type="submit" class="btn btn-success col-3">Submit</button>

@@ -66,23 +66,25 @@ namespace SahajSewa.Controllers
             {
                 if (obj.SessionId == null)
                 {
-                    //string wwwRootPath = _hostEnvironment.WebRootPath;
-                    //var file1 = Path.Combine(wwwRootPath, obj.Photo.TrimStart('\\'));
-                    //System.IO.File.Delete(file1);
+                    LicenseRegistration same = _db.LicenseRegistrations.FirstOrDefault(u => u.ApplicantId == claim.Value);
+                    if (obj == same)
+                    {
+                        string wwwRootPath = _hostEnvironment.WebRootPath;
+                        var file1 = Path.Combine(wwwRootPath, obj.Photo.TrimStart('\\'));
+                        System.IO.File.Delete(file1);
 
-                    //var file2 = Path.Combine(wwwRootPath, obj.CitizenFront.TrimStart('\\'));
-                    //System.IO.File.Delete(file2);
+                        var file2 = Path.Combine(wwwRootPath, obj.CitizenFront.TrimStart('\\'));
+                        System.IO.File.Delete(file2);
 
-                    //var file3 = Path.Combine(wwwRootPath, obj.CitizenBack.TrimStart('\\'));
-                    //System.IO.File.Delete(file3);
+                        var file3 = Path.Combine(wwwRootPath, obj.CitizenBack.TrimStart('\\'));
+                        System.IO.File.Delete(file3);
 
-                    //var file4 = Path.Combine(wwwRootPath, obj.Signature.TrimStart('\\'));
-                    //System.IO.File.Delete(file4);
+                        var file4 = Path.Combine(wwwRootPath, obj.Signature.TrimStart('\\'));
+                        System.IO.File.Delete(file4);
 
-                    //var file5 = Path.Combine(wwwRootPath, obj.Thumb.TrimStart('\\'));
-                    //System.IO.File.Delete(file5);
-                    UserCategory obj1 = _db.UserCategories.FirstOrDefault(u => u.CategoryId == obj.Category && u.UserId == claim.Value);
-                    _module.UserCategory.Remove(obj1);
+                        var file5 = Path.Combine(wwwRootPath, obj.Thumb.TrimStart('\\'));
+                        System.IO.File.Delete(file5);
+                    }
                     _module.LicenseRegistration.Remove(obj);
                     _module.Save();
                     return RedirectToAction("Index");
@@ -102,6 +104,7 @@ namespace SahajSewa.Controllers
                         }
                         else
                             obj.SessionId = null;
+                        _module.LicenseRegistration.Update(obj);
                         _module.Save();
                         return RedirectToAction("Index");
                     }

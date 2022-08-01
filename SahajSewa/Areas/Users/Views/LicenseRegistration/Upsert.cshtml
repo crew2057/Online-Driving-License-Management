@@ -138,7 +138,12 @@
                             <span asp-validation-for="@Model.Email" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="row col-10 mx-auto gx-5 temporary">
+                    <div class="col-10 mx-auto gx-5">
+                        <label>Add Temporary Address &nbsp;</label>
+                    <input type="checkbox" name="temporaryAddress" onchange="ShowHide(this.checked)" />
+                    </div>
+
+                    <div class="row col-10 mx-auto gx-5 temporary" style="display:none;">
                         <div class="bg-secondary">
                             <h5>Temporary Address</h5>
                         </div>
@@ -317,6 +322,14 @@
     <script src="~/js/CascadingSelect.js"> </script>
     <partial name="_ValidationScriptsPartial" />
     <script>
+        function ShowHide(checked){
+            if (checked == true)
+                $(".temporary").show();
+            else
+                $(".temporary").hide();
+        }
+
+
         function ValidateInput() {
             var images = document.querySelectorAll("input[type=file]");
             for (var i = 0; i < images.length; i++) {

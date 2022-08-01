@@ -12,8 +12,8 @@ using SahajSewa.DataAccess.Data;
 namespace SahajSewa.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220726120834_test2")]
-    partial class test2
+    [Migration("20220801191942_updated")]
+    partial class updated
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -381,6 +381,9 @@ namespace SahajSewa.DataAccess.Migrations
                     b.Property<string>("OldSessionId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool?>("PassportAvailability")
+                        .HasColumnType("bit");
+
                     b.Property<string>("PaymentIntentId")
                         .HasColumnType("nvarchar(max)");
 
@@ -416,13 +419,13 @@ namespace SahajSewa.DataAccess.Migrations
                     b.Property<string>("Signature")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Tdistrict")
+                    b.Property<int?>("Tdistrict")
                         .HasColumnType("int");
 
                     b.Property<string>("Thumb")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Tprovince")
+                    b.Property<int?>("Tprovince")
                         .HasColumnType("int");
 
                     b.Property<int?>("TrailCount")
@@ -432,13 +435,12 @@ namespace SahajSewa.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ttole")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Tvillage")
+                    b.Property<int?>("Tvillage")
                         .HasColumnType("int");
 
-                    b.Property<int>("Tward")
+                    b.Property<int?>("Tward")
                         .HasColumnType("int");
 
                     b.Property<string>("WrittenResult")
@@ -486,6 +488,29 @@ namespace SahajSewa.DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ApplicantId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("IssueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IssueOffice")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PassportNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PassportPhoto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PersonalNo")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -547,15 +572,6 @@ namespace SahajSewa.DataAccess.Migrations
             modelBuilder.Entity("SahajSewa.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<bool?>("License")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("LicenseRegistration")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("Passport")
-                        .HasColumnType("bit");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });

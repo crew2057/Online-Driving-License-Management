@@ -67,21 +67,20 @@ namespace SahajSewa.Models
         public string Email { get; set; }
 
         //temporary
-        [Required]
         [Display(Name = "Province")]
-        public int Tprovince { get; set; }
-        [Required]
+        public int? Tprovince { get; set; }
+        
         [Display(Name = "District")]
-        public int Tdistrict { get; set; }
-        [Required]
+        public int? Tdistrict { get; set; }
+        
         [Display(Name = "Village / Municipality")]
-        public int Tvillage { get; set; }
-        [Required]
+        public int? Tvillage { get; set; }
+        
         [Display(Name = "Ward No.")]
-        public int Tward { get; set; }
-        [Required]
+        public int? Tward { get; set; }
+        
         [Display(Name = "Tole")]
-        public string Ttole { get; set; }
+        public string? Ttole { get; set; }
         #endregion
 
         #region Citizenship Details

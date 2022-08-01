@@ -186,6 +186,7 @@ namespace SahajSewa.Areas.Users.Controllers
                     }
                     obj.Thumb = @"\images\" + fileName + extension;
                 }
+
                 obj.TrailCount = 1;
                 var claimsIdentity = (ClaimsIdentity)User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
@@ -210,9 +211,12 @@ namespace SahajSewa.Areas.Users.Controllers
             ViewBag.Pprovince = _db.Provinces.FirstOrDefault(u => u.Id == obj.Pprovince).Name;
             ViewBag.Pdistrict = _db.Districts.FirstOrDefault(u => u.Id == obj.Pdistrict).Name;
             ViewBag.Pvillage = _db.Villages.FirstOrDefault(u => u.Id == obj.Pvillage).Name;
-            ViewBag.Tprovince = _db.Provinces.FirstOrDefault(u => u.Id == obj.Tprovince).Name;
-            ViewBag.Tdistrict = _db.Districts.FirstOrDefault(u => u.Id == obj.Tdistrict).Name;
-            ViewBag.Tvillage = _db.Villages.FirstOrDefault(u => u.Id == obj.Tvillage).Name;
+            if (obj.Tprovince != null)
+            {
+                ViewBag.Tprovince = _db.Provinces.FirstOrDefault(u => u.Id == obj.Tprovince).Name;
+                ViewBag.Tdistrict = _db.Districts.FirstOrDefault(u => u.Id == obj.Tdistrict).Name;
+                ViewBag.Tvillage = _db.Villages.FirstOrDefault(u => u.Id == obj.Tvillage).Name;
+            }
             ViewBag.CitizenDistrict = _db.Districts.FirstOrDefault(u => u.Id == obj.CitizenDistrict).Name;
             ViewBag.OfficeProvince = _db.Provinces.FirstOrDefault(u => u.Id == obj.OfficeProvince).Name;
             ViewBag.OfficeVisit = _db.Offices.FirstOrDefault(u => u.Id == obj.OfficeVisit).Name;

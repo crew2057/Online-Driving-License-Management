@@ -4,7 +4,7 @@
 
 namespace SahajSewa.DataAccess.Migrations
 {
-    public partial class test1 : Migration
+    public partial class updated : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
