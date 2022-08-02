@@ -6,7 +6,7 @@
 
 <div class="card my-4 mx-auto col-10">
     <div class="card-header text-center text-light bg-primary fw-bold fs-4">Digital License Management System</div>
-    <div class="card-body row mx-auto mt-3 justify-content-around">
+    <div class="card-body row mx-auto justify-content-around">
         @*<p class="card-text">
         <ul class="list-group mx-3">
         @if((@Model.LicenseRegistration.Id==0 && @Model.License.Id==0) || @Model.LicenseRegistration.WrittenResult=="fail" || (@Model.LicenseRegistration.TrailCount==3 && @Model.LicenseRegistration.TrailResult=="fail" ))
@@ -64,91 +64,109 @@
 
         </ul>
         </p>*@
-        <a class="card btn p-0 mb-3 mx-2 col-8 col-md-5 col-xl-3" asp-controller="LicenseRegistration"
+        <a class="card btn btn-secondary p-0 my-3 mx-2 col-8 col-md-5 col-xl-3" style="width:260"  asp-controller="LicenseRegistration"
         asp-action="Upsert">
-            <div class="card-body p-0">
-                <img height="200" width="260" src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80" />
-                <div class="card-footer text-center">
+            <div class="card-body">
+                <img height="100"  src="~/images/Home/LicenseRegistration.png" />
+                
+            </div>
+            <div class="card-footer text-center">
                     License Registration
                 </div>
-            </div>
         </a>
-        <a class="card btn p-0 mb-3 mx-2 col-8 col-md-5 col-xl-3" asp-controller="LicenseRegistration"
+        <a class="card btn btn-secondary p-0 my-3 mx-2 col-8 col-md-5 col-xl-3" style="width:260"  asp-controller="LicenseRegistration"
         asp-action="DownloadFile" asp-route-id="@Model.LicenseRegistration.Id">
-            <div class="card-body p-0">
-                <img height="200" width="260" src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80" />
-
-                <div class="card-footer text-center">
+            <div class="card-body">
+                <img height="100"  src="~/images/Home/Detail.png" />
+            </div>
+            <div class="card-footer text-center">
                     Application Details
                 </div>
-            </div>
         </a>
-        <a class="card btn p-0 mb-3 mx-2 col-8 col-md-5 col-xl-3" asp-controller="LicenseRegistration" asp-action="Retrail" asp-route-id="@Model.LicenseRegistration.Id">
-            <div class="card-body p-0">
-                <img height="200" width="260" src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80" />
-
-                <div class="card-footer text-center">
+        <a class="card btn btn-secondary p-0 my-3 mx-2 col-8 col-md-5 col-xl-3" style="width:260" asp-controller="LicenseRegistration" asp-action="Retrail" asp-route-id="@Model.LicenseRegistration.Id">
+            <div class="card-body">
+                <img height="100"  src="~/images/Home/Retrail.png" />
+            </div>
+            <div class="card-footer text-center">
                     Re-Trail
                 </div>
-            </div>
         </a>
-        <a class="card btn p-0 mb-3 mx-2 col-8 col-md-5 col-xl-3" asp-controller="AddCategory" asp-action="Insert">
-            <div class="card-body p-0">
-                <img height="200" width="260" src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80" />
-
-                <div class="card-footer text-center">
+        <a class="card btn btn-secondary p-0 my-3 mx-2 col-8 col-md-5 col-xl-3" style="width:260" asp-controller="AddCategory" asp-action="Insert">
+            <div class="card-body">
+                <img height="100" src="~/images/Home/AddCategory.png" />  
+            </div>
+             <div class="card-footer text-center">
                     Add Category
                 </div>
-            </div>
         </a>
         @if (Model.License.Id != 0)
         {
-            <a class="card btn p-0 mb-3 mx-2 col-8 col-md-5 col-xl-3" asp-controller="License" asp-action="Details" asp-route-id="@Model.License.Id">
-                <div class="card-body p-0">
-                <img height="200" width="260" src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80" />
-
-                <div class="card-footer text-center">
+            <a class="card btn btn-secondary p-0 my-3 mx-2 col-8 col-md-5 col-xl-3" style="width:260" asp-controller="License" asp-action="Details" asp-route-id="@Model.License.Id">
+                <div class="card-body">
+                <img height="100" src="~/images/Home/License.png" />
+            </div>
+            <div class="card-footer text-center">
                     License Details
                 </div>
-            </div>
         </a>
         }
         else
         {
-        <a class="card btn p-0 mb-3 mx-2 col-8 col-md-5 col-xl-3" asp-controller="License" asp-action="Upsert">
-            <div class="card-body p-0">
-                <img height="200" width="260" src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80" />
-
-                <div class="card-footer text-center">
+        <a class="card btn btn-secondary p-0 my-3 mx-2 col-8 col-md-5 col-xl-3" style="width:260" asp-controller="License" asp-action="Upsert">
+            <div class="card-body">
+                <img height="100"  src="~/images/Home/License.png" />
+            </div>
+             <div class="card-footer text-center">
                     Add License
                 </div>
-            </div>
         </a>
         }
         @if (Model.Passport.Id != 0)
         {
-            <a class="card btn p-0 mb-3 mx-2 col-8 col-md-5 col-xl-3" asp-controller="Passport" asp-action="Details" asp-route-id="@Model.Passport.Id">
-                <div class="card-body p-0">
-                <img height="200" width="260" src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80" />
-
-                <div class="card-footer text-center">
+            <a class="card btn btn-secondary p-0 my-3 mx-2 col-8 col-md-5 col-xl-3" style="width:260" asp-controller="Passport" asp-action="Details" asp-route-id="@Model.Passport.Id">
+                <div class="card-body">
+                <img height="100" src="~/images/Home/Passport.png" />
+            </div>
+            <div class="card-footer text-center">
                     Passport Details
                 </div>
-            </div>
         </a>
         }
         else
         {
-        <a class="card btn p-0 mb-3 mx-2 col-8 col-md-5 col-xl-3" asp-controller="Passport" asp-action="Insert">
-            <div class="card-body p-0">
-                <img height="200" width="260" src="https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dmlld3xlbnwwfHwwfHw%3D&w=1000&q=80" />
-
-                <div class="card-footer text-center">
+        <a class="card btn btn-secondary p-0 my-3 mx-2 col-8 col-md-5 col-xl-3" style="width:260" asp-controller="Passport" asp-action="Insert">
+            <div class="card-body">
+                <img height="100" src="~/images/Home/Passport.png" />
+            </div>
+            <div class="card-footer text-center">
                     Add Passport
                 </div>
-            </div>
         </a>
        }
     </div>
 </div>
 
+<script type="text/javascript">
+var objModel = @Html.Raw(Json.Serialize(Model));
+
+//retrail
+if (!(objModel.licenseRegistration.trailResult == "fail" && objModel.licenseRegistration.trailCount < 3)) { 
+    var item = document.querySelector("a[href='/Users/LicenseRegistration/Retrail/"+objModel.licenseRegistration.id+"']");
+    item.classList.add('disabled');
+}
+//licenseRegistration
+if (!((objModel.licenseRegistration.id == 0 && objModel.license.id == 0) || objModel.licenseRegistration.writtenResult == "fail" || (objModel.licenseRegistration.trailCount == 3 && objModel.licenseRegistration.trailResult == "fail"))) {
+    var item = document.querySelector("a[href='/Users/LicenseRegistration/Upsert']");
+    item.classList.add('disabled');
+}
+//applicationDetails
+if (!(objModel.licenseRegistration.id != 0 && objModel.licenseRegistration.writtenResult != "fail" && objModel.licenseRegistration.trailResult == null)) {
+    var item = document.querySelector("a[href='/Users/LicenseRegistration/DownloadFile/"+objModel.licenseRegistration.id+"']");
+    item.classList.add('disabled');
+}        
+//addCategory
+if (!(objModel.licenseRegistration.trailResult == "pass" || (objModel.license.id!= 0 && objModel.licenseRegistration.id== 0))) {
+    var item = document.querySelector("a[href='/Users/AddCategory/Insert']");
+    item.classList.add('disabled');
+}
+</script>

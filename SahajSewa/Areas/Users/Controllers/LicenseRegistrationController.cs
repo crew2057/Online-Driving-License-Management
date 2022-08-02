@@ -312,13 +312,13 @@ namespace SahajSewa.Areas.Users.Controllers
             obj.TrailResult = null;
             _module.LicenseRegistration.Update(obj);
             _module.Save();
-            if(obj.TrailCount>3)
-            {
-                TempData["Error"] = "Maximum Trails Reached!!";
-                obj.TrailCount--;
-                _module.Save();
-                return RedirectToAction("Index", "Home");
-            }
+            //if(obj.TrailCount>3)
+            //{
+            //    TempData["Error"] = "Maximum Trails Reached!!";
+            //    obj.TrailCount--;
+            //    _module.Save();
+            //    return RedirectToAction("Index", "Home");
+            //}
             return RedirectToAction("Payment",obj);
         }
     }
