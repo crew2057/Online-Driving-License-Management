@@ -136,10 +136,14 @@ namespace SahajSewa.Models
         [Display(Name = "Trail Count")]
         public int? TrailCount { get; set; }
         public string? ApplicantId { get; set; }
+        [ForeignKey("ApplicantId")]
+        public ApplicationUser? ApplicationUser { get; set; }
+
         [Display(Name = "Written Result")]
         public string? WrittenResult { get; set; }
         [Display(Name = "Trail Result")]
-        public bool? PassportAvailability { get; set; }
+        public bool? PassportAvailability { get; set; } = false;
+        public bool? LicenseAvailability { get; set; } = false;
         public string? TrailResult { get; set; }
         public string? SessionId { get; set; }
         public string? OldSessionId { get; set; }

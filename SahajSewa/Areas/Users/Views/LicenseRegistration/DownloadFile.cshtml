@@ -23,8 +23,17 @@
         <span class="col-8">@Model.Id</span>
         <br />
         <br />
-        <label class="col-4 fw-bold">Application Type:</label>
+         @if (Model.LicenseAvailability == true)
+        {
+         <label class="col-4 fw-bold">Application Type:</label>
+        <span class="col-8">Add Category</span>
+        }
+        else
+        {
+            <label class="col-4 fw-bold">Application Type:</label>
         <span class="col-8">New License</span>
+        }
+        
         <br />
         <br />
         <label class="col-4 fw-bold">Category:</label>

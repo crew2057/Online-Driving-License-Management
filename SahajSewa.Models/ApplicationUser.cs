@@ -14,5 +14,6 @@ namespace SahajSewa.Models
 
         public List<UserCategory> UserCategory { get; set; }
 
+
     }
 }

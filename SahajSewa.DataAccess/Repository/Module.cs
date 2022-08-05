@@ -17,6 +17,7 @@ namespace SahajSewa.DataAccess.Repository
             LicenseRegistration = new LicenseRegistrationRepository(_db);
             License = new LicenseRepository(_db);
             UserCategory = new UserCategoryRepository(_db);
+            ApplicationUser = new ApplicationUserRepository(_db);
         }
 
         public ILicenseRegistrationRepository LicenseRegistration { get; private set; }
@@ -24,6 +25,7 @@ namespace SahajSewa.DataAccess.Repository
         public ILicenseRepository License { get; private set; }
 
         public IUserCategoryRepository UserCategory { get; private set; }
+        public IApplicationUserRepository ApplicationUser { get; private set; }
         public void Save()
         {
             _db.SaveChanges();

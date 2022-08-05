@@ -190,10 +190,17 @@ namespace SahajSewa.Areas.Users.Controllers
                 obj.TrailCount = 1;
                 var claimsIdentity = (ClaimsIdentity)User.Identity;
                 var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                var usernameUpdate = _module.ApplicationUser.GetFirstOrDefault(u => u.Id == claim.Value);
+                usernameUpdate.UserName = obj.Fname+" "+obj.Mname+" "+obj.Lname;
+
                 obj.ApplicantId = claim.Value;
                 Passport userPassport = _db.Passports.FirstOrDefault(u => u.ApplicantId == claim.Value);
                 if (userPassport != null)
                     obj.PassportAvailability = true;
+                License userLicense = _db.Licenses.FirstOrDefault(u => u.ApplicantId == claim.Value);
+                if (userLicense != null)
+                    obj.LicenseAvailability = true;
+
                 if (obj.Id == 0)
                     _module.LicenseRegistration.Add(obj);
                 else

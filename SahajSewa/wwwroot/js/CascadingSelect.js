@@ -23,7 +23,7 @@
             url: '/Users/LicenseRegistration/Pdistrict?id=' + id,
             success: function (result) {
                 $.each(result, function (i, data) {
-                    $('#Pdistrict').append('<option value=' + data.id + '>' + data.name + '</option');
+                    $('#Pdistrict').append('<option value=' + data.id + '>' + data.name + '</option>');
                 });
             }
         });
@@ -38,7 +38,7 @@
             url: '/Users/LicenseRegistration/Pvillage?id=' + id,
             success: function (result) {
                 $.each(result, function (i, data) {
-                    $('#Pvillage').append('<option value=' + data.id + '>' + data.name + '</option');
+                    $('#Pvillage').append('<option value=' + data.id + '>' + data.name + '</option>');
                 });
             }
         });
@@ -56,7 +56,7 @@
             url: '/Users/LicenseRegistration/Pdistrict?id=' + id,
             success: function (result) {
                 $.each(result, function (i, data) {
-                    $('#Tdistrict').append('<option value=' + data.id + '>' + data.name + '</option');
+                    $('#Tdistrict').append('<option value=' + data.id + '>' + data.name + '</option>');
                 });
             }
         });
@@ -71,7 +71,7 @@
             url: '/Users/LicenseRegistration/Pvillage?id=' + id,
             success: function (result) {
                 $.each(result, function (i, data) {
-                    $('#Tvillage').append('<option value=' + data.id + '>' + data.name + '</option');
+                    $('#Tvillage').append('<option value=' + data.id + '>' + data.name + '</option>');
                 });
             }
         });
@@ -86,7 +86,7 @@
             url: '/Users/LicenseRegistration/Oname?id=' + id,
             success: function (result) {
                 $.each(result, function (i, data) {
-                    $('#Oname').append('<option value=' + data.id + '> Transport Management Office - ' + data.name + '</option');
+                    $('#Oname').append('<option value=' + data.id + '> Transport Management Office - ' + data.name + '</option>');
                 });
             }
         });

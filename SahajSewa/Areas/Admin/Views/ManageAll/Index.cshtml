@@ -1,0 +1,76 @@
+﻿@model IList<SahajSewa.Models.LicenseRegistration>
+@{
+    ViewData["Title"] = "Index";
+}
+<form method="post">
+<div class="container p-3">
+    <div class="col-6">
+        <h2 class="text-primary">User List</h2>
+    </div>
+    <br />
+    <input type="submit" value="UpdateStatus" class="btn btn-secondary"/>
+        <table id="myTable" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Phone Number</th>
+                    <th>Written Result</th>
+                    <th>Trail Count</th>
+                    <th>Trail Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    @*@foreach (var item in Model)*@
+                    @for(var i=0;i<Model.Count();i++)
+                    {
+                        <tr>
+                            <input asp-for="@Model[i].Id" value="@Model[i].Id" hidden>
+                            <td>@Model[i].ApplicationUser.Email</td>
+                            <td>@Model[i].ApplicationUser.UserName</td>
+                            <td>@Model[i].ApplicationUser.PhoneNumber</td>
+
+                            @if (Model[i].WrittenResult == null)
+                            {
+                                <td>
+                                    <select asp-for="@Model[i].WrittenResult" class="form-select">
+                                        <option selected disabled>--Result--</option>
+                                        <option>pass</option>
+                                        <option>fail</option>
+                                    </select>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>@Model[i].WrittenResult</td>
+                            }
+                            <td>@Model[i].TrailCount</td>
+
+                             @if (Model[i].TrailResult == null)
+                            {
+                                <td>
+                                    <select asp-for="@Model[i].TrailResult" class="form-select">
+                                        <option selected disabled>--Result--</option>
+                                        <option>pass</option>
+                                        <option>fail</option>
+                                    </select>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>@Model[i].TrailResult</td>
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+</div>
+</form>
+@section Scripts{
+    <script src="~/js/manageAll.js"></script>
+
+}

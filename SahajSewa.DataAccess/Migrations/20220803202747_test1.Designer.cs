@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SahajSewa.DataAccess.Data;
 
@@ -11,9 +12,10 @@ using SahajSewa.DataAccess.Data;
 namespace SahajSewa.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220803202747_test1")]
+    partial class test1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -319,7 +321,7 @@ namespace SahajSewa.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ApplicantId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Bgroup")
                         .IsRequired()
@@ -362,9 +364,6 @@ namespace SahajSewa.DataAccess.Migrations
                     b.Property<string>("Gname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("LicenseAvailability")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Lname")
                         .IsRequired()
@@ -448,8 +447,6 @@ namespace SahajSewa.DataAccess.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicantId");
 
                     b.HasIndex("Category");
 
@@ -576,6 +573,11 @@ namespace SahajSewa.DataAccess.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<int?>("LicenseRegistrationId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("LicenseRegistrationId");
+
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
@@ -651,10 +653,6 @@ namespace SahajSewa.DataAccess.Migrations
 
             modelBuilder.Entity("SahajSewa.Models.LicenseRegistration", b =>
                 {
-                    b.HasOne("SahajSewa.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicantId");
-
                     b.HasOne("SahajSewa.Models.DrivingCategory", "DrivingCategory")
                         .WithMany()
                         .HasForeignKey("Category")
@@ -685,8 +683,6 @@ namespace SahajSewa.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ApplicationUser");
-
                     b.Navigation("District");
 
                     b.Navigation("DrivingCategory");
@@ -715,6 +711,15 @@ namespace SahajSewa.DataAccess.Migrations
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("DrivingCategory");
+                });
+
+            modelBuilder.Entity("SahajSewa.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("SahajSewa.Models.LicenseRegistration", "LicenseRegistration")
+                        .WithMany()
+                        .HasForeignKey("LicenseRegistrationId");
+
+                    b.Navigation("LicenseRegistration");
                 });
 
             modelBuilder.Entity("SahajSewa.Models.DrivingCategory", b =>
