@@ -22,7 +22,7 @@ namespace SahajSewa.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            List<LicenseRegistration> userList= _module.LicenseRegistration.GetAll(includeProperties: "ApplicationUser").DistinctBy(u => u.ApplicantId).ToList();
+            List<LicenseRegistration> userList= _module.LicenseRegistration.GetAll(includeProperties: "ApplicationUser").OrderByDescending(u=>u.Id).DistinctBy(u => u.ApplicantId).ToList();
             return View(userList);
         }
 
