@@ -54,20 +54,26 @@
                                 <td>@Model[i].WrittenResult</td>
                             }
                             <td>@Model[i].TrailCount</td>
-
-                            @if (Model[i].TrailResult == null)
+                            @if (Model[i].WrittenResult == "pass")
                             {
-                                <td>
-                                    <select asp-for="@Model[i].TrailResult" class="form-select">
-                                        <option selected disabled>--Result--</option>
-                                        <option>pass</option>
-                                        <option>fail</option>
-                                    </select>
-                                </td>
+                                @if (Model[i].TrailResult == null)
+                                {
+                                    <td>
+                                        <select asp-for="@Model[i].TrailResult" class="form-select">
+                                            <option selected disabled>--Result--</option>
+                                            <option>pass</option>
+                                            <option>fail</option>
+                                        </select>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>@Model[i].TrailResult</td>
+                                }
                             }
                             else
                             {
-                                <td>@Model[i].TrailResult</td>
+                                <td>NULL</td>
                             }
                         </tr>
                     }

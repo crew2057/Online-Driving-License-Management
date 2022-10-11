@@ -42,9 +42,16 @@ namespace SahajSewa.Controllers
             user.License = _db.Licenses.FirstOrDefault(u => u.ApplicantId == claim.Value);
             if (user.License == null)
                 user.License = new License();
+            else
+                user.LicenseRegistration.LicenseAvailability = true;
+            _db.SaveChanges();
+
             user.Passport = _db.Passports.FirstOrDefault(u => u.ApplicantId == claim.Value);
             if (user.Passport == null)
                 user.Passport = new Passport();
+            else
+                user.LicenseRegistration.PassportAvailability = true;
+            _db.SaveChanges();
 
             if (user.LicenseRegistration != null && user.LicenseRegistration.TrailResult == "pass")
             {

@@ -3,7 +3,7 @@ $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
     var selectedDate = document.getElementById('dateChange').value;
     var item = new Date(data[4]);
     var month = (item.getMonth()+1).toString();
-    var day = item.getDay().toString();
+    var day = item.getDate().toString();
     if (month < 10) {
         month = "0" + month;
     }
