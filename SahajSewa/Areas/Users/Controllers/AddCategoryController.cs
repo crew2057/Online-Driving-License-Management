@@ -24,6 +24,11 @@ namespace SahajSewa.Areas.Users.Controllers
 
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            LicenseRegistration obj = _db.LicenseRegistrations.OrderBy(u => u.Id).LastOrDefault(u => u.ApplicantId == claim.Value);
+            if (obj==null)
+                return RedirectToAction("Upsert", "LicenseRegistration");
+            else if (obj.TrailResult == "fail" || obj.WrittenResult == "fail")
+                return View(obj);
 
             License check = _module.License.GetFirstOrDefault(u => u.ApplicantId == claim.Value);
             if (check == null)
@@ -32,9 +37,8 @@ namespace SahajSewa.Areas.Users.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            LicenseRegistration obj = _db.LicenseRegistrations.OrderBy(u=>u.Id).LastOrDefault(u=>u.ApplicantId==claim.Value);
-            if (obj == null)
-                return RedirectToAction("Upsert", "LicenseRegistration");
+            //LicenseRegistration obj = _db.LicenseRegistrations.OrderBy(u=>u.Id).LastOrDefault(u=>u.ApplicantId==claim.Value);
+            //if (obj == null)
             return View(obj);
         }
 

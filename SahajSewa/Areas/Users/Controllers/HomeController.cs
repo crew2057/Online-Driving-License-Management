@@ -91,6 +91,12 @@ namespace SahajSewa.Controllers
 
                         var file5 = Path.Combine(wwwRootPath, obj.Thumb.TrimStart('\\'));
                         System.IO.File.Delete(file5);
+
+                        var dir = Path.Combine(wwwRootPath, "images", claim.Value);
+                        if (Directory.Exists(dir))
+                        {
+                            Directory.Delete(dir);
+                        }
                     }
                     _module.LicenseRegistration.Remove(obj);
                     _module.Save();

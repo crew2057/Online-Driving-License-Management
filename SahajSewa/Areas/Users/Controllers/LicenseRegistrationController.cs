@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using SahajSewa.DataAccess.Data;
 using SahajSewa.DataAccess.Repository.IRepository;
 using SahajSewa.Models;
@@ -29,14 +28,20 @@ namespace SahajSewa.Areas.Users.Controllers
         //Get
         public IActionResult Upsert(int? id)
         {
-                if (id == null || id == 0)
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            LicenseRegistration obj = _db.LicenseRegistrations.OrderBy(u => u.Id).LastOrDefault(u => u.ApplicantId == claim.Value);
+
+            if ((id == null || id == 0) && obj==null)
             {
-                LicenseRegistration obj = new();
-                return View(obj);
+                LicenseRegistration obj1 = new();
+                return View(obj1);
             }
             else
             {
-                LicenseRegistration obj = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == id);
+                if (obj.WrittenResult == "fail" || obj.TrailResult == "fail")
+                    return RedirectToAction("insert", "AddCategory");
+                else
                 return View(obj);
             }
         }
@@ -76,7 +81,7 @@ namespace SahajSewa.Areas.Users.Controllers
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var asset = _module.UserCategory.GetAll(u => u.UserId == claim.Value);
             IEnumerable<DrivingCategory> obj = _db.DrivingCategories.ToList();
-            foreach(var item in asset)
+            foreach (var item in asset)
             {
                 obj = obj.Where(u => u.Id != item.CategoryId);
             }
@@ -91,10 +96,19 @@ namespace SahajSewa.Areas.Users.Controllers
             if (ModelState.IsValid)
             {
                 string wwwRootPath = _hostEnvironment.WebRootPath;
+
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                var uploads = Path.Combine(wwwRootPath, "images", claim.Value);
+
+                if (!Directory.Exists(uploads))
+                {
+                    Directory.CreateDirectory(uploads);
+                }
+
                 if (file1 != null)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(wwwRootPath, @"images");
                     var extension = Path.GetExtension(file1.FileName);
                     if (obj.Photo != null)
                     {
@@ -108,12 +122,11 @@ namespace SahajSewa.Areas.Users.Controllers
                     {
                         file1.CopyTo(fileStreams);
                     }
-                    obj.Photo = @"\images\" + fileName + extension;
+                    obj.Photo = @"\images\" + claim.Value + @"\" + fileName + extension;
                 }
                 if (file2 != null)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(wwwRootPath, @"images");
                     var extension = Path.GetExtension(file2.FileName);
                     if (obj.CitizenFront != null)
                     {
@@ -127,12 +140,11 @@ namespace SahajSewa.Areas.Users.Controllers
                     {
                         file2.CopyTo(fileStreams);
                     }
-                    obj.CitizenFront = @"\images\" + fileName + extension;
+                    obj.CitizenFront = @"\images\" + claim.Value + @"\" + fileName + extension;
                 }
                 if (file3 != null)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(wwwRootPath, @"images");
                     var extension = Path.GetExtension(file3.FileName);
                     if (obj.CitizenBack != null)
                     {
@@ -146,12 +158,11 @@ namespace SahajSewa.Areas.Users.Controllers
                     {
                         file3.CopyTo(fileStreams);
                     }
-                    obj.CitizenBack = @"\images\" + fileName + extension;
+                    obj.CitizenBack = @"\images\" + claim.Value + @"\" + fileName + extension;
                 }
                 if (file4 != null)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(wwwRootPath, @"images");
                     var extension = Path.GetExtension(file4.FileName);
                     if (obj.Signature != null)
                     {
@@ -165,12 +176,11 @@ namespace SahajSewa.Areas.Users.Controllers
                     {
                         file4.CopyTo(fileStreams);
                     }
-                    obj.Signature = @"\images\" + fileName + extension;
+                    obj.Signature = @"\images\" + claim.Value + @"\" + fileName + extension;
                 }
                 if (file5 != null)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(wwwRootPath, @"images");
                     var extension = Path.GetExtension(file5.FileName);
                     if (obj.Thumb != null)
                     {
@@ -184,14 +194,12 @@ namespace SahajSewa.Areas.Users.Controllers
                     {
                         file5.CopyTo(fileStreams);
                     }
-                    obj.Thumb = @"\images\" + fileName + extension;
+                    obj.Thumb = @"\images\" + claim.Value + @"\" + fileName + extension;
                 }
 
                 obj.TrailCount = 1;
-                var claimsIdentity = (ClaimsIdentity)User.Identity;
-                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 var usernameUpdate = _module.ApplicationUser.GetFirstOrDefault(u => u.Id == claim.Value);
-                usernameUpdate.UserName = obj.Fname+" "+obj.Mname+" "+obj.Lname;
+                usernameUpdate.UserName = obj.Fname + " " + obj.Mname + " " + obj.Lname;
 
                 obj.ApplicantId = claim.Value;
                 Passport userPassport = _db.Passports.FirstOrDefault(u => u.ApplicantId == claim.Value);
@@ -229,10 +237,9 @@ namespace SahajSewa.Areas.Users.Controllers
             ViewBag.OfficeVisit = _db.Offices.FirstOrDefault(u => u.Id == obj.OfficeVisit).Name;
             ViewBag.CategoryName = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Name;
             ViewBag.CategorySymbol = _db.DrivingCategories.FirstOrDefault(u => u.Id == obj.Category).Symbol;
-            ViewBag.Check = _db.LicenseRegistrations.FirstOrDefault(u => u.TrailResult == "pass");
             return View(obj);
         }
-        
+
         [HttpPost]
         [ActionName("Details")]
         [ValidateAntiForgeryToken]
@@ -302,8 +309,8 @@ namespace SahajSewa.Areas.Users.Controllers
             //check if payment is actually made
             if (session.PaymentStatus.ToLower() == "paid")
             {
-                if(obj.OldSessionId!=obj.SessionId)
-                TempData["success"] = "License Registration Successful";
+                if (obj.OldSessionId != obj.SessionId)
+                    TempData["success"] = "License Registration Successful";
                 obj.OldSessionId = session.Id;
                 _module.Save();
                 return View(obj);
@@ -326,7 +333,7 @@ namespace SahajSewa.Areas.Users.Controllers
             //    _module.Save();
             //    return RedirectToAction("Index", "Home");
             //}
-            return RedirectToAction("Payment",obj);
+            return RedirectToAction("Payment", obj);
         }
     }
 }
