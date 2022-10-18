@@ -32,11 +32,20 @@ namespace SahajSewa.Areas.Users.Controllers
         {
             if (ModelState.IsValid)
             {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 if (file != null)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(wwwRootPath, @"images");
+                    var uploads = Path.Combine(wwwRootPath, "images",claim.Value);
+
+                    if (!Directory.Exists(uploads))
+                    {
+                        Directory.CreateDirectory(uploads);
+                    }
+
                     var extension = Path.GetExtension(file.FileName);
                     if (obj.PassportPhoto != null)
                     {
@@ -50,11 +59,10 @@ namespace SahajSewa.Areas.Users.Controllers
                     {
                         file.CopyTo(fileStreams);
                     }
-                    obj.PassportPhoto = @"\images\" + fileName + extension;
+                    obj.PassportPhoto = @"\images\" +claim.Value+@"\"+ fileName + extension;
                 }
 
-                var claimsIdentity = (ClaimsIdentity)User.Identity;
-                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                
                 obj.ApplicantId = claim.Value;
                 _db.Passports.Add(obj);
                 _db.SaveChanges();

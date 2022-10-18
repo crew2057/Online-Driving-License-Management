@@ -207,7 +207,10 @@ namespace SahajSewa.Areas.Users.Controllers
                     obj.PassportAvailability = true;
                 License userLicense = _db.Licenses.FirstOrDefault(u => u.ApplicantId == claim.Value);
                 if (userLicense != null)
+                {
                     obj.LicenseAvailability = true;
+                    obj.WrittenResult = "pass";
+                }
 
                 if (obj.Id == 0)
                     _module.LicenseRegistration.Add(obj);

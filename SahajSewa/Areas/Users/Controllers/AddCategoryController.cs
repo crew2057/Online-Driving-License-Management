@@ -77,11 +77,14 @@ namespace SahajSewa.Areas.Users.Controllers
             obj1.OfficeVisit = obj.OfficeVisit;
             obj1.Category = obj.Category;
             obj1.Id = obj.Id;
-            obj1.WrittenResult = obj.WrittenResult;
             obj1.TrailCount = 1;
             obj1.TrailResult = obj.TrailResult;
             obj1.OldSessionId = obj.OldSessionId;
             obj1.SessionId = obj.SessionId;
+            if (obj1.LicenseAvailability == true)
+                obj.WrittenResult = "pass";
+            else
+                obj1.WrittenResult = obj.WrittenResult;
 
             UserCategory addcategory = new UserCategory()
             {

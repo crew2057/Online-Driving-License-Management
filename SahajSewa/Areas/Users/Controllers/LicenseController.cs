@@ -82,11 +82,20 @@ namespace SahajSewa.Areas.Users.Controllers
         {
             if (ModelState.IsValid)
             {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 if (file != null)
                 {
                     string fileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(wwwRootPath, @"images");
+                    var uploads = Path.Combine(wwwRootPath, "images", claim.Value);
+
+                    if (!Directory.Exists(uploads))
+                    {
+                        Directory.CreateDirectory(uploads);
+                    }
+
                     var extension = Path.GetExtension(file.FileName);
                     if (obj.License.LicensePhoto != null)
                     {
@@ -100,11 +109,9 @@ namespace SahajSewa.Areas.Users.Controllers
                     {
                         file.CopyTo(fileStreams);
                     }
-                    obj.License.LicensePhoto = @"\images\" + fileName + extension;
+                    obj.License.LicensePhoto = @"\images\" +claim.Value+ @"\"+ fileName + extension;
                 }
 
-                var claimsIdentity = (ClaimsIdentity)User.Identity;
-                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
                 obj.License.ApplicantId = claim.Value;
                 _module.License.Add(obj.License);
 
