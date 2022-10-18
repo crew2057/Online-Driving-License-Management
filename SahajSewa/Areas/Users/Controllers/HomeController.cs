@@ -35,7 +35,6 @@ namespace SahajSewa.Controllers
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
             IndexVM user = new IndexVM();
-            user.ApplicationUser = _db.ApplicationUsers.FirstOrDefault(u => u.Id == claim.Value);
             user.LicenseRegistration = _db.LicenseRegistrations.OrderBy(u=>u.Id).LastOrDefault(u => u.ApplicantId == claim.Value);
             if (user.LicenseRegistration == null)
                 user.LicenseRegistration = new LicenseRegistration();      
