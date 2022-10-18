@@ -86,12 +86,12 @@ namespace SahajSewa.Areas.Users.Controllers
             else
                 obj1.WrittenResult = obj.WrittenResult;
 
-            UserCategory addcategory = new UserCategory()
-            {
-                UserId = claim.Value,
-                CategoryId = obj.Category
-            };
-            _module.UserCategory.Add(addcategory);
+            //UserCategory addcategory = new UserCategory()
+            //{
+            //    UserId = claim.Value,
+            //    CategoryId = obj.Category
+            //};
+            //_module.UserCategory.Add(addcategory);
             _module.LicenseRegistration.Add(obj1);
             _module.Save();
             return RedirectToAction("Details", "LicenseRegistration", obj1);
