@@ -43,13 +43,24 @@ namespace SahajSewa.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult UpdateStatus(int id)
+        public IActionResult WrittenList()
         {
-            LicenseRegistration obj = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == id);
-            //obj.WrittenResult = test;
-            //_module.LicenseRegistration.Update(obj);
-            //_module.Save();
-            return RedirectToAction("Index");
+            List<LicenseRegistration> userList = _module.LicenseRegistration.GetAll(includeProperties: "DrivingCategory").Where(u=>u.WrittenResult==null).OrderByDescending(u => u.Id).DistinctBy(u => u.ApplicantId).ToList();
+            return View(userList);
         }
+
+        public IActionResult TrailList()
+        {
+            List<LicenseRegistration> userList = _module.LicenseRegistration.GetAll(includeProperties: "DrivingCategory").Where(u=>u.WrittenResult=="pass"&&u.TrailResult==null).OrderByDescending(u => u.Id).DistinctBy(u => u.ApplicantId).ToList();
+            return View(userList);
+        }
+        //public IActionResult UpdateStatus(int id)
+        //{
+        //    LicenseRegistration obj = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == id);
+        //    //obj.WrittenResult = test;
+        //    //_module.LicenseRegistration.Update(obj);
+        //    //_module.Save();
+        //    return RedirectToAction("Index");
+        //}
     }
 }

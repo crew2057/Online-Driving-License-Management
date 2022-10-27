@@ -27,7 +27,7 @@ namespace SahajSewa.Areas.Users.Controllers
             LicenseRegistration obj = _db.LicenseRegistrations.OrderBy(u => u.Id).LastOrDefault(u => u.ApplicantId == claim.Value);
             if (obj==null)
                 return RedirectToAction("Upsert", "LicenseRegistration");
-            else if (obj.TrailResult == "fail" || obj.WrittenResult == "fail")
+            else if (obj.TrailResult == "fail" ||obj.TrailResult=="absent"||obj.WrittenResult=="absent"|| obj.WrittenResult == "fail")
                 return View(obj);
 
             License check = _module.License.GetFirstOrDefault(u => u.ApplicantId == claim.Value);

@@ -1,0 +1,54 @@
+﻿@model IList<SahajSewa.Models.LicenseRegistration>
+@{
+    ViewData["Title"] = "WrittenList";
+}
+<form method="post">
+    <div class="container p-3">
+        <h2 class="text-primary text-center fw-bold">Written List</h2>
+        <br />
+        <div class="d-flex justify-content-between">
+            <div>
+               @* <label>Date Filter:</label>
+                <input type="date" id="dateChange" name="dateChange" />*@
+            </div>
+        </div>
+        <br />
+        <table id="myTable" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Applicant Id</th>
+                    <th>Applicant Name</th>
+                    <th>F/M/H Name</th>
+                    <th>Citizenship No.</th>
+                    <th>Categories</th>
+                    <th>Gender</th>
+                    <th>Sign/Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    @for (var i = 0; i < Model.Count(); i++)
+                    {
+                        <tr>
+                            <input asp-for="@Model[i].Id" value="@Model[i].Id" hidden>
+                            <td>@(i + 1)</td>
+                            <td>@Model[i].Id</td>
+                            <td>@Model[i].Fname @Model[i].Mname @Model[i].Lname</td>
+                            <td>@Model[i].Gname</td>
+                            <td>@Model[i].CitizenNo</td>
+                            <td>@Model[i].DrivingCategory.Symbol</td>
+                            <td>@Model[i].Gender</td>
+                            <td></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</form>
+@section Scripts{
+    <script src="~/js/list.js"></script>
+
+}

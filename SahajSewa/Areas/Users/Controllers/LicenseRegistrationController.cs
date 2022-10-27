@@ -39,7 +39,7 @@ namespace SahajSewa.Areas.Users.Controllers
             }
             else
             {
-                if (obj.WrittenResult == "fail" || obj.TrailResult == "fail")
+                if (obj.WrittenResult == "fail"||obj.WrittenResult == "absent" || obj.TrailResult == "absent"|| obj.TrailResult == "fail")
                     return RedirectToAction("insert", "AddCategory");
                 else
                 return View(obj);

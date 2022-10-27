@@ -17,10 +17,11 @@
         <table id="myTable" class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
-                    <th>Id</th>
+                    <th></th>
+                    <th>S.No.</th>
+                    <th>Applicant Id</th>
                     <th>Email</th>
                     <th>Username</th>
-                    <th>Phone Number</th>
                     <th>Registration Date</th>
                     <th>Written Result</th>
                     <th>Trail Count</th>
@@ -34,10 +35,11 @@
                     {
                         <tr>
                             <input asp-for="@Model[i].Id" value="@Model[i].Id" hidden>
+                            <td></td>
                             <td>@(i+1)</td>
+                            <td>@Model[i].Id</td>
                             <td>@Model[i].ApplicationUser.Email</td>
                             <td>@Model[i].ApplicationUser.UserName</td>
-                            <td>@Model[i].ApplicationUser.PhoneNumber</td>
                             <td>@Model[i].RegisterDate.ToShortDateString()</td>
                             @if (Model[i].WrittenResult == null)
                             {
@@ -46,6 +48,7 @@
                                         <option selected disabled>--Result--</option>
                                         <option>pass</option>
                                         <option>fail</option>
+                                        <option>absent</option>
                                     </select>
                                 </td>
                             }
@@ -63,6 +66,7 @@
                                             <option selected disabled>--Result--</option>
                                             <option>pass</option>
                                             <option>fail</option>
+                                            <option>absent</option>
                                         </select>
                                     </td>
                                 }
