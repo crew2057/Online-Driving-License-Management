@@ -1,9 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using SahajSewa.DataAccess.Data;
 using SahajSewa.DataAccess.Repository.IRepository;
 using SahajSewa.Models;
 using SahajSewa.Models.ViewModels;
+using SahajSewa.Utility;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace SahajSewa.Areas.Admin.Controllers
 {
@@ -13,11 +18,15 @@ namespace SahajSewa.Areas.Admin.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly IModule _module;
+        private readonly IEmailSender _emailSender;
+        private TwilioSettings _twilioOptions { get; set; }
 
-        public ManageAllController(ApplicationDbContext db, IModule module)
+        public ManageAllController(ApplicationDbContext db, IEmailSender emailSender, IModule module, IOptions<TwilioSettings> twilioOptions)
         {
             _db = db;
             _module = module;
+            _twilioOptions = twilioOptions.Value;
+            _emailSender = emailSender;
         }
 
         public IActionResult Index()
@@ -76,8 +85,25 @@ namespace SahajSewa.Areas.Admin.Controllers
         public IActionResult ApprovalPost(int id)
         {
             LicenseRegistration obj = _db.LicenseRegistrations.OrderBy(u => u.Id).LastOrDefault(u => u.Id == id);
+            ApplicationUser user = _db.ApplicationUsers.FirstOrDefault(u => u.Id == obj.ApplicantId);
+            TwilioClient.Init(_twilioOptions.AccountSid, _twilioOptions.AuthToken);
+            try
+            {
+                var message = MessageResource.Create(
+                    body: "Your License Registration have been successfully approved. Your written examination is in " + obj.RegisterDate.AddDays(3).ToShortDateString(),
+                    from: new Twilio.Types.PhoneNumber(_twilioOptions.PhoneNumber),
+                    to: new Twilio.Types.PhoneNumber("+977" + user.PhoneNumber)
+                    );
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            _emailSender.SendEmailAsync(user.Email, "License Registration Approved", "<p>Your License Registration have been successfully approved. Your written examination is in " + obj.RegisterDate.AddDays(3).ToShortDateString() + "<p>");
             obj.Approved = true;
             _db.SaveChanges();
+
             return RedirectToAction("index");
         }
 

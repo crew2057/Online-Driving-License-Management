@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SahajSewa.Models\SahajSewa.Models.csproj" />
+    <ProjectReference Include="..\SahajSewa.Utility\SahajSewa.Utility.csproj" />
   </ItemGroup>
 
 </Project>
