@@ -125,6 +125,34 @@ namespace SahajSewa.Controllers
             return View(user);
         }
 
+        public IActionResult UserDetails(int? id)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            List<LicenseRegistration> obj;
+            if (id == null)
+            {
+                obj = _module.LicenseRegistration.GetAll(u => u.ApplicantId == claim.Value).OrderByDescending(u => u.Id).ToList();
+            }
+            else
+            {
+                LicenseRegistration user = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == id);
+                obj = _module.LicenseRegistration.GetAll(u => u.ApplicantId == user.ApplicantId).OrderByDescending(u => u.Id).ToList();
+            }
+
+                LicenseRegistration obj1 = obj.FirstOrDefault();
+             ViewBag.Pprovince = _db.Provinces.FirstOrDefault(u => u.Id == obj1.Pprovince).Name;
+            ViewBag.Pdistrict = _db.Districts.FirstOrDefault(u => u.Id == obj1.Pdistrict).Name;
+            ViewBag.Pvillage = _db.Villages.FirstOrDefault(u => u.Id == obj1.Pvillage).Name;
+            if (obj1.Tprovince != null)
+            {
+                ViewBag.Tprovince = _db.Provinces.FirstOrDefault(u => u.Id == obj1.Tprovince).Name;
+                ViewBag.Tdistrict = _db.Districts.FirstOrDefault(u => u.Id == obj1.Tdistrict).Name;
+                ViewBag.Tvillage = _db.Villages.FirstOrDefault(u => u.Id == obj1.Tvillage).Name;
+            }
+            ViewBag.CitizenDistrict = _db.Districts.FirstOrDefault(u => u.Id == obj1.CitizenDistrict).Name;
+            return View(obj);
+        }
         public IActionResult Privacy()
         {
             return View();

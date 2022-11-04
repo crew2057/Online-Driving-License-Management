@@ -148,6 +148,7 @@ namespace SahajSewa.Models
         public string? SessionId { get; set; }
         public string? OldSessionId { get; set; }
         public string? PaymentIntentId { get; set; }
+        public bool? Approved { get; set; }
         #endregion
     }
 }

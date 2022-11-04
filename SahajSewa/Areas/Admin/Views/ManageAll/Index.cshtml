@@ -23,6 +23,7 @@
                     <th>Email</th>
                     <th>Username</th>
                     <th>Registration Date</th>
+                    <th>Approved</th>
                     <th>Written Result</th>
                     <th>Trail Count</th>
                     <th>Trail Result</th>
@@ -41,20 +42,28 @@
                             <td>@Model[i].ApplicationUser.Email</td>
                             <td>@Model[i].ApplicationUser.UserName</td>
                             <td>@Model[i].RegisterDate.ToShortDateString()</td>
-                            @if (Model[i].WrittenResult == null)
+                            <td>@Model[i].Approved</td>
+                            @if (Model[i].Approved == true)
                             {
-                                <td>
-                                    <select asp-for="@Model[i].WrittenResult" class="form-select">
-                                        <option selected disabled>--Result--</option>
-                                        <option>pass</option>
-                                        <option>fail</option>
-                                        <option>absent</option>
-                                    </select>
-                                </td>
+                                @if (Model[i].WrittenResult == null)
+                                {
+                                    <td>
+                                        <select asp-for="@Model[i].WrittenResult" class="form-select">
+                                            <option selected disabled>--Result--</option>
+                                            <option>pass</option>
+                                            <option>fail</option>
+                                            <option>absent</option>
+                                        </select>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>@Model[i].WrittenResult</td>
+                                }
                             }
                             else
                             {
-                                <td>@Model[i].WrittenResult</td>
+                                <td>NULL</td>
                             }
                             <td>@Model[i].TrailCount</td>
                             @if (Model[i].WrittenResult == "pass")

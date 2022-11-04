@@ -1,36 +1,35 @@
-﻿@model SahajSewa.Models.LicenseRegistration
+﻿@model IList<SahajSewa.Models.LicenseRegistration>
 @{
-    ViewData["Title"] = "Approval";
+    ViewData["Title"] = "UserDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="container col-lg-8 p-2">
     <form method="post">
         <div class="card card-body">
             <h4 class="bg-primary">General Details</h4>
             <div>
                 <label class="fw-bold">Name:</label>
-                <span>@Model.Fname&nbsp;@Model.Mname&nbsp;@Model.Lname</span>
+                <span>@Model[Model.Count-1].Fname&nbsp;@Model[Model.Count-1].Mname&nbsp;@Model[Model.Count-1].Lname</span>
             </div>
             <div>
                 <label class="fw-bold">Date of Birth:</label>
-                <span>@Model.DOB.ToShortDateString()</span>
+                <span>@Model[Model.Count-1].DOB.ToShortDateString()</span>
             </div>
             <div>
                 <label class="fw-bold">Gender:</label>
-                <span>@Model.Gender</span>
+                <span>@Model[Model.Count-1].Gender</span>
             </div>
             <div>
                 <label class="fw-bold ">Blood Group:</label>
-                <span>@Model.Bgroup</span>
+                <span>@Model[Model.Count-1].Bgroup</span>
             </div>
             <div>
                 <label class="fw-bold">Phone Number:</label>
-                <span>@Model.Pnumber</span>
+                <span>@Model[Model.Count-1].Pnumber</span>
             </div>
             <div>
                 <label class="fw-bold">Guardian's Name:</label>
-                <span>@Model.Gname</span>
+                <span>@Model[Model.Count-1].Gname</span>
             </div>
         </div>
         <div class="card card-body">
@@ -50,17 +49,17 @@
             </div>
             <div>
                 <label class="fw-bold">Ward:</label>
-                <span>@Model.Pward</span>
+                <span>@Model[Model.Count-1].Pward</span>
             </div>
             <div>
                 <label class="fw-bold">Tole:</label>
-                <span>@Model.Ptole</span>
+                <span>@Model[Model.Count-1].Ptole</span>
             </div>
             <div>
                 <label class="fw-bold">Email:</label>
-                <span>@Model.Email</span>
+                <span>@Model[Model.Count-1].Email</span>
             </div>
-            @if (Model.Tprovince != null)
+            @if (Model[0].Tprovince != null)
             {
                 <br />
                 <h5 class="bg-secondary text-center">Temporary address</h5>
@@ -78,11 +77,11 @@
                 </div>
                 <div>
                     <label class="fw-bold">Ward:</label>
-                    <span>@Model.Tward</span>
+                    <span>@Model[Model.Count-1].Tward</span>
                 </div>
                 <div>
                     <label class="fw-bold">Tole:</label>
-                    <span>@Model.Ttole</span>
+                    <span>@Model[Model.Count-1].Ttole</span>
                 </div>
             }
         </div>
@@ -90,7 +89,7 @@
             <h4 class="bg-primary">Citizenship Details</h4>
             <div>
                 <label class="fw-bold">Citizenship No:</label>
-                <span>@Model.CitizenNo</span>
+                <span>@Model[Model.Count-1].CitizenNo</span>
             </div>
             <div>
                 <label class="fw-bold">Citizenship Issue District:</label>
@@ -98,54 +97,69 @@
             </div>
             <div>
                 <label class="fw-bold">Citizenship Issue Date:</label>
-                <span>@Model.CitizenDate.ToShortDateString()</span>
+                <span>@Model[Model.Count-1].CitizenDate.ToShortDateString()</span>
             </div>
         </div>
-        <div class="card card-body">
-            <h4 class="bg-primary">Examination Details</h4>
-            <div>
-                <label class="fw-bold ">Office Province:</label>
-                <span>@ViewBag.OfficeProvince</span>
-            </div>
-            <div>
-                <label class="fw-bold ">Visit Office:</label>
-                <span>Transport Management Office-@ViewBag.OfficeVisit</span>
-            </div>
-            <div>
-                <label class="fw-bold ">Category:</label>
-                <span>@ViewBag.CategorySymbol-(@ViewBag.CategoryName)</span>
-            </div>
-        </div>
-        <div class="card card-body">
+       @* <div class="card card-body">
             <h4 class="bg-primary">Image details</h4>
             <div>
                 <label class="fw-bold ">Photo:</label>
-            <img src="@Model.Photo" class="d-block w-100" alt="User image" />
+                <img src="@Model[Model.Count-1].Photo" class="d-block w-100" alt="User image" />
             </div>
             <br />
             <div>
                 <label class="fw-bold ">Citizenship Front:</label>
-            <img src="@Model.CitizenFront" class="d-block w-100" alt="Citizenship Front"  />
+                <img src="@Model[Model.Count-1].CitizenFront" class="d-block w-100" alt="Citizenship Front" />
             </div>
             <br />
             <div>
                 <label class="fw-bold ">Citizenship Back:</label>
-            <img src="@Model.CitizenBack" alt="Citizenship Back" class="d-block w-100" />
+                <img src="@Model[Model.Count-1].CitizenBack" alt="Citizenship Back" class="d-block w-100" />
             </div>
             <br />
             <div>
                 <label class="fw-bold ">Signature:</label>
-            <img src="@Model.Signature" alt="Signature" class="d-block w-100" />
+                <img src="@Model[Model.Count-1].Signature" alt="Signature" class="d-block w-100" />
             </div>
             <br />
             <div>
                 <label class="fw-bold ">Thumb Prints:</label>
-            <img src="@Model.Thumb" alt="Thumb Prints" class="d-block w-100" />
+                <img src="@Model[Model.Count-1].Thumb" alt="Thumb Prints" class="d-block w-100" />
             </div>
-        </div>
-        <div class="d-flex justify-content-around my-2">
-            <a asp-controller="ManageAll" asp-action="disapproval" asp-route-id="@Model.Id" class="btn btn-secondary col-3">Disapprove</a>
-            <button  class="btn btn-success col-3">Approve</button>
+        </div>*@
+         <div class="card card-body">
+            <h4 class="bg-primary">License Registration History</h4>
+        <table id="myTable" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>Applicant Id</th>
+                    <th>Registration Date</th>
+                    <th>Approved</th>
+                    <th>Written Result</th>
+                    <th>Trail Count</th>
+                    <th>Trail Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null)
+                {
+                    @for (var i = 0; i < Model.Count(); i++)
+                    {
+                        <tr>
+                            <input asp-for="@Model[i].Id" value="@Model[i].Id" hidden>
+                            <td>@(i + 1)</td>
+                            <td>@Model[i].Id</td>
+                            <td>@Model[i].RegisterDate.ToShortDateString()</td>
+                            <td>@Model[i].Approved</td>
+                            <td>@Model[i].WrittenResult</td>
+                            <td>@Model[i].TrailCount</td>
+                            <td>@Model[i].TrailResult</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
         </div>
     </form>
 </div>
