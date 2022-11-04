@@ -132,12 +132,12 @@ namespace SahajSewa.Controllers
             List<LicenseRegistration> obj;
             if (id == null)
             {
-                obj = _module.LicenseRegistration.GetAll(u => u.ApplicantId == claim.Value).OrderByDescending(u => u.Id).ToList();
+                obj = _module.LicenseRegistration.GetAll(includeProperties: "DrivingCategory").Where(u=>u.ApplicantId==claim.Value).OrderByDescending(u => u.Id).ToList();
             }
             else
             {
                 LicenseRegistration user = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == id);
-                obj = _module.LicenseRegistration.GetAll(u => u.ApplicantId == user.ApplicantId).OrderByDescending(u => u.Id).ToList();
+                obj = _module.LicenseRegistration.GetAll(includeProperties: "DrivingCategory").Where(u => u.ApplicantId == user.ApplicantId).OrderByDescending(u => u.Id).ToList();
             }
 
                 LicenseRegistration obj1 = obj.FirstOrDefault();

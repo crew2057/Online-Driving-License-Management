@@ -66,27 +66,27 @@
 var objModel = @Html.Raw(Json.Serialize(Model));
 
 //retrail
-    if (!((objModel.licenseRegistration.trailResult == "fail" || objModel.licenseRegistration.trailResult == "absent") && objModel.licenseRegistration.trailCount < 3)) {
+    if (!(objModel.licenseRegistration.trailResult == "fail" && objModel.licenseRegistration.trailCount < 3)) {
         var item = document.querySelector("a[href='/Users/LicenseRegistration/Retrail/"+objModel.licenseRegistration.id+"']");
     item.classList.add('disabled');
 }
 //licenseRegistration
-    if (!(objModel.license.id == 0 && (objModel.licenseRegistration.id == 0 || objModel.licenseRegistration.writtenResult == "fail" || objModel.licenseRegistration.writtenResult == "absent" || (objModel.licenseRegistration.trailCount == 3 && (objModel.licenseRegistration.trailResult == "fail" || objModel.licenseRegistration.trailResult == "absent"))))) {
+    if (!(objModel.license.id == 0 && (objModel.licenseRegistration.id == 0 || objModel.licenseRegistration.writtenResult == "fail" || (objModel.licenseRegistration.trailCount == 3 && objModel.licenseRegistration.trailResult == "fail")))) {
     var item = document.querySelector("a[href='/Users/LicenseRegistration/Upsert']");
     item.classList.add('disabled');
 }
 //applicationDetails
-    if (!(objModel.licenseRegistration.id != 0 && objModel.licenseRegistration.writtenResult != "fail" && objModel.licenseRegistration.writtenResult != "absent" && objModel.licenseRegistration.trailResult == null)) {
+    if (!(objModel.licenseRegistration.id != 0 && objModel.licenseRegistration.writtenResult != "fail" && objModel.licenseRegistration.trailResult == null)) {
     var item = document.querySelector("a[href='/Users/LicenseRegistration/DownloadFile/"+objModel.licenseRegistration.id+"']");
     item.classList.add('disabled');
 }        
 //addCategory
-    if (!(objModel.licenseRegistration.trailResult == "pass" || (objModel.license.id != 0 && objModel.licenseRegistration.id == 0) || (objModel.licenseRegistration.trailCount == 3 && (objModel.licenseRegistration.trailResult == "fail" || objModel.licenseRegistration.trailResult == "absent") && objModel.license.id != 0))) {
+    if (!(objModel.licenseRegistration.trailResult == "pass" || (objModel.license.id != 0 && objModel.licenseRegistration.id == 0) || (objModel.licenseRegistration.trailCount == 3 && objModel.licenseRegistration.trailResult == "fail" && objModel.license.id != 0))) {
     var item = document.querySelector("a[href='/Users/AddCategory/Insert']");
     item.classList.add('disabled');
 }
 
-    if (!(objModel.license.id == 0) || (objModel.licenseRegistration.id != 0 && objModel.licenseRegistration.writtenResult != "fail" && objModel.licenseRegistration.writtenResult != "absent" && objModel.licenseRegistration.trailResult == null) || ((objModel.licenseRegistration.trailResult == "fail" || objModel.licenseRegistration.trailResult == "absent") && objModel.licenseRegistration.trailCount < 3)) {
+    if (!(objModel.license.id == 0) || (objModel.licenseRegistration.id != 0 && objModel.licenseRegistration.writtenResult != "fail"  && objModel.licenseRegistration.trailResult == null) || (objModel.licenseRegistration.trailResult == "fail" && objModel.licenseRegistration.trailCount < 3)) {
     var item=document.querySelector("a[href='/Users/License/Upsert']");
     item.classList.add('disabled');
 }

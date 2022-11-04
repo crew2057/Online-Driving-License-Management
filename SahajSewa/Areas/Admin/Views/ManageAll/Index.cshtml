@@ -23,7 +23,7 @@
                     <th>Email</th>
                     <th>Username</th>
                     <th>Registration Date</th>
-                    <th>Approved</th>
+                    <th>Category</th>
                     <th>Written Result</th>
                     <th>Trail Count</th>
                     <th>Trail Result</th>
@@ -39,10 +39,10 @@
                             <td></td>
                             <td>@(i+1)</td>
                             <td>@Model[i].Id</td>
-                            <td>@Model[i].ApplicationUser.Email</td>
-                            <td>@Model[i].ApplicationUser.UserName</td>
+                            <td>@Model[i].Email</td>
+                            <td>@Model[i].Fname @Model[i].Mname @Model[i].Lname</td>
                             <td>@Model[i].RegisterDate.ToShortDateString()</td>
-                            <td>@Model[i].Approved</td>
+                            <td>@Model[i].DrivingCategory.Symbol</td>
                             @if (Model[i].Approved == true)
                             {
                                 @if (Model[i].WrittenResult == null)
@@ -52,7 +52,6 @@
                                             <option selected disabled>--Result--</option>
                                             <option>pass</option>
                                             <option>fail</option>
-                                            <option>absent</option>
                                         </select>
                                     </td>
                                 }
@@ -75,7 +74,6 @@
                                             <option selected disabled>--Result--</option>
                                             <option>pass</option>
                                             <option>fail</option>
-                                            <option>absent</option>
                                         </select>
                                     </td>
                                 }

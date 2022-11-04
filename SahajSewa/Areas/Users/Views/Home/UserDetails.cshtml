@@ -100,67 +100,80 @@
                 <span>@Model[Model.Count-1].CitizenDate.ToShortDateString()</span>
             </div>
         </div>
-       @* <div class="card card-body">
-            <h4 class="bg-primary">Image details</h4>
-            <div>
-                <label class="fw-bold ">Photo:</label>
-                <img src="@Model[Model.Count-1].Photo" class="d-block w-100" alt="User image" />
-            </div>
-            <br />
-            <div>
-                <label class="fw-bold ">Citizenship Front:</label>
-                <img src="@Model[Model.Count-1].CitizenFront" class="d-block w-100" alt="Citizenship Front" />
-            </div>
-            <br />
-            <div>
-                <label class="fw-bold ">Citizenship Back:</label>
-                <img src="@Model[Model.Count-1].CitizenBack" alt="Citizenship Back" class="d-block w-100" />
-            </div>
-            <br />
-            <div>
-                <label class="fw-bold ">Signature:</label>
-                <img src="@Model[Model.Count-1].Signature" alt="Signature" class="d-block w-100" />
-            </div>
-            <br />
-            <div>
-                <label class="fw-bold ">Thumb Prints:</label>
-                <img src="@Model[Model.Count-1].Thumb" alt="Thumb Prints" class="d-block w-100" />
-            </div>
+        @* <div class="card card-body">
+        <h4 class="bg-primary">Image details</h4>
+        <div>
+        <label class="fw-bold ">Photo:</label>
+        <img src="@Model[Model.Count-1].Photo" class="d-block w-100" alt="User image" />
+        </div>
+        <br />
+        <div>
+        <label class="fw-bold ">Citizenship Front:</label>
+        <img src="@Model[Model.Count-1].CitizenFront" class="d-block w-100" alt="Citizenship Front" />
+        </div>
+        <br />
+        <div>
+        <label class="fw-bold ">Citizenship Back:</label>
+        <img src="@Model[Model.Count-1].CitizenBack" alt="Citizenship Back" class="d-block w-100" />
+        </div>
+        <br />
+        <div>
+        <label class="fw-bold ">Signature:</label>
+        <img src="@Model[Model.Count-1].Signature" alt="Signature" class="d-block w-100" />
+        </div>
+        <br />
+        <div>
+        <label class="fw-bold ">Thumb Prints:</label>
+        <img src="@Model[Model.Count-1].Thumb" alt="Thumb Prints" class="d-block w-100" />
+        </div>
         </div>*@
-         <div class="card card-body">
+        <div class="card card-body">
             <h4 class="bg-primary">License Registration History</h4>
-        <table id="myTable" class="table table-bordered table-striped" style="width:100%">
-            <thead>
-                <tr>
-                    <th>S.No.</th>
-                    <th>Applicant Id</th>
-                    <th>Registration Date</th>
-                    <th>Approved</th>
-                    <th>Written Result</th>
-                    <th>Trail Count</th>
-                    <th>Trail Result</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null)
-                {
-                    @for (var i = 0; i < Model.Count(); i++)
+            <table id="myTable" class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Applicant Id</th>
+                        <th>Registration Date</th>
+                        <th>Category</th>
+                        <th>Written Result</th>
+                        <th>Trail Count</th>
+                        <th>Trail Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
                     {
-                        <tr>
-                            <input asp-for="@Model[i].Id" value="@Model[i].Id" hidden>
-                            <td>@(i + 1)</td>
-                            <td>@Model[i].Id</td>
-                            <td>@Model[i].RegisterDate.ToShortDateString()</td>
-                            <td>@Model[i].Approved</td>
-                            <td>@Model[i].WrittenResult</td>
-                            <td>@Model[i].TrailCount</td>
-                            <td>@Model[i].TrailResult</td>
-                        </tr>
+                        @for (var i = 0; i < Model.Count(); i++)
+                        {
+                            <tr>
+                                <input asp-for="@Model[i].Id" value="@Model[i].Id" hidden>
+                                <td>@(i + 1)</td>
+                                <td>@Model[i].Id</td>
+                                <td>@Model[i].RegisterDate.ToShortDateString()</td>
+                                <td>@Model[i].DrivingCategory.Symbol</td>
+                                @if (Model[i].WrittenResult == null)
+                                {
+                                    <td>NULL</td>
+                                }
+                                else
+                                {
+                                    <td>@Model[i].WrittenResult</td>
+                                }
+                                <td>@Model[i].TrailCount</td>
+                                @if (Model[i].TrailResult == null)
+                                {
+                                    <td>NULL</td>
+                                }
+                                else
+                                {
+                                    <td>@Model[i].TrailResult</td>
+                                }
+                            </tr>
+                        }
                     }
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
         </div>
     </form>
 </div>
-

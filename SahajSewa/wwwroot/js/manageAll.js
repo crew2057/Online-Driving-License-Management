@@ -46,7 +46,7 @@ function loadDataTable() {
             { data: 'email' },
             { data: 'username' },
             { data: 'registrationDate' },
-            { data:'approved'},
+            { data: 'category' },
             { data: 'writtenResult' },
             { data: 'trailCount' },
             { data: 'trailResult' },
