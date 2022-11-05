@@ -4,6 +4,7 @@ using SahajSewa.DataAccess.Data;
 using SahajSewa.DataAccess.Repository.IRepository;
 using SahajSewa.Models;
 using SahajSewa.Models.ViewModels;
+using SahajSewa.Utility;
 using Stripe.Checkout;
 using System.Diagnostics;
 using System.Security.Claims;
@@ -31,6 +32,10 @@ namespace SahajSewa.Controllers
 
         public IActionResult Index()
         {
+            if(User.IsInRole(SD.Role_Admin))
+            {
+                return RedirectToAction("Index", "ManageAll", new { area = "Admin" });
+                            }
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 

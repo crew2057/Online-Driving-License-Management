@@ -13,7 +13,7 @@ using Twilio.Rest.Api.V2010.Account;
 namespace SahajSewa.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles=SD.Role_Admin)]
     public class ManageAllController : Controller
     {
         private readonly ApplicationDbContext _db;
