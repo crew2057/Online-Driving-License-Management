@@ -42,8 +42,10 @@ namespace SahajSewa.Areas.Admin.Controllers
             for(int i = 0; i < obj.Count(); i++)
             {
                 LicenseRegistration item = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == obj[i].Id);
-                if (obj[i].WrittenResult!=null)
-                item.WrittenResult = obj[i].WrittenResult;
+                if (obj[i].Approved == true)
+                    item.Approved = true;
+                if (obj[i].WrittenResult != null)
+                    item.WrittenResult = obj[i].WrittenResult;
                 if (obj[i].TrailResult!=null)
                 item.TrailResult = obj[i].TrailResult;
                 _module.LicenseRegistration.Update(item);
@@ -103,13 +105,29 @@ namespace SahajSewa.Areas.Admin.Controllers
             _emailSender.SendEmailAsync(user.Email, "License Registration Approved", "<p>Your License Registration have been successfully approved. Your written examination is in " + obj.RegisterDate.AddDays(3).ToShortDateString() + "<p>");
             obj.Approved = true;
             _db.SaveChanges();
-
             return RedirectToAction("index");
         }
 
         public IActionResult Disapproval(int id)
         {
             LicenseRegistration obj = _db.LicenseRegistrations.OrderBy(u => u.Id).LastOrDefault(u => u.Id == id);
+            
+            ApplicationUser user = _db.ApplicationUsers.FirstOrDefault(u => u.Id == obj.ApplicantId);
+            TwilioClient.Init(_twilioOptions.AccountSid, _twilioOptions.AuthToken);
+            try
+            {
+                var message = MessageResource.Create(
+                    body: "Your license registration was not approved. Please register again. Thank You",
+                    from: new Twilio.Types.PhoneNumber(_twilioOptions.PhoneNumber),
+                    to: new Twilio.Types.PhoneNumber("+977" + user.PhoneNumber)
+                    );
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            _emailSender.SendEmailAsync(user.Email, "License Registration Not Approved", "<p>Your license registration was not approved. Please register again. Thank You<p>");
             _db.Remove(obj);
             _db.SaveChanges();
             return RedirectToAction("index");
