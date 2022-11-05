@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using SahajSewa.DataAccess.Data;
 using SahajSewa.DataAccess.Repository.IRepository;
 using SahajSewa.Models;
 using SahajSewa.Models.ViewModels;
 using SahajSewa.Utility;
+using System.Security.Claims;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 
@@ -19,14 +21,18 @@ namespace SahajSewa.Areas.Admin.Controllers
         private readonly ApplicationDbContext _db;
         private readonly IModule _module;
         private readonly IEmailSender _emailSender;
+
+        private readonly IWebHostEnvironment _hostEnvironment;
         private TwilioSettings _twilioOptions { get; set; }
 
-        public ManageAllController(ApplicationDbContext db, IEmailSender emailSender, IModule module, IOptions<TwilioSettings> twilioOptions)
+        public ManageAllController(ApplicationDbContext db, IWebHostEnvironment hostEnvironment, IEmailSender emailSender, IModule module, IOptions<TwilioSettings> twilioOptions)
         {
             _db = db;
             _module = module;
             _twilioOptions = twilioOptions.Value;
             _emailSender = emailSender;
+            _hostEnvironment = hostEnvironment;
+
         }
 
         public IActionResult Index()
@@ -111,7 +117,6 @@ namespace SahajSewa.Areas.Admin.Controllers
         public IActionResult Disapproval(int id)
         {
             LicenseRegistration obj = _db.LicenseRegistrations.OrderBy(u => u.Id).LastOrDefault(u => u.Id == id);
-            
             ApplicationUser user = _db.ApplicationUsers.FirstOrDefault(u => u.Id == obj.ApplicantId);
             TwilioClient.Init(_twilioOptions.AccountSid, _twilioOptions.AuthToken);
             try
@@ -128,6 +133,32 @@ namespace SahajSewa.Areas.Admin.Controllers
             }
 
             _emailSender.SendEmailAsync(user.Email, "License Registration Not Approved", "<p>Your license registration was not approved. Please register again. Thank You<p>");
+            LicenseRegistration obj1 = _db.LicenseRegistrations.FirstOrDefault(u => u.ApplicantId == obj.ApplicantId);
+            if(obj==obj1)
+            {
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                var file1 = Path.Combine(wwwRootPath, obj.Photo.TrimStart('\\'));
+                System.IO.File.Delete(file1);
+
+                var file2 = Path.Combine(wwwRootPath, obj.CitizenFront.TrimStart('\\'));
+                System.IO.File.Delete(file2);
+
+                var file3 = Path.Combine(wwwRootPath, obj.CitizenBack.TrimStart('\\'));
+                System.IO.File.Delete(file3);
+
+                var file4 = Path.Combine(wwwRootPath, obj.Signature.TrimStart('\\'));
+                System.IO.File.Delete(file4);
+
+                var file5 = Path.Combine(wwwRootPath, obj.Thumb.TrimStart('\\'));
+                System.IO.File.Delete(file5);
+
+                var dir = Path.Combine(wwwRootPath, "images", obj.ApplicantId);
+                if (Directory.Exists(dir))
+                {
+                    Directory.Delete(dir);
+                }
+            }
+            
             _db.Remove(obj);
             _db.SaveChanges();
             return RedirectToAction("index");
