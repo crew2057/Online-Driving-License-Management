@@ -64,6 +64,7 @@ namespace SahajSewa.DataAccess.Repository
 
              
                     objFromDb.TrailCount = obj.TrailCount;
+                objFromDb.Approved = obj.Approved;
                 objFromDb.PassportAvailability = obj.PassportAvailability;
                 objFromDb.ApplicantId = obj.ApplicantId;
                 objFromDb.WrittenResult = obj.WrittenResult;

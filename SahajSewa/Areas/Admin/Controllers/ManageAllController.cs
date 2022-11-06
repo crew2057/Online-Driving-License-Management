@@ -132,34 +132,8 @@ namespace SahajSewa.Areas.Admin.Controllers
 
             }
 
-            _emailSender.SendEmailAsync(user.Email, "License Registration Not Approved", "<p>Your license registration was not approved. Please register again. Thank You<p>");
-            LicenseRegistration obj1 = _db.LicenseRegistrations.FirstOrDefault(u => u.ApplicantId == obj.ApplicantId);
-            if(obj==obj1)
-            {
-                string wwwRootPath = _hostEnvironment.WebRootPath;
-                var file1 = Path.Combine(wwwRootPath, obj.Photo.TrimStart('\\'));
-                System.IO.File.Delete(file1);
-
-                var file2 = Path.Combine(wwwRootPath, obj.CitizenFront.TrimStart('\\'));
-                System.IO.File.Delete(file2);
-
-                var file3 = Path.Combine(wwwRootPath, obj.CitizenBack.TrimStart('\\'));
-                System.IO.File.Delete(file3);
-
-                var file4 = Path.Combine(wwwRootPath, obj.Signature.TrimStart('\\'));
-                System.IO.File.Delete(file4);
-
-                var file5 = Path.Combine(wwwRootPath, obj.Thumb.TrimStart('\\'));
-                System.IO.File.Delete(file5);
-
-                var dir = Path.Combine(wwwRootPath, "images", obj.ApplicantId);
-                if (Directory.Exists(dir))
-                {
-                    Directory.Delete(dir);
-                }
-            }
-            
-            _db.Remove(obj);
+            _emailSender.SendEmailAsync(user.Email, "License Registration Not Approved", "<p>Your license registration was not approved. Please reupload details again. Thank You<p>");
+            obj.Approved = false;
             _db.SaveChanges();
             return RedirectToAction("index");
         }

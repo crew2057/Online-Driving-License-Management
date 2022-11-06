@@ -23,7 +23,7 @@ function format(d) {
     return (
         '<div>' +
         '<a href="/Users/Home/Userdetails/' + d.applicantId+'" class="btn btn-dark col-2 mx-5">Details</a>' +
-        '<a href="/Admin/ManageAll/Approval/' + d.applicantId +'" class="btn btn-dark col-2">Approve</button>' +
+        '<a href="/Admin/ManageAll/Approval/' + d.applicantId +'" class="btn btn-dark col-2">Approval</button>' +
         '</div>'
     );
 }

@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using SahajSewa.Utility;
 using Stripe;
 using System.Text.Json.Serialization;
-using SahajSewa.DataAccess.DbInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +19,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(/*options => options.SignIn.RequireConfirmedAccount = true*/).AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>(); 
 builder.Services.AddScoped<IModule, Module>();
-builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+//builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 builder.Services.Configure<TwilioSettings>(builder.Configuration.GetSection("Twilio"));
@@ -48,7 +47,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
-SeedDatabase();
+//SeedDatabase();
 app.UseAuthentication();
 
 app.UseAuthorization();
@@ -59,11 +58,11 @@ app.MapControllerRoute(
 
 app.Run();
 
-void SeedDatabase()
-{
-    using (var scope=app.Services.CreateScope())
-    {
-        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-        dbInitializer.Initialize();
-    }
-}
+//void SeedDatabase()
+//{
+//    using (var scope=app.Services.CreateScope())
+//    {
+//        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+//        dbInitializer.Initialize();
+//    }
+//}

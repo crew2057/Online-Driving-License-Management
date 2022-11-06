@@ -22,6 +22,10 @@
 
             <div class="bottom-side col-12 mx-auto">
                 <input asp-for="@Model.Id" hidden />
+                <input asp-for="@Model.SessionId" hidden/>
+                <input asp-for="@Model.PaymentIntentId" hidden/>
+                <input asp-for="@Model.OldSessionId" hidden/>
+                <input asp-for="@Model.Approved" hidden/>
                 <input asp-for="@Model.Photo" hidden />
                 <input asp-for="@Model.CitizenFront" hidden />
                 <input asp-for="@Model.CitizenBack" hidden />
@@ -247,7 +251,7 @@
                 @*Document Uploads*@
                 <div class="main" id="Documents">
                     <div class="row col-10 mx-auto gx-5">
-                        @if(@Model.Id!=0)
+                        @if(@Model.Id!=0&&Model.Approved!=false)
                         {
                         <p><b>Note:</b> No need to reupload the documents, You can proceed forward.</p>
                         }
@@ -294,7 +298,7 @@
                     <div class="mt-5 row mx-auto justify-content-around">
 
                         <input type="button" name="Previous" value="Previous" class="back_button btn btn-secondary col-3" />
-                        @if(Model.Id!=0)
+                        @if(Model.Id!=0 && Model.Approved!=false)
                         {
                         <button type="submit" class="submit_button btn btn-success col-3">Proceed</button>
                             
@@ -302,7 +306,6 @@
                         else
                         {
                         <button type="submit" class="submit_button btn btn-success col-3" onclick="return ValidateInput()">Proceed</button>
-                            
                         }
                     </div>
                 </div>

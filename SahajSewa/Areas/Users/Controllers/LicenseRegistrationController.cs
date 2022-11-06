@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SahajSewa.DataAccess.Data;
 using SahajSewa.DataAccess.Repository.IRepository;
 using SahajSewa.Models;
+using Stripe;
 using Stripe.Checkout;
 using System.Security.Claims;
 
@@ -39,7 +40,7 @@ namespace SahajSewa.Areas.Users.Controllers
             }
             else
             {
-                if (obj.WrittenResult == "fail"||obj.WrittenResult == "absent" || obj.TrailResult == "absent"|| obj.TrailResult == "fail")
+                if (obj.WrittenResult == "fail" || obj.TrailResult == "fail")
                     return RedirectToAction("insert", "AddCategory");
                 else
                 return View(obj);
@@ -196,11 +197,7 @@ namespace SahajSewa.Areas.Users.Controllers
                     }
                     obj.Thumb = @"\images\" + claim.Value + @"\" + fileName + extension;
                 }
-
                 obj.TrailCount = 1;
-                var usernameUpdate = _module.ApplicationUser.GetFirstOrDefault(u => u.Id == claim.Value);
-                usernameUpdate.UserName = obj.Fname + " " + obj.Mname + " " + obj.Lname;
-
                 obj.ApplicantId = claim.Value;
                 Passport userPassport = _db.Passports.FirstOrDefault(u => u.ApplicantId == claim.Value);
                 if (userPassport != null)
@@ -248,6 +245,13 @@ namespace SahajSewa.Areas.Users.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DetailsPost(LicenseRegistration obj)
         {
+            if(obj.Approved==false)
+            {
+                obj.Approved = null;
+                _db.LicenseRegistrations.Update(obj);
+                _db.SaveChanges();
+                return RedirectToAction("index", "home");
+            }
             return RedirectToAction("Payment", obj);
         }
 
@@ -329,13 +333,6 @@ namespace SahajSewa.Areas.Users.Controllers
             obj.TrailResult = null;
             _module.LicenseRegistration.Update(obj);
             _module.Save();
-            //if(obj.TrailCount>3)
-            //{
-            //    TempData["Error"] = "Maximum Trails Reached!!";
-            //    obj.TrailCount--;
-            //    _module.Save();
-            //    return RedirectToAction("Index", "Home");
-            //}
             return RedirectToAction("Payment", obj);
         }
     }

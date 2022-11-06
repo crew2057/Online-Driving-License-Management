@@ -38,11 +38,14 @@ namespace SahajSewa.Controllers
                             }
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-
+           
             IndexVM user = new IndexVM();
             user.LicenseRegistration = _db.LicenseRegistrations.OrderBy(u=>u.Id).LastOrDefault(u => u.ApplicantId == claim.Value);
             if (user.LicenseRegistration == null)
-                user.LicenseRegistration = new LicenseRegistration();      
+                user.LicenseRegistration = new LicenseRegistration();
+           else if (user.LicenseRegistration.Approved == false)
+                return RedirectToAction("Upsert", "LicenseRegistration", new { id = user.LicenseRegistration.Id });
+
             user.License = _db.Licenses.FirstOrDefault(u => u.ApplicantId == claim.Value);
             if (user.License == null)
                 user.License = new License();
@@ -134,6 +137,9 @@ namespace SahajSewa.Controllers
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            LicenseRegistration test = _db.LicenseRegistrations.FirstOrDefault(u => u.ApplicantId == claim.Value);
+            if (test == null)
+                return RedirectToAction("index");
             List<LicenseRegistration> obj;
             if (id == null)
             {
