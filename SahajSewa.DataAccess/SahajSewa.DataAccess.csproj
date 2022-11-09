@@ -8,8 +8,11 @@
 
   <ItemGroup>
     <Compile Remove="DbInitializer\**" />
+    <Compile Remove="NewFolder\**" />
     <EmbeddedResource Remove="DbInitializer\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
     <None Remove="DbInitializer\**" />
+    <None Remove="NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>

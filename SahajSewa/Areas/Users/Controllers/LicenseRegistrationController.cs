@@ -13,6 +13,7 @@ namespace SahajSewa.Areas.Users.Controllers
     [Authorize]
     public class LicenseRegistrationController : Controller
     {
+        #region DependencyInjection
         private readonly IWebHostEnvironment _hostEnvironment;
         private readonly IModule _module;
         private readonly ApplicationDbContext _db;
@@ -26,7 +27,7 @@ namespace SahajSewa.Areas.Users.Controllers
             _module = module;
             _hostEnvironment = hostEnvironment;
         }
-        //Get
+        #endregion
         public IActionResult Upsert(int? id)
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -220,7 +221,6 @@ namespace SahajSewa.Areas.Users.Controllers
             return View(obj);
         }
 
-        //Details in progress
         public IActionResult Details(LicenseRegistration obj)
         {
             ViewBag.Pprovince = _db.Provinces.FirstOrDefault(u => u.Id == obj.Pprovince).Name;

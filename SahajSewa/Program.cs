@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using SahajSewa.Utility;
 using Stripe;
 using System.Text.Json.Serialization;
-
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -60,7 +59,7 @@ app.Run();
 
 //void SeedDatabase()
 //{
-//    using (var scope=app.Services.CreateScope())
+//    using (var scope = app.Services.CreateScope())
 //    {
 //        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
 //        dbInitializer.Initialize();

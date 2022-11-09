@@ -18,6 +18,7 @@ namespace SahajSewa.Areas.Admin.Controllers
     [Authorize(Roles=SD.Role_Admin)]
     public class ManageAllController : Controller
     {
+        #region Dependency Injection
         private readonly ApplicationDbContext _db;
         private readonly IModule _module;
         private readonly IEmailSender _emailSender;
@@ -34,7 +35,7 @@ namespace SahajSewa.Areas.Admin.Controllers
             _hostEnvironment = hostEnvironment;
 
         }
-
+        #endregion
         public IActionResult Index()
         {
             List<LicenseRegistration> userList= _module.LicenseRegistration.GetAll(includeProperties: "DrivingCategory").OrderByDescending(u=>u.Id).DistinctBy(u => u.ApplicantId).ToList();

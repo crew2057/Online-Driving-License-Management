@@ -12,14 +12,14 @@ using SahajSewa.DataAccess.Data;
 namespace SahajSewa.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221018093942_test")]
-    partial class test
+    [Migration("20221106025827_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.6")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -322,6 +322,9 @@ namespace SahajSewa.DataAccess.Migrations
 
                     b.Property<string>("ApplicantId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool?>("Approved")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Bgroup")
                         .IsRequired()
