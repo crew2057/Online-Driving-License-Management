@@ -104,7 +104,7 @@ namespace SahajSewa.Areas.Admin.Controllers
                     to: new Twilio.Types.PhoneNumber("+977" + user.PhoneNumber)
                     );
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -128,7 +128,7 @@ namespace SahajSewa.Areas.Admin.Controllers
                     to: new Twilio.Types.PhoneNumber("+977" + user.PhoneNumber)
                     );
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

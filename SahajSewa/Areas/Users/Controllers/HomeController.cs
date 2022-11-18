@@ -121,6 +121,7 @@ namespace SahajSewa.Controllers
                             session = service.Get(obj.SessionId);
                             obj.PaymentIntentId = session.PaymentIntentId;
                             obj.TrailCount--;
+                            obj.TrailResult = "fail";
                         }
                         else
                             obj.SessionId = null;
@@ -135,23 +136,23 @@ namespace SahajSewa.Controllers
 
         public IActionResult UserDetails(int? id)
         {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            LicenseRegistration test = _db.LicenseRegistrations.FirstOrDefault(u => u.ApplicantId == claim.Value);
-            if (test == null)
-                return RedirectToAction("index");
-            List<LicenseRegistration> obj;
+            LicenseRegistration obj1;
             if (id == null)
             {
-                obj = _module.LicenseRegistration.GetAll(includeProperties: "DrivingCategory").Where(u=>u.ApplicantId==claim.Value).OrderByDescending(u => u.Id).ToList();
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                 obj1 = _module.LicenseRegistration.GetFirstOrDefault(u => u.ApplicantId == claim.Value);
+                if(obj1==null)
+                    return RedirectToAction("index");
             }
             else
             {
-                LicenseRegistration user = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == id);
-                obj = _module.LicenseRegistration.GetAll(includeProperties: "DrivingCategory").Where(u => u.ApplicantId == user.ApplicantId).OrderByDescending(u => u.Id).ToList();
+                 obj1 = _module.LicenseRegistration.GetFirstOrDefault(u => u.Id == id);
+                if (obj1 == null)
+                    return RedirectToAction("index");
             }
+            List<LicenseRegistration> obj= _module.LicenseRegistration.GetAll(includeProperties: "DrivingCategory").Where(u => u.ApplicantId == obj1.ApplicantId).OrderByDescending(u => u.Id).ToList();
 
-                LicenseRegistration obj1 = obj.FirstOrDefault();
              ViewBag.Pprovince = _db.Provinces.FirstOrDefault(u => u.Id == obj1.Pprovince).Name;
             ViewBag.Pdistrict = _db.Districts.FirstOrDefault(u => u.Id == obj1.Pdistrict).Name;
             ViewBag.Pvillage = _db.Villages.FirstOrDefault(u => u.Id == obj1.Pvillage).Name;

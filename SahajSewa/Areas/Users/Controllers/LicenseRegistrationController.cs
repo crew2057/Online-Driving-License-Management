@@ -258,7 +258,7 @@ namespace SahajSewa.Areas.Users.Controllers
         public IActionResult Payment(LicenseRegistration obj)
         {
             //Stripe settings
-            var domain = "https://localhost:44305/";
+            var domain = "https://sahajsewa.azurewebsites.net/";
             var options = new SessionCreateOptions
             {
                 LineItems = new List<SessionLineItemOptions>
