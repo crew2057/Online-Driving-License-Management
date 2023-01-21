@@ -22,7 +22,7 @@ namespace SahajSewa.Utility
             using (var emailClient=new SmtpClient())
             {
                 emailClient.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                emailClient.Authenticate("temporaryrabi1@gmail.com", "bdgwrhvdmiwarfgv");
+                emailClient.Authenticate("temporaryrabi1@gmail.com", "sqdznkypvfpjiaon");
                 emailClient.Send(emailToSend);
                 emailClient.Disconnect(true);
             }
